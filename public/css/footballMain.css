@@ -66,11 +66,6 @@
 
 @media only screen and (orientation:landscape){
 	#topButtons{
-	-webkit-transform: rotate(90deg);
-     -moz-transform: rotate(90deg);
-     -o-transform: rotate(90deg);
-     -ms-transform: rotate(90deg);
-     transform: rotate(90deg);
 	width: 100%;
 	height: 20px;
 	position: fixed;
@@ -98,11 +93,6 @@
 
 
 #bottomButtons{
-	-webkit-transform: rotate(90deg);
-     -moz-transform: rotate(90deg);
-     -o-transform: rotate(90deg);
-     -ms-transform: rotate(90deg);
-     transform: rotate(90deg);
 	width: 100%;
 	height: 20px;
 	position: fixed;
@@ -130,11 +120,6 @@
 }
 
 #field{
-	-webkit-transform: rotate(90deg);
-     -moz-transform: rotate(90deg);
-     -o-transform: rotate(90deg);
-     -ms-transform: rotate(90deg);
-     transform: rotate(90deg);
 	height:100%;
 	width:100%;
 	min-height: 100%
