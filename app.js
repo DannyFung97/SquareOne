@@ -10,6 +10,8 @@ var index = require('./routes/index');
 var settings = require('./routes/settings');
 var login = require('./routes/login');
 var footballMain = require('./routes/footballMain');
+var register = require('./routes/register');
+var recovery = require('./routes/recovery');
 
 // Example route
 // var user = require('./routes/user');
@@ -36,10 +38,13 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', index.view);
+app.get('/home', index.view);
 app.get('/settings', settings.view);
-app.get('/login', login.view);
+app.get('/', login.view);
 app.get('/footballMain', footballMain.view);
+app.get('/register', register.view)
+app.get('/recovery', recovery.view)
+
 // Example route
 // app.get('/users', user.list);
 
