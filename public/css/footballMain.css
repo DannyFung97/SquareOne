@@ -2,7 +2,7 @@
 #topButtons{
 	width: 100%;
 	height: 20px;
-	position: fixed;
+	position: device-fixed;
 }
 
 #backButton{
@@ -29,7 +29,7 @@
 #bottomButtons{
 	width: 100%;
 	height: 20px;
-	position: fixed;
+	position: device-fixed;
 	bottom: 10px;
 }
 
@@ -68,7 +68,7 @@
 	#topButtons{
 	width: 100%;
 	height: 20px;
-	position: fixed;
+	position: device-fixed;
 }
 
 #backButton{
@@ -95,7 +95,7 @@
 #bottomButtons{
 	width: 100%;
 	height: 20px;
-	position: fixed;
+	position: device-fixed;
 	bottom: 10px;
 }
 
