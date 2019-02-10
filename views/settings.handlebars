@@ -12,36 +12,39 @@
           integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
           crossOrigin="anonymous" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-    <link href="css/settings.css" rel="stylesheet">
     <title>Settings</title>
   </head>
+
   <body>
     <div id="root" style="text-align: center">
-      <h1 style="margin-bottom: 20vh; margin-top: 10vh">Settings</h1>
-    </div>
-    <div id="username">
-      <form action="">
-        Username: <input type="text" name="Username" placeholder="Username"><br>
-        <input type="submit" value="Change">
-      </form>
-    </div>
-    <div id="password">
-      <form action="">
-        Password: <input type="text" name="Password" placeholder="********"><br>
-        <input type="submit" value="Change">
-      </form>
-    </div>
-     <div id="preferences">
-      <form action="">
+      <h1 style="margin-bottom: 5vh; margin-top: 5vh">Settings</h1>
+      <div id="username">
+        <form action="">
+          <input type="text" name="Username" placeholder="Username"><br>
+          <input type="submit" value="Change"><br><br>
+        </form>
+      </div>
+      <div id="password">
+        <form action="">
+          <input type="text" name="Password" placeholder="********"><br>
+          <input type="submit" value="Change">
+        </form>
+      </div>
+      <div id="preferences">
         <h3>Preferences</h3>
-
-        <input type="submit" value="Change">
-      </form>
-    </div>
-    <div style="text-align: center">
-    <label>
-        <button type="button" style="height: 5em;width: 10em" onclick="window.location.href='/'">Back</button>
-    </label>
+        <form action="">
+            <input type="checkbox" name="" value="" checked> Football<br>
+            <input type="checkbox" name="" value=""> Ice Hockey<br>
+            <input type="checkbox" name="" value=""> Baseball<br><br>
+          <input type="submit" value="Change"><br><br>
+        </form>
+      </div>
+      <div id="backButton">
+        <label>
+          <button type="button" style="height: 2em;width: 5em" onclick="window.location.href='/'">Back</button>
+        </label>
+      </div>
     </div>
   </body>
+
 </html>
