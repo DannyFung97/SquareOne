@@ -12,15 +12,36 @@
           integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
           crossOrigin="anonymous" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <link href="css/settings.css" rel="stylesheet">
     <title>Settings</title>
   </head>
   <body>
     <div id="root" style="text-align: center">
-      <h1 style="margin-bottom: 20vh; margin-top: 10vh">This will be the Settings Page</h1>
+      <h1 style="margin-bottom: 20vh; margin-top: 10vh">Settings</h1>
     </div>
-    <div style="text-align: center"
+    <div id="username">
+      <form action="">
+        Username: <input type="text" name="Username" placeholder="Username"><br>
+        <input type="submit" value="Change">
+      </form>
+    </div>
+    <div id="password">
+      <form action="">
+        Password: <input type="text" name="Password" placeholder="********"><br>
+        <input type="submit" value="Change">
+      </form>
+    </div>
+     <div id="preferences">
+      <form action="">
+        <h3>Preferences</h3>
+
+        <input type="submit" value="Change">
+      </form>
+    </div>
+    <div style="text-align: center">
     <label>
         <button type="button" style="height: 5em;width: 10em" onclick="window.location.href='/'">Back</button>
     </label>
+    </div>
   </body>
 </html>
