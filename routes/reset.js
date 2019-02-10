@@ -1,5 +1,5 @@
 var user = require('../user.json');
 
 exports.view = function(req, res){
-  res.render('login', user);
+  res.render('reset', user);
 };

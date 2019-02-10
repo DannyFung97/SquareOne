@@ -1,34 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="#000000">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
-          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
-          crossOrigin="anonymous" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-    <title>Sign Up</title>
-  </head>
-  <body>
-    <div id="root" style="text-align: center">
-      <h1 style="margin-bottom: 20vh; margin-top: 10vh">Sign Up</h1>
-      <div id="form">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#000000">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+    integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossOrigin="anonymous" />
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+  <title>Sign Up</title>
+</head>
+
+<body>
+  <div id="root" style="text-align: center">
+    <h1 style="margin-bottom: 20vh; margin-top: 10vh">Sign Up</h1>
+    <div id="form">
       <form style="font-size: 2em">
         <div style="margin-bottom: 5vh">
-          <input style="width: 90vw; max-width: 300px" type="text" name="Username" placeholder="Username"><br>
-          <input style="width: 90vw; max-width: 300px" type="text" name="Username" placeholder="Email"><br>
-          <input style="width: 90vw; max-width: 300px" type="text" name="Username" placeholder="Password"><br>
-          <input style="width: 90vw; max-width: 300px" type="text" name="Password" placeholder="Verify Password"><br>
+          <input style="width: 90vw; max-width: 300px" type="text" id="Username" placeholder="Username"><br>
+          <input style="width: 90vw; max-width: 300px" type="text" id="Email" placeholder="Email"><br>
+          <input style="width: 90vw; max-width: 300px" type="password" id="Password" placeholder="Password"><br>
+          <input style="width: 90vw; max-width: 300px" type="password" id="verify Password"
+            placeholder="Verify Password"><br>
         </div>
-        <button style="margin-bottom: 2vh" type="button">Sign Up</button>
+        <button onclick="register()" style="margin-bottom: 2vh" type="button">Sign Up</button>
       </form>
-      <button onclick="window.location.href='/'" style="margin-bottom: 2vh" type="button">Already have an account? Log in.</button>
+      <button onclick="window.location.href='/'" style="margin-bottom: 2vh" type="button">Already have an account? Log
+        in.</button>
     </div>
-    </div>
-    <div style="text-align: center">
-  </body>
+  </div>
+  <script>
+    function register() {
+      var username = document.getElementById("Username").value;
+      var password = document.getElementById("Password").value;
+      var email = document.getElementById("Email").value;
+      var v_password = document.getElementById("VerifyPassword").value;
+
+      if (v_password === password) {
+        if (!validateEmail(email)) {
+          alert("Invalid email.");
+        } else {
+          user = JSON.parse(txt){
+            user.users.push({
+              username: this.username,
+              password: this.password,
+              email: this.email;
+            });
+            window.location.href = '/';
+          }
+        }
+      } else {
+        alert("Passwords must match.");
+      }
+    }
+  </script>
+</body>
+
 </html>
