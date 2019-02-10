@@ -20,11 +20,17 @@
         <div id="form">
             <form style="font-size: 2em">
                 <div style="margin-bottom: 5vh">
-                    <input style="width: 90vw; max-width: 300px" type="text" name="Username" placeholder="Email"><br>
+                    <input style="width: 90vw; max-width: 300px" type="text" name="email" placeholder="Email"><br>
                 </div>
-                <button style="margin-bottom: 2vh" type="button">Send Email</button>
+                <button onclick="send('email')" style="margin-bottom: 2vh" type="button">Send Email</button>
             </form>
+            <button onclick="window.location.href='/'" style="margin-bottom: 2vh" type="button">Cancel Email</button>
         </div>
     </div>
+    <script>
+        function send(email){
+            
+        }
+    </script>
 </body>
 </html>
