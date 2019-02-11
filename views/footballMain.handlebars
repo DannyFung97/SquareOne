@@ -37,13 +37,27 @@
     
     <div id="bottomButtons" style="text-align: center">  
       <button id="eraseButton" type="button"><img src="img/eraserButton.png" height="25px" width="25px"></button>
-      <button id="upButton" type="button"><img src="img/upArrow.png" height="25px" width="25px"></button>
+      <button id="upButton" type="button" onclick="openUp()"><img src="img/upArrow.png" height="25px" width="25px"></button>
       <button id="undoButton" type="button"><img src="img/undoButton.svg" height="25px" width="25px"></button>
+    </div>
+    <div id="collapsible">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeUp()">&times;</a>
+      <button id="ptparrow" type="button" onclick=""><img src="img/saveButton.jpg" height="25px" width="25px">
+      <button id="freearrow" type="button" onclick=""><img src="img/saveButton.jpg" height="25px" width="25px">
     </div>
     <script>
       function saveWindow(){
         confirm("Do you wish to save?");
       }
+    </script>
+    <script>
+    function openUp() {
+      document.getElementById("collapsible").style.display = "block";
+    }
+
+    function closeUp() {
+      document.getElementById("collapsible").style.display = "none";
+    }
     </script>
   </body>
 
