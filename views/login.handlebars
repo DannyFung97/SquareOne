@@ -23,7 +23,7 @@
           <input style="width: 90vw" type="text" id="Username" placeholder="Username"><br>
           <input style="width: 90vw" type="password" id="Password" placeholder="Password"><br>
         </div>
-        <input style="margin-bottom: 2vh" type="submit" value="Login" onclick="login(Username, Password)">
+        <input style="margin-bottom: 2vh" type="submit" value="Login" onclick="login()">
         <button style="margin-bottom: 2vh" type="button" onclick="window.location.href='/register'">Sign Up</button>
       </form>
       <button style="margin-bottom: 2vh" type="button" onclick="window.location.href='/recovery'">Forgot your
@@ -33,11 +33,14 @@
   </div>
   <div style="text-align: center">
   <script src="../routes/loginHelper.js"></script>
-    {{!-- <script>
+    <script>
+      var data = require('user.json');
       function login() {
-        
+        var username = document.getElementById("Username").value;
+        var password = document.getElementById("Password").value;
+        console.log(JSON.stringify(data));
       }
-    </script> --}}
+    </script>
 </body>
 
 </html>

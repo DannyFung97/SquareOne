@@ -1,4 +1,4 @@
-var user = require('../user.json');
+var user = require('../views/user.json');
 
 exports.view = function(req, res){
   console.log(user);
