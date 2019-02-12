@@ -120,6 +120,38 @@
 	height:200vh;
 }
  
+#collapsible {
+  display: none;
+  height: 10%;
+  width: 250px;
+  position: fixed;
+  z-index: 1;
+  top: 90%;
+  left: 33.7%;
+  background-color: rgba(177, 192, 205, 1);
+  overflow-x: hidden;
+  padding-top: 60px;
+  align-content: center;
+}
+
+#collapsible .closebtn {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  font-size: 16px;
+}
+
+#collapsible #ptparrow {
+  position: absolute;
+  top: 40%;
+  right: 55%;
+}
+
+#collapsible #freearrow {
+  position: absolute;
+  top: 40%;
+  right: 30%;
+}
 
 }
 
