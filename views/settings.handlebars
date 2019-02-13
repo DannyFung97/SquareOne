@@ -14,37 +14,80 @@
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
     <title>Settings</title>
   </head>
-
+  
   <body>
+    
     <div id="root" style="text-align: center">
       <h1 style="margin-bottom: 5vh; margin-top: 5vh">Settings</h1>
+      
+      <!--   
       <div id="username">
         <form action="">
-          <input type="text" name="Username" placeholder="Username"><br>
+          {{#each users}}
+          <input type="text" name="Username" placeholder="{{username}}"><br>
           <input type="submit" value="Change"><br><br>
+          {{/each}}
         </form>
       </div>
+      
       <div id="password">
         <form action="">
-          <input type="text" name="Password" placeholder="********"><br>
+          {{#each users}}
+          <input type="text" name="Password" placeholder="{{password}}"><br>
           <input type="submit" value="Change">
+           {{/each}}
         </form>
       </div>
+      
+
       <div id="preferences">
         <h3>Preferences</h3>
-        <form action="">
-            <input type="checkbox" name="" value="" checked> Football<br>
-            <input type="checkbox" name="" value=""> Ice Hockey<br>
-            <input type="checkbox" name="" value=""> Baseball<br><br>
-          <input type="submit" value="Change"><br><br>
+        <form action="/updateSettings">
+            {{#each users}}
+            {{#each preferences}}
+            <input type="checkbox" id="{{sport}}" name="" value="" {{check}}> {{sport}}<br>
+            {{/each}}
+            {{/each}}
+          <input type="checkbox" name="" value=""> Football<br>
+          <input type="checkbox" name="" value=""> Ice Hockey<br>
+          <input type="checkbox" name="" value=""> Baseball<br><br>
+          <input type="submit" onclick="" value="Change"><br><br>
+
         </form>
       </div>
+      -->
+      <form action="./updateSettings">
+        <div id="username">
+          {{#each users}}
+          <input type="text" name="Username" placeholder="{{username}}"><br>
+          {{/each}}
+        </div>
+      
+        <div id="password">
+          {{#each users}}
+          <input type="text" name="Password" placeholder="{{password}}"><br>
+           {{/each}}
+        </div>
+      
+        <div id="preferences">
+        <h3>Preferences</h3>
+            {{#each users}}
+            {{#each preferences}}
+            <input type="checkbox" id="{{sport}}" name="" value="" {{check}}> {{sport}}<br>
+            {{/each}}
+            {{/each}}
+        </div>
+        <input type="submit" value="Change"><br><br>
+      </form>
+
       <div id="backButton">
         <label>
           <button type="button" style="height: 2em;width: 5em" onclick="window.location.href='/'">Back</button>
         </label>
       </div>
     </div>
-  </body>
+    
 
+  </body>
+  
 </html>

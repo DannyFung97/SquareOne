@@ -3,7 +3,21 @@
 		{
 			"username": "namo",
             "password": "ligma",
-            "email": "echo@gmail.com"
+            "email": "echo@gmail.com",
+            "preferences": [
+            	{
+            		"sport": "football",
+                        "check": "checked"
+            	},
+            	{
+            		"sport": "ice hockey",
+                        "check":"checked"
+            	},
+            	{
+            		"sport": "Jjhhg",
+                        "check": "checked"
+            	}	
+            ]
 		}
 	]
 }
