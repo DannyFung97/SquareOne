@@ -1,300 +1,453 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="#000000">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
-          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
-          crossOrigin="anonymous" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-    <link href="css/footballMain.css" rel="stylesheet">
-    
-    <script src="js/jquery.mobile.custom.js"></script>
-    <script src="js/jquery.mobile.custom.min.js"></script>
-    <script src="http://code.jquery.com/jquery.min.js"></script>
-    <script src="http://code.jquery.com/ui/1.8.17/jquery-ui.min.js"></script>
 
-    <style type="text/css">
-    
-      #field{
-        background-image: url('img/footballField.png');
-        background-size: 100% 100%;
-        background-position: center;
-      }
-    </style>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#000000">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+    integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossOrigin="anonymous" />
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+  <link href="css/footballMain.css" rel="stylesheet">
 
+  <script src="js/jquery.mobile.custom.js"></script>
+  <script src="js/jquery.mobile.custom.min.js"></script>
+  <script src="http://code.jquery.com/jquery.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.8.17/jquery-ui.min.js"></script>
 
-  </head>
-  
-  <body>
-    <div id="topButtons" style="text-align: center">      
-      <button id="backButton" type="button" onclick="window.location.href='/'"><img src="img/backButton.png" height="25px" width="25px"></button>
-      <select>
-        <option value="" selected disabled hidden>Choose Playbook</option>
-        <option value="playoff">Playoff</option>
-      </select>
-      <select>
-        <option value="" selected disabled hidden>Choose Play</option>
-        <option value="default">Default</option>
-      </select> 
-      <button id="playButton" type="button"><img src="img/playButton.png" height="25px" width="25px"></button>
-      <button id="saveButton" type="button" onclick="saveWindow()"><img src="img/saveButton.jpg" height="25px" width="25px"></button> 
-    </div>
-    
-    <div id="container" style="text-align:center" style="position: relative">
-      <div id="field">
-       <div id = "playersIcon" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: 50%; left: 50%">
-          <img src="img/circle.png" style="width:25px; height:25px; background: red; border-radius: 12.5px">
-       </div>   
-       <div id ="playersIcon1" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: 50%; left: 50%">
-          <img src="img/circle.png" style="width:25px; height:25px; background: red; border-radius:12.5px">
-       </div>
-       <div id ="playersIcon2" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: 50%; left: 50%">
-          <img src="img/circle.png" style="width:25px; height:25px; background: red; border-radius:12.5px">
-       </div>
-       <div id ="playersIcon3" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: 50%; left: 50%">
-          <img src="img/circle.png" style="width:25px; height:25px; background: red; border-radius:12.5px">
-       </div>
-       <div id ="playersIcon4" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: 50%; left: 50%">
-          <img src="img/circle.png" style="width:25px; height:25px; background: red; border-radius:12.5px">
-       </div>
-       <div id ="playersIcon5" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: 50%; left: 50%">
-          <img src="img/circle.png" style="width:25px; height:25px; background: red; border-radius:12.5px">
-       </div>
-       <div id ="playersIcon6" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: 50%; left: 50%">
-          <img src="img/circle.png" style="width:25px; height:25px; background: red; border-radius:12.5px">
-       </div>
-       <div id ="playersIcon7" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: 50%; left: 50%">
-          <img src="img/circle.png" style="width:25px; height:25px; background: red; border-radius:12.5px">
-       </div>
-       <div id ="playersIcon8" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: 50%; left: 50%">
-          <img src="img/circle.png" style="width:25px; height:25px; background: red; border-radius:12.5px">
-       </div>
-       <div id ="playersIcon9" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: 50%; left: 50%">
-          <img src="img/circle.png" style="width:25px; height:25px; background: red; border-radius:12.5px">
-       </div>
-       <div id ="playersIcon10" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: 50%; left: 50%">
-          <img src="img/circle.png" style="width:25px; height:25px; background: red; border-radius:12.5px">
-       </div>
-       <div id ="playersIcon11" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: 50%; left: 50%">
-          <img src="img/circle.png" style="width:25px; height:25px; background: blue; border-radius:12.5px">
-       </div>
-       <div id ="playersIcon12" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: 50%; left: 50%">
-          <img src="img/circle.png" style="width:25px; height:25px; background: blue; border-radius:12.5px">
-       </div>
-       <div id ="playersIcon13" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: 50%; left: 50%">
-          <img src="img/circle.png" style="width:25px; height:25px; background: blue; border-radius:12.5px">
-       </div>
-       <div id ="playersIcon14" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: 50%; left: 50%">
-          <img src="img/circle.png" style="width:25px; height:25px; background: blue; border-radius:12.5px">
-       </div>
-        <div id ="playersIcon15" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: 50%; left: 50%">
-          <img src="img/circle.png" style="width:25px; height:25px; background: blue; border-radius:12.5px">
-       </div>
-        <div id ="playersIcon16" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: 50%; left: 50%">
-          <img src="img/circle.png" style="width:25px; height:25px; background: blue; border-radius:12.5px">
-       </div>
-      <div id ="playersIcon17" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: 50%; left: 50%">
-          <img src="img/circle.png" style="width:25px; height:25px; background: blue; border-radius:12.5px">
-       </div>
-    <div id ="playersIcon18" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: 50%; left: 50%">
-          <img src="img/circle.png" style="width:25px; height:25px; background: blue; border-radius:12.5px">
-       </div>
-       <div id ="playersIcon19" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: 50%; left: 50%">
-          <img src="img/circle.png" style="width:25px; height:25px; background: blue; border-radius:12.5px">
-       </div>
-       <div id ="playersIcon20" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: 50%; left: 50%">
-          <img src="img/circle.png" style="width:25px; height:25px; background: blue; border-radius:12.5px">
-       </div>
-       <div id ="playersIcon21" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: 50%; left: 50%">
-          <img src="img/circle.png" style="width:25px; height:25px; background: blue; border-radius:12.5px">
-       </div>
-    <script>
-    //Make the DIV element draggagle:
-    // Team 1
-    dragElement(document.getElementById("playersIcon"));
-    dragElement(document.getElementById("playersIcon1"));
-    dragElement(document.getElementById("playersIcon2"));
-    dragElement(document.getElementById("playersIcon3"));
-    dragElement(document.getElementById("playersIcon4"));
-    dragElement(document.getElementById("playersIcon5"));
-    dragElement(document.getElementById("playersIcon6"));
-    dragElement(document.getElementById("playersIcon7"));
-    dragElement(document.getElementById("playersIcon8"));
-    dragElement(document.getElementById("playersIcon9"));
-    dragElement(document.getElementById("playersIcon10"));
-
-    dragElementTouch(document.getElementById("playersIcon"));
-    dragElementTouch(document.getElementById("playersIcon1"));
-    dragElementTouch(document.getElementById("playersIcon2"));
-    dragElementTouch(document.getElementById("playersIcon3"));
-    dragElementTouch(document.getElementById("playersIcon4"));
-    dragElementTouch(document.getElementById("playersIcon5"));
-    dragElementTouch(document.getElementById("playersIcon6"));
-    dragElementTouch(document.getElementById("playersIcon7"));
-    dragElementTouch(document.getElementById("playersIcon8"));
-    dragElementTouch(document.getElementById("playersIcon9"));
-    dragElementTouch(document.getElementById("playersIcon10"));
-    
-    // Team 2
-    dragElement(document.getElementById("playersIcon11"));
-    dragElement(document.getElementById("playersIcon12"));
-    dragElement(document.getElementById("playersIcon13"));
-    dragElement(document.getElementById("playersIcon14"));
-    dragElement(document.getElementById("playersIcon15"));
-    dragElement(document.getElementById("playersIcon16"));
-    dragElement(document.getElementById("playersIcon17"));
-    dragElement(document.getElementById("playersIcon18"));
-    dragElement(document.getElementById("playersIcon19"));
-    dragElement(document.getElementById("playersIcon20"));
-    dragElement(document.getElementById("playersIcon21"));
-
-    dragElementTouch(document.getElementById("playersIcon11"));
-    dragElementTouch(document.getElementById("playersIcon12"));
-    dragElementTouch(document.getElementById("playersIcon13"));
-    dragElementTouch(document.getElementById("playersIcon14"));
-    dragElementTouch(document.getElementById("playersIcon15"));
-    dragElementTouch(document.getElementById("playersIcon16"));
-    dragElementTouch(document.getElementById("playersIcon17"));
-    dragElementTouch(document.getElementById("playersIcon18"));
-    dragElementTouch(document.getElementById("playersIcon19"));
-    dragElementTouch(document.getElementById("playersIcon20"));
-    dragElementTouch(document.getElementById("playersIcon21"));
-
-
-
-
-
-
-    function dragElement(elmnt) {
-      console.log(elmnt.id);
-      var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-      if (document.getElementById(elmnt.id)) {
-        /* if present, the header is where you move the DIV from:*/
-        document.getElementById(elmnt.id).onmousedown = dragMouseDown;
-      } else {
-       /* otherwise, move the DIV from anywhere inside the DIV:*/
-        elmnt.onmousedown = dragMouseDown;
-      }
-    
-      function dragMouseDown(e) {
-        e = e || window.event;
-        e.preventDefault();
-        // get the mouse cursor position at startup:
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        document.onmouseup = closeDragElement;
-        // call a function whenever the cursor moves:
-        document.onmousemove = elementDrag;
-      }
-
-      function elementDrag(e) {
-        console.log("Dragging mouse")
-        e = e || window.event;
-        e.preventDefault();
-        // calculate the new cursor position:
-        pos1 = pos3 - e.clientX;
-        pos2 = pos4 - e.clientY;
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        // set the element's new position:
-        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-      }
-
-      function closeDragElement() {
-        /* stop moving when mouse button is released:*/
-        document.onmouseup = null;
-        document.onmousemove = null;
-      }
+  <style type="text/css">
+    #myCanvas {
+      background-image: url('img/footballField.jpg');
+      background-size: 100% 100%;
+      background-position: center;
     }
+  </style>
 
-    function dragElementTouch(elmnt) {
-      console.log(elmnt.id + ", touch");
-      var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-      if (document.getElementById(elmnt.id)) {
-        /* if present, the header is where you move the DIV from:*/
-        document.getElementById(elmnt.id).ontouchmove = dragMouseDownTouch;
-      } else {
-       /* otherwise, move the DIV from anywhere inside the DIV:*/
-        elmnt.ontouchmove = dragMouseDownTouch;
-      }
-    
-      function dragMouseDownTouch(e) {
-        e = e || window.event;
-        e.preventDefault();
-        // get the mouse cursor position at startup:
-        pos3 = e.touches[0].clientX;
-        pos4 = e.touches[0].clientY;
-        document.touchend = closeDragElementTouch;
-        // call a function whenever the cursor moves:
-        document.ontouchmove = elementDragTouch;
-      }
 
-      function elementDragTouch(e) {
-        e = e || window.event;
-        e.preventDefault();
-        // calculate the new cursor position:
-        pos1 = pos3 - e.touches[0].clientX;
-        pos2 = pos4 - e.touches[0].clientY;
-        pos3 = e.touches[0].clientX;
-        pos4 = e.touches[0].clientY;
-        // set the element's new position:
-        //elmnt.style.top = (elmnt.offsetTop - pos2 + "px";
-        //elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-        elmnt.style.top = e.touches[0].clientY + "px";
-        elmnt.style.left = e.touches[0].clientX + "px";
-        if(elmnt.style.top > window.innerHeight){
-          elmnt.style.top = window.innerHeight;
-        }
-        if(elmnt.style.left > window.innerWidth){
-          elmnt.style.left = window.innerWidth;
-        }
-        if(elmnt.style.top < 0){
-          elmnt.style.top = 0;
-        }
-        if(elmnt.style.left < 0){
-          elmnt.style.top = 0;
-        }
-      }
+</head>
 
-      function closeDragElementTouch() {
-        /* stop moving when mouse button is released:*/
-        document.touchend = null;
-        document.ontouchmove = null;
-        document.ontouchstart = null;
-      }
-    }
-    </script>
-    
-    <div id="bottomButtons" style="text-align: center">  
-      <button id="eraseButton" type="button"><img src="img/eraserButton.png" height="25px" width="25px"></button>
-      <button id="upButton" type="button" onclick="openUp()"><img src="img/upArrow.png" height="25px" width="25px"></button>
-      <button id="undoButton" type="button"><img src="img/undoButton.svg" height="25px" width="25px"></button>
-    </div>
-    <div id="collapsible">
-      <a href="javascript:void(0)" class="closebtn" onclick="closeUp()">&times;</a>
-      <button id="ptparrow" type="button" onclick=""><img src="img/saveButton.jpg" height="25px" width="25px">
-      <button id="freearrow" type="button" onclick=""><img src="img/saveButton.jpg" height="25px" width="25px">
-    </div>
-    <script>
-      function saveWindow(){
-        confirm("Do you wish to save?");
-      }
-    </script>
-    <script>
-    function openUp() {
-      document.getElementById("collapsible").style.display = "block";
-    }
+<body onload="InitThis()">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+  <div id="topButtons" style="text-align: center">
+    <button id="backButton" type="button" onclick="window.location.href='/home'"><img src="img/backButton.png"
+        height="25px" width="25px"></button>
+    <select>
+      <option value="" selected disabled hidden>Choose Playbook</option>
+      <option value="playoff">Playoff</option>
+    </select>
+    <select>
+      <option value="" selected disabled hidden>Choose Play</option>
+      <option value="default">Default</option>
+    </select>
+    <button id="playButton" type="button"><img src="img/playButton.png" height="25px" width="25px"></button>
+    <button id="saveButton" type="button" onclick="saveWindow()"><img src="img/saveButton.jpg" height="25px"
+        width="25px"></button>
+  </div>
 
-    function closeUp() {
-      document.getElementById("collapsible").style.display = "none";
-    }
-    </script>
-  </body>
+  <div id="container" style="text-align:center" style="position: relative">
+    <div id="field">
+      <div align="center">
+        <canvas id="myCanvas" width="440vw" height="800vh" style="border:2px solid black"></canvas>
+        <br /><br />
+        Color : <select id="selColor">
+          <option value="black">black</option>
+          <option value="blue">blue</option>
+          <option value="red">red</option>
+          <option value="green">green</option>
+          <option value="yellow" selected="selected">yellow</option>
+          <option value="gray">gray</option>
+        </select>
+      </div>
+      <div id="playersIcon" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)"
+        style="position: absolute;z-index: 9; top: 50%; left: 28%">
+        <img src="img/circle.png" style="width:25px; height:25px; background: red; border-radius: 12.5px">
+      </div>
+      <div id="playersIcon1" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)"
+        style="position: absolute;z-index: 9; top: 50%; left: 40%">
+        <img src="img/circle.png" style="width:25px; height:25px; background: red; border-radius:12.5px">
+      </div>
+      <div id="playersIcon2" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)"
+        style="position: absolute;z-index: 9; top: 50%; left: 45%">
+        <img src="img/circle.png" style="width:25px; height:25px; background: red; border-radius:12.5px">
+      </div>
+      <div id="playersIcon3" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)"
+        style="position: absolute;z-index: 9; top: 30%; left: 40%">
+        <img src="img/circle.png" style="width:25px; height:25px; background: red; border-radius:12.5px">
+      </div>
+      <div id="playersIcon4" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)"
+        style="position: absolute;z-index: 9; top: 50%; left: 55%">
+        <img src="img/circle.png" style="width:25px; height:25px; background: red; border-radius:12.5px">
+      </div>
+      <div id="playersIcon5" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)"
+        style="position: absolute;z-index: 9; top: 50%; left: 60%">
+        <img src="img/circle.png" style="width:25px; height:25px; background: red; border-radius:12.5px">
+      </div>
+      <div id="playersIcon6" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)"
+        style="position: absolute;z-index: 9; top: 50%; left: 67%">
+        <img src="img/circle.png" style="width:25px; height:25px; background: red; border-radius:12.5px">
+      </div>
+      <div id="playersIcon7" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)"
+        style="position: absolute;z-index: 9; top: 45%; left: 65%">
+        <img src="img/circle.png" style="width:25px; height:25px; background: red; border-radius:12.5px">
+      </div>
+      <div id="playersIcon8" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)"
+        style="position: absolute;z-index: 9; top: 40%; left: 55%">
+        <img src="img/circle.png" style="width:25px; height:25px; background: red; border-radius:12.5px">
+      </div>
+      <div id="playersIcon9" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)"
+        style="position: absolute;z-index: 9; top: 40%; left: 45%">
+        <img src="img/circle.png" style="width:25px; height:25px; background: red; border-radius:12.5px">
+      </div>
+      <div id="playersIcon10" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)"
+        style="position: absolute;z-index: 9; top: 30%; left: 60%">
+        <img src="img/circle.png" style="width:25px; height:25px; background: red; border-radius:12.5px">
+      </div>
+      <div id="playersIcon11" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)"
+        style="position: absolute;z-index: 9; top: 65%; left: 50%">
+        <img src="img/circle.png" style="width:25px; height:25px; background: blue; border-radius:12.5px">
+      </div>
+      <div id="playersIcon12" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)"
+        style="position: absolute;z-index: 9; top: 60%; left: 55%">
+        <img src="img/circle.png" style="width:25px; height:25px; background: blue; border-radius:12.5px">
+      </div>
+      <div id="playersIcon13" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)"
+        style="position: absolute;z-index: 9; top: 60%; left: 45%">
+        <img src="img/circle.png" style="width:25px; height:25px; background: blue; border-radius:12.5px">
+      </div>
+      <div id="playersIcon14" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)"
+        style="position: absolute;z-index: 9; top: 60%; left: 60%">
+        <img src="img/circle.png" style="width:25px; height:25px; background: blue; border-radius:12.5px">
+      </div>
+      <div id="playersIcon15" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)"
+        style="position: absolute;z-index: 9; top: 60%; left: 40%">
+        <img src="img/circle.png" style="width:25px; height:25px; background: blue; border-radius:12.5px">
+      </div>
+      <div id="playersIcon16" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)"
+        style="position: absolute;z-index: 9; top: 60%; left: 28%">
+        <img src="img/circle.png" style="width:25px; height:25px; background: blue; border-radius:12.5px">
+      </div>
+      <div id="playersIcon17" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)"
+        style="position: absolute;z-index: 9; top: 60%; left: 67%">
+        <img src="img/circle.png" style="width:25px; height:25px; background: blue; border-radius:12.5px">
+      </div>
+      <div id="playersIcon18" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)"
+        style="position: absolute;z-index: 9; top: 65%; left: 65%">
+        <img src="img/circle.png" style="width:25px; height:25px; background: blue; border-radius:12.5px">
+      </div>
+      <div id="playersIcon19" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)"
+        style="position: absolute;z-index: 9; top: 65%; left: 62%">
+        <img src="img/circle.png" style="width:25px; height:25px; background: blue; border-radius:12.5px">
+      </div>
+      <div id="playersIcon20" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)"
+        style="position: absolute;z-index: 9; top: 70%; left: 50%">
+        <img src="img/circle.png" style="width:25px; height:25px; background: blue; border-radius:12.5px">
+      </div>
+      <div id="playersIcon21" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)"
+        style="position: absolute;z-index: 9; top: 60%; left: 50%">
+        <img src="img/circle.png" style="width:25px; height:25px; background: blue; border-radius:12.5px">
+      </div>
+      <script>
+        var mousePressed = false;
+        var lastX, lastY;
+        var ctx;
+
+        function InitThis() {
+          ctx = document.getElementById('myCanvas').getContext("2d");
+
+          $('#myCanvas').mousedown(function (e) {
+            console.log("mouse Started drawing");
+            mousePressed = true;
+            Draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, false);
+          });
+
+          $('#myCanvas').mousemove(function (e) {
+            console.log("mouse Moving fing");
+            if (mousePressed) {
+              Draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
+            }
+          });
+
+          $('#myCanvas').mouseup(function (e) {
+            if (mousePressed) {
+              console.log("mouse drawing ended");
+              mousePressed = false;
+              cPush();
+            }
+          });
+          $('#myCanvas').mouseleave(function (e) {
+            if (mousePressed) {
+              console.log("mouse left");
+              mousePressed = false;
+              cPush();
+            }
+          });
+
+          $('#myCanvas').on('touchstart', function (e) {
+            console.log("Started drawing");
+            mousePressed = true;
+            Draw(e.originalEvent.changedTouches[0].pageX - $(this).offset().left, e.originalEvent.changedTouches[0].pageY - $(this).offset().top, false);
+          });
+
+          $('#myCanvas').on('touchmove', function (e) {
+            console.log("Moving fing");
+            if (mousePressed) {
+              Draw(e.originalEvent.changedTouches[0].pageX - $(this).offset().left, e.originalEvent.changedTouches[0].pageY - $(this).offset().top, true);
+            }
+          });
+
+          $('#myCanvas').on('touchend', function (e) {
+            console.log("drawing ended");
+            mousePressed = false;
+          });
+          $('#myCanvas').on('touchcancel', function (e) {
+            mousePressed = false;
+          });
+          drawImage();
+        }
+
+        function drawImage() {
+          var image = new Image();
+          image.src = 'img/footballField.jpg';
+          $(image).load(function () {
+            ctx.drawImage(image, 0, 0, 425, 800);
+            cPush();
+          });
+        }
+
+        function Draw(x, y, isDown) {
+          if (isDown) {
+            ctx.beginPath();
+            ctx.strokeStyle = $('#selColor').val();
+            ctx.lineWidth = $('#selWidth').val();
+            ctx.lineJoin = "round";
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(x, y);
+            ctx.closePath();
+            ctx.stroke();
+          }
+          lastX = x; lastY = y;
+        }
+
+        function clearArea() {
+          // Use the identity matrix while clearing the canvas
+          ctx.setTransform(1, 0, 0, 1, 0, 0);
+          ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        }
+
+        var cPushArray = new Array();
+        var cStep = -1;
+
+        function cPush() {
+          console.log("Pushed");
+          cStep++;
+          if (cStep < cPushArray.length) { cPushArray.length = cStep; }
+          cPushArray.push(document.getElementById('myCanvas').toDataURL());
+          document.title = cStep + ":" + cPushArray.length;
+        }
+
+        function cUndo() {
+          console.log("Undo");
+          if (cStep > 0) {
+            cStep--;
+            var canvasPic = new Image();
+            canvasPic.src = cPushArray[cStep];
+            canvasPic.onload = function () { ctx.drawImage(canvasPic, 0, 0); }
+            document.title = cStep + ":" + cPushArray.length;
+          }
+        }
+
+        function cRedo() {
+          console.log("redo");
+          if (cStep < cPushArray.length - 1) {
+            cStep++;
+            var canvasPic = new Image();
+            canvasPic.src = cPushArray[cStep];
+            canvasPic.onload = function () { ctx.drawImage(canvasPic, 0, 0); }
+            document.title = cStep + ":" + cPushArray.length;
+          }
+        }
+
+        //Make the DIV element draggagle:
+        // Team 1
+        dragElement(document.getElementById("playersIcon"));
+        dragElement(document.getElementById("playersIcon1"));
+        dragElement(document.getElementById("playersIcon2"));
+        dragElement(document.getElementById("playersIcon3"));
+        dragElement(document.getElementById("playersIcon4"));
+        dragElement(document.getElementById("playersIcon5"));
+        dragElement(document.getElementById("playersIcon6"));
+        dragElement(document.getElementById("playersIcon7"));
+        dragElement(document.getElementById("playersIcon8"));
+        dragElement(document.getElementById("playersIcon9"));
+        dragElement(document.getElementById("playersIcon10"));
+
+        dragElementTouch(document.getElementById("playersIcon"));
+        dragElementTouch(document.getElementById("playersIcon1"));
+        dragElementTouch(document.getElementById("playersIcon2"));
+        dragElementTouch(document.getElementById("playersIcon3"));
+        dragElementTouch(document.getElementById("playersIcon4"));
+        dragElementTouch(document.getElementById("playersIcon5"));
+        dragElementTouch(document.getElementById("playersIcon6"));
+        dragElementTouch(document.getElementById("playersIcon7"));
+        dragElementTouch(document.getElementById("playersIcon8"));
+        dragElementTouch(document.getElementById("playersIcon9"));
+        dragElementTouch(document.getElementById("playersIcon10"));
+
+        // Team 2
+        dragElement(document.getElementById("playersIcon11"));
+        dragElement(document.getElementById("playersIcon12"));
+        dragElement(document.getElementById("playersIcon13"));
+        dragElement(document.getElementById("playersIcon14"));
+        dragElement(document.getElementById("playersIcon15"));
+        dragElement(document.getElementById("playersIcon16"));
+        dragElement(document.getElementById("playersIcon17"));
+        dragElement(document.getElementById("playersIcon18"));
+        dragElement(document.getElementById("playersIcon19"));
+        dragElement(document.getElementById("playersIcon20"));
+        dragElement(document.getElementById("playersIcon21"));
+
+        dragElementTouch(document.getElementById("playersIcon11"));
+        dragElementTouch(document.getElementById("playersIcon12"));
+        dragElementTouch(document.getElementById("playersIcon13"));
+        dragElementTouch(document.getElementById("playersIcon14"));
+        dragElementTouch(document.getElementById("playersIcon15"));
+        dragElementTouch(document.getElementById("playersIcon16"));
+        dragElementTouch(document.getElementById("playersIcon17"));
+        dragElementTouch(document.getElementById("playersIcon18"));
+        dragElementTouch(document.getElementById("playersIcon19"));
+        dragElementTouch(document.getElementById("playersIcon20"));
+        dragElementTouch(document.getElementById("playersIcon21"));
+
+        function dragElement(elmnt) {
+          console.log(elmnt.id);
+          var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+          if (document.getElementById(elmnt.id)) {
+            /* if present, the header is where you move the DIV from:*/
+            document.getElementById(elmnt.id).onmousedown = dragMouseDown;
+          } else {
+            /* otherwise, move the DIV from anywhere inside the DIV:*/
+            elmnt.onmousedown = dragMouseDown;
+          }
+
+          function dragMouseDown(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // get the mouse cursor position at startup:
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            document.onmouseup = closeDragElement;
+            // call a function whenever the cursor moves:
+            document.onmousemove = elementDrag;
+          }
+
+          function elementDrag(e) {
+            console.log("Dragging mouse")
+            e = e || window.event;
+            e.preventDefault();
+            // calculate the new cursor position:
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            // set the element's new position:
+            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+          }
+
+          function closeDragElement() {
+            /* stop moving when mouse button is released:*/
+            document.onmouseup = null;
+            document.onmousemove = null;
+          }
+        }
+
+        function dragElementTouch(elmnt) {
+          console.log(elmnt.id + ", touch");
+          var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+          if (document.getElementById(elmnt.id)) {
+            /* if present, the header is where you move the DIV from:*/
+            document.getElementById(elmnt.id).ontouchmove = dragMouseDownTouch;
+          } else {
+            /* otherwise, move the DIV from anywhere inside the DIV:*/
+            elmnt.ontouchmove = dragMouseDownTouch;
+          }
+
+          function dragMouseDownTouch(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // get the mouse cursor position at startup:
+            pos3 = e.touches[0].clientX;
+            pos4 = e.touches[0].clientY;
+            document.touchend = closeDragElementTouch;
+            // call a function whenever the cursor moves:
+            document.ontouchmove = elementDragTouch;
+          }
+
+          function elementDragTouch(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // calculate the new cursor position:
+            pos1 = pos3 - e.touches[0].clientX;
+            pos2 = pos4 - e.touches[0].clientY;
+            pos3 = e.touches[0].clientX;
+            pos4 = e.touches[0].clientY;
+            // set the element's new position:
+            //elmnt.style.top = (elmnt.offsetTop - pos2 + "px";
+            //elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            elmnt.style.top = e.touches[0].clientY + "px";
+            elmnt.style.left = e.touches[0].clientX + "px";
+            if (elmnt.style.top > window.innerHeight) {
+              elmnt.style.top = window.innerHeight;
+            }
+            if (elmnt.style.left > window.innerWidth) {
+              elmnt.style.left = window.innerWidth;
+            }
+            if (elmnt.style.top < 0) {
+              elmnt.style.top = 0;
+            }
+            if (elmnt.style.left < 0) {
+              elmnt.style.top = 0;
+            }
+          }
+
+          function closeDragElementTouch() {
+            /* stop moving when mouse button is released:*/
+            document.touchend = null;
+            document.ontouchmove = null;
+            document.ontouchstart = null;
+          }
+        }
+      </script>
+
+      <div id="bottomButtons" style="text-align: center">
+        <button id="eraseButton" type="button"><img src="img/eraserButton.png" height="25px" width="25px"></button>
+        <button id="upButton" type="button" onclick="openUp()"><img src="img/upArrow.png" height="25px"
+            width="25px"></button>
+        <button id="redoButton" onclick="cRedo()" type="button"><img src="img/redoButton.png" height="25px" width="25px"></button>
+        <button id="undoButton" onclick="cUndo()" type="button"><img src="img/undoButton.png" height="25px" width="25px"></button>
+      </div>
+      <div id="collapsible">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeUp()">&times;</a>
+        <button id="ptparrow" type="button" onclick=""><img src="img/saveButton.jpg" height="25px" width="25px">
+          <button id="freearrow" type="button" onclick=""><img src="img/saveButton.jpg" height="25px" width="25px">
+      </div>
+      <script>
+        function saveWindow() {
+          confirm("Do you wish to save?");
+        }
+      </script>
+      <script>
+        function openUp() {
+          document.getElementById("collapsible").style.display = "block";
+        }
+
+        function closeUp() {
+          document.getElementById("collapsible").style.display = "none";
+        }
+      </script>
+</body>
 
 </html>
