@@ -18,7 +18,6 @@
 
   <style type="text/css">
     #myCanvas {
-      background-image: url('img/footballField.jpg');
       background-size: 100% 100%;
       background-position: center;
     }
@@ -77,13 +76,17 @@
     var mousePressed = false;
     var lastX, lastY;
     var ctx;
+    var user_index = 0;
+    var play_index = 0;
 
     function spawnPlayers() {
       $.getJSON('user.json', function (data) {
         $.each(data.users, function (i, user) {
           if (user.logged == "true" && user.preferences[0].check == "checked") {
+            user_index = i;
             $.each(user.plays, function (j, play) {
               if (play.selected == "true") {
+                play_index = j;
                 $.each(play.positions, function (k, position) {
                   $("#field").append('<div id="' + position.id + '" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: ' + position.top + '; left: ' + position.left + '"><img src="img/circle.png" style="width:25px; height:25px; background: ' + position.color + '; border-radius:12.5px"></div>');
                   console.log("created " + k);
@@ -155,14 +158,20 @@
       $('#myCanvas').on('touchcancel', function (e) {
         mousePressed = false;
       });
-      drawImage();
+
+      $.getJSON('user.json', function (data) {
+        drawImage(data.users[user_index].plays[play_index].imgsrc);
+      }).error(function () {
+        console.log('error');
+      });
     }
 
-    function drawImage() {
+    function drawImage(imgsrc) {
       var image = new Image();
-      image.src = 'img/footballField.jpg';
+      console.log(imgsrc);
+      image.src = imgsrc;
       $(image).load(function () {
-        ctx.drawImage(image, 0, 0, 425, 800);
+        ctx.drawImage(image, 0, 0, 450, 800);
         cPush();
       });
     }
