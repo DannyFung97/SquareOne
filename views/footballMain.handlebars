@@ -34,14 +34,28 @@
   <div id="topButtons" style="text-align: center">
     <button id="backButton" type="button" onclick="window.location.href='/home'"><img src="img/backButton.png"
         height="25px" width="25px"></button>
-    <select>
+    <select id="playbook" name="playbook">
       <option value="" selected disabled hidden>Choose Playbook</option>
+      <option value="default">Default</option>
       <option value="playoff">Playoff</option>
     </select>
-    <select>
+    <select id="play" name="play">
       <option value="" selected disabled hidden>Choose Play</option>
       <option value="default">Default</option>
+      <option value="playoff">Basic Drill</option>
     </select>
+    
+    <script type="text/javascript">
+      var $playbook = $('#playbook'),
+          $play = $( '#play'),
+          $options = $play.find('option');
+
+      $playbook.on( 'change', function() {
+        $play.html( $options.filter( '[value="' + this.value + '"]' ) );
+      } ).trigger( 'change' );
+    </script>
+
+
     <button id="playButton" type="button"><img src="img/playButton.png" height="25px" width="25px"></button>
     <button id="saveButton" type="button" onclick="saveWindow()"><img src="img/saveButton.jpg" height="25px"
         width="25px"></button>
@@ -149,7 +163,13 @@
         style="position: absolute;z-index: 9; top: 60%; left: 50%">
         <img src="img/circle.png" style="width:25px; height:25px; background: blue; border-radius:12.5px">
       </div>
+      
+
+
+
+
       <script>
+        
         var mousePressed = false;
         var lastX, lastY;
         var ctx;
@@ -207,7 +227,7 @@
           });
           drawImage();
         }
-
+        
         function drawImage() {
           var image = new Image();
           image.src = 'img/footballField.jpg';
@@ -431,9 +451,20 @@
       </div>
       <div id="collapsible">
         <a href="javascript:void(0)" class="closebtn" onclick="closeUp()">&times;</a>
-        <button id="ptparrow" type="button" onclick=""><img src="img/saveButton.jpg" height="25px" width="25px">
-          <button id="freearrow" type="button" onclick=""><img src="img/saveButton.jpg" height="25px" width="25px">
+        <button id="drawButton" type="button" value="on" onclick=""><img src="img/pencil.jpg" height="25px" width="25px">    
       </div>
+      <script>
+        function drawOn(){
+          if(document.getElementById("drawButton").value == "on"){
+            document.collapsible.drawButton.value = "off";
+            
+          }
+          if(document.getElementById("drawButton").value == "off"){
+            document.collapsible.drawButton.value = "on";
+          }
+        }
+      </script>
+
       <script>
         function saveWindow() {
           confirm("Do you wish to save?");

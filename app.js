@@ -12,6 +12,7 @@ var login = require('./routes/login');
 var footballMain = require('./routes/footballMain');
 var register = require('./routes/register');
 var recovery = require('./routes/recovery');
+var updateSettings = require('./routes/updateSettings');
 
 // Example route
 // var user = require('./routes/user');
@@ -42,8 +43,9 @@ app.get('/home', index.view);
 app.get('/settings', settings.view);
 app.get('/', login.view);
 app.get('/footballMain', footballMain.view);
-app.get('/register', register.view)
-app.get('/recovery', recovery.view)
+app.get('/register', register.view);
+app.get('/recovery', recovery.view);
+app.get('/updateSettings', updateSettings.update);
 
 // Example route
 // app.get('/users', user.list);

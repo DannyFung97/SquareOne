@@ -56,16 +56,16 @@
         </form>
       </div>
       -->
-      <form action="./updateSettings">
+      <form action="./settings">
         <div id="username">
           {{#each users}}
-          <input type="text" name="Username" placeholder="{{username}}"><br>
+          <input type="text" name="username" placeholder="{{username}}"><br>
           {{/each}}
         </div>
       
         <div id="password">
           {{#each users}}
-          <input type="text" name="Password" placeholder="{{password}}"><br>
+          <input type="text" name="password" placeholder="{{password}}"><br>
            {{/each}}
         </div>
       
@@ -73,7 +73,7 @@
         <h3>Preferences</h3>
             {{#each users}}
             {{#each preferences}}
-            <input type="checkbox" id="{{sport}}" name="" value="" {{check}}> {{sport}}<br>
+            <input type="checkbox" id="{{sport}}" name="{{sport}}" value="{{check}}" {{check}}> {{sport}}<br>
             {{/each}}
             {{/each}}
         </div>

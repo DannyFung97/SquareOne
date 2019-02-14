@@ -9,12 +9,12 @@
                         "check": "checked"
             	},
             	{
-            		"sport": "ice hockey",
+            		"sport": "basketball",
                         "check":"checked"
             	},
             	{
-            		"sport": "Jjhhg",
-                        "check": "checked"
+            		"sport": "baseball",
+                        "check": "unchecked"
             	}	
             ]
 		}
