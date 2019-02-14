@@ -1,4 +1,4 @@
-var user = require("../views/user.json");
+var user = require("../public/user.json");
 
 exports.update = function(request,response) {
 	if(request.query.username != "" || request.query.password != ""){

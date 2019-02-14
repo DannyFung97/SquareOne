@@ -1,0 +1,163 @@
+{
+	"users": [
+		{
+			"username": "namo",
+			"password": "ligma",
+			"logged": "true",
+			"preferences": [
+				{
+					"sport": "football",
+					"check": "checked"
+				},
+				{
+					"sport": "ice hockey",
+					"check": "checked"
+				},
+				{
+					"sport": "Jjhhg",
+					"check": "checked"
+				}
+			],
+			"plays": [
+				{
+					"name": "default",
+					"selected": "true",
+					"positions": [
+						{
+							"id": "player0",
+							"top": "50%",
+							"left": "28%",
+							"color": "red"
+						},
+						{
+							"id": "player1",
+							"top": "50%",
+							"left": "40%",
+							"color": "red"
+						},
+						{
+							"id": "player2",
+							"top": "50%",
+							"left": "45%",
+							"color": "red"
+						},
+						{
+							"id": "player3",
+							"top": "30%",
+							"left": "40%",
+							"color": "red"
+						},
+						{
+							"id": "player4",
+							"top": "50%",
+							"left": "55%",
+							"color": "red"
+						},
+						{
+							"id": "player5",
+							"top": "50%",
+							"left": "60%",
+							"color": "red"
+						},
+						{
+							"id": "player6",
+							"top": "50%",
+							"left": "67%",
+							"color": "red"
+						},
+						{
+							"id": "player7",
+							"top": "45%",
+							"left": "65%",
+							"color": "red"
+						},
+						{
+							"id": "player8",
+							"top": "40%",
+							"left": "55%",
+							"color": "red"
+						},
+						{
+							"id": "player9",
+							"top": "40%",
+							"left": "45%",
+							"color": "red"
+						},
+						{
+							"id": "player10",
+							"top": "30%",
+							"left": "60%",
+							"color": "red"
+						},
+						{
+							"id": "player11",
+							"top": "65%",
+							"left": "50%",
+							"color": "blue"
+						},
+						{
+							"id": "player12",
+							"top": "60%",
+							"left": "55%",
+							"color": "blue"
+						},
+						{
+							"id": "player13",
+							"top": "60%",
+							"left": "45%",
+							"color": "blue"
+						},
+						{
+							"id": "player14",
+							"top": "60%",
+							"left": "60%",
+							"color": "blue"
+						},
+						{
+							"id": "player15",
+							"top": "60%",
+							"left": "40%",
+							"color": "blue"
+						},
+						{
+							"id": "player16",
+							"top": "60%",
+							"left": "28%",
+							"color": "blue"
+						},
+						{
+							"id": "player17",
+							"top": "60%",
+							"left": "67%",
+							"color": "blue"
+						},
+						{
+							"id": "player18",
+							"top": "65%",
+							"left": "65%",
+							"color": "blue"
+						},
+						{
+							"id": "player19",
+							"top": "65%",
+							"left": "62%",
+							"color": "blue"
+						},
+						{
+							"id": "player20",
+							"top": "70%",
+							"left": "50%",
+							"color": "blue"
+						},
+						{
+							"id": "player21",
+							"top": "60%",
+							"left": "50%",
+							"color": "blue"
+						}
+					]
+				}
+			]
+		}
+	]
+}

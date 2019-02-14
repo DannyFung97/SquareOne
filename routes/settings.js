@@ -1,7 +1,7 @@
 
-var user = require('../views/user.json');
+var user = require('../public/user.json');
 
-exports.view = function(req, res) { 
+exports.view = function(req, res) {
 	//console.log(username);
 	//console.log(password);
 	res.render("settings", user);
