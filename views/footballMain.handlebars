@@ -88,19 +88,14 @@
               if (play.selected == "true") {
                 play_index = j;
                 $.each(play.positions, function (k, position) {
-                  $("#field").append('<div id="' + position.id + '" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: ' + position.top + '; left: ' + position.left + '"><img src="img/circle.png" style="width:25px; height:25px; background: ' + position.color + '; border-radius:12.5px"></div>');
-                  console.log("created " + k);
+                  $("#field").append('<div class="player" id="player' + k + '" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: ' + position.top + '; left: ' + position.left + '"><img src="img/circle.png" style="width:25px; height:25px; background: ' + position.color + '; border-radius:12.5px"></div>');
+                  dragElement(document.getElementById("player" + k));
+                  dragElementTouch(document.getElementById("player" + k));
                 });
               }
             });
           }
         });
-
-        //Make the DIV element draggagle:
-        for (var i = 0; i <= 21; i++) {
-          dragElement(document.getElementById("player" + i));
-          dragElementTouch(document.getElementById("player" + i));
-        }
       }).error(function () {
         console.log('error');
       });
