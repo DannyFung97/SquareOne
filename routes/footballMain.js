@@ -1,3 +1,6 @@
+var user = require('../views/user.json');
+
 exports.view = function(req, res) {
-	res.render("footballMain");
+	console.log(user);
+	res.render('footballMain', user);
 };

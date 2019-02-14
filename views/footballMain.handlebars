@@ -4,15 +4,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+  <link rel="shortcut Icon0" href="%PUBLIC_URL%/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="theme-color" content="#000000">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
     integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossOrigin="anonymous" />
-  <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
   <link href="css/footballMain.css" rel="stylesheet">
-
+  <link rel="import" type="application/json" href="user.json" />
   <script src="js/jquery.mobile.custom.js"></script>
   <script src="js/jquery.mobile.custom.min.js"></script>
   <script src="http://code.jquery.com/jquery.min.js"></script>
@@ -61,7 +60,27 @@
           <option value="gray">gray</option>
         </select>
       </div>
-      <div id="playersIcon" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)"
+
+      {{!-- players 0 to 10 are one team, 11-21 are another --}}
+
+      {{!-- {{#each users}}
+      {{#if_eq logged "true"}}
+      {{#each plays}}
+      {{#if_eq selected "true"}}
+      {{#each play}}
+      {{#each positions}}
+      <div id="{{id}}" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)"
+        style="position: absolute;z-index: 9; top: {{top}}; left: {{left}}">
+        <img src="img/circle.png" style="width:25px; height:25px; background: {{color}}; border-radius: 12.5px">
+      </div>
+      {{/each}}
+      {{/each}}
+      {{/if_eq}}
+      {{/each}}
+      {{/if_eq}}
+      {{/each}} --}}
+
+      {{!-- <div id="playersIcon0" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)"
         style="position: absolute;z-index: 9; top: 50%; left: 28%">
         <img src="img/circle.png" style="width:25px; height:25px; background: red; border-radius: 12.5px">
       </div>
@@ -148,13 +167,18 @@
       <div id="playersIcon21" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)"
         style="position: absolute;z-index: 9; top: 60%; left: 50%">
         <img src="img/circle.png" style="width:25px; height:25px; background: blue; border-radius:12.5px">
-      </div>
-      <script>
+      </div> --}}
+      <script type="text/javascript">
         var mousePressed = false;
         var lastX, lastY;
         var ctx;
 
+        function spawnPlayers() {
+          console.log(JSON.stringify(data));
+        }
+
         function InitThis() {
+          spawnPlayers();
           ctx = document.getElementById('myCanvas').getContext("2d");
 
           $('#myCanvas').mousedown(function (e) {
@@ -271,55 +295,11 @@
         }
 
         //Make the DIV element draggagle:
-        // Team 1
-        dragElement(document.getElementById("playersIcon"));
-        dragElement(document.getElementById("playersIcon1"));
-        dragElement(document.getElementById("playersIcon2"));
-        dragElement(document.getElementById("playersIcon3"));
-        dragElement(document.getElementById("playersIcon4"));
-        dragElement(document.getElementById("playersIcon5"));
-        dragElement(document.getElementById("playersIcon6"));
-        dragElement(document.getElementById("playersIcon7"));
-        dragElement(document.getElementById("playersIcon8"));
-        dragElement(document.getElementById("playersIcon9"));
-        dragElement(document.getElementById("playersIcon10"));
 
-        dragElementTouch(document.getElementById("playersIcon"));
-        dragElementTouch(document.getElementById("playersIcon1"));
-        dragElementTouch(document.getElementById("playersIcon2"));
-        dragElementTouch(document.getElementById("playersIcon3"));
-        dragElementTouch(document.getElementById("playersIcon4"));
-        dragElementTouch(document.getElementById("playersIcon5"));
-        dragElementTouch(document.getElementById("playersIcon6"));
-        dragElementTouch(document.getElementById("playersIcon7"));
-        dragElementTouch(document.getElementById("playersIcon8"));
-        dragElementTouch(document.getElementById("playersIcon9"));
-        dragElementTouch(document.getElementById("playersIcon10"));
-
-        // Team 2
-        dragElement(document.getElementById("playersIcon11"));
-        dragElement(document.getElementById("playersIcon12"));
-        dragElement(document.getElementById("playersIcon13"));
-        dragElement(document.getElementById("playersIcon14"));
-        dragElement(document.getElementById("playersIcon15"));
-        dragElement(document.getElementById("playersIcon16"));
-        dragElement(document.getElementById("playersIcon17"));
-        dragElement(document.getElementById("playersIcon18"));
-        dragElement(document.getElementById("playersIcon19"));
-        dragElement(document.getElementById("playersIcon20"));
-        dragElement(document.getElementById("playersIcon21"));
-
-        dragElementTouch(document.getElementById("playersIcon11"));
-        dragElementTouch(document.getElementById("playersIcon12"));
-        dragElementTouch(document.getElementById("playersIcon13"));
-        dragElementTouch(document.getElementById("playersIcon14"));
-        dragElementTouch(document.getElementById("playersIcon15"));
-        dragElementTouch(document.getElementById("playersIcon16"));
-        dragElementTouch(document.getElementById("playersIcon17"));
-        dragElementTouch(document.getElementById("playersIcon18"));
-        dragElementTouch(document.getElementById("playersIcon19"));
-        dragElementTouch(document.getElementById("playersIcon20"));
-        dragElementTouch(document.getElementById("playersIcon21"));
+        for (var i = 0; i <= 21; i++) {
+          dragElement(document.getElementById("player" + i));
+          dragElementTouch(document.getElementById("player" + i));
+        }
 
         function dragElement(elmnt) {
           console.log(elmnt.id);
@@ -376,6 +356,7 @@
           }
 
           function dragMouseDownTouch(e) {
+            console.log(elmnt.id + ", drag");
             e = e || window.event;
             e.preventDefault();
             // get the mouse cursor position at startup:
@@ -387,6 +368,8 @@
           }
 
           function elementDragTouch(e) {
+            console.log(elmnt.id + ", new");
+
             e = e || window.event;
             e.preventDefault();
             // calculate the new cursor position:
@@ -426,8 +409,10 @@
         <button id="eraseButton" type="button"><img src="img/eraserButton.png" height="25px" width="25px"></button>
         <button id="upButton" type="button" onclick="openUp()"><img src="img/upArrow.png" height="25px"
             width="25px"></button>
-        <button id="redoButton" onclick="cRedo()" type="button"><img src="img/redoButton.png" height="25px" width="25px"></button>
-        <button id="undoButton" onclick="cUndo()" type="button"><img src="img/undoButton.png" height="25px" width="25px"></button>
+        <button id="redoButton" onclick="cRedo()" type="button"><img src="img/redoButton.png" height="25px"
+            width="25px"></button>
+        <button id="undoButton" onclick="cUndo()" type="button"><img src="img/undoButton.png" height="25px"
+            width="25px"></button>
       </div>
       <div id="collapsible">
         <a href="javascript:void(0)" class="closebtn" onclick="closeUp()">&times;</a>
