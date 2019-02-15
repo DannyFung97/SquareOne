@@ -58,14 +58,16 @@
       -->
       <form action="./updateSettings">
         <div id="username">
+          <label>Username:</label><br>
           {{#each users}}
-          <input type="text" name="username" placeholder="{{username}}"><br>
+          <input type="text" name="username" value="{{username}}"><br><br>
           {{/each}}
         </div>
       
         <div id="password">
+          <label>Password:</label><br>
           {{#each users}}
-          <input type="text" name="password" placeholder="{{password}}"><br>
+          <input type="text" name="password" value="{{password}}"><br><br>
            {{/each}}
         </div>
       
@@ -77,12 +79,13 @@
             {{/each}}
             {{/each}}
         </div>
+        <br>
         <input type="submit" value="Change"><br><br>
       </form>
 
       <div id="backButton">
         <label>
-          <button type="button" style="height: 2em;width: 5em" onclick="window.location.href='/'">Back</button>
+          <button type="button" style="height: 2em;width: 5em" onclick="window.location.href='/home'">Back</button>
         </label>
       </div>
     </div>

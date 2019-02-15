@@ -1,7 +1,7 @@
 var user = require("../public/user.json");
 
 exports.update = function(request,response) {
-	if(request.query.username != "" || request.query.password != ""){
+	if(request.query.username != "" || request.query.password != "" || request.query.football != "" || request.query.basketball != "" || request.query.baseball != "" ){
 		console.log("Im in boyz");
 		var name = request.query.username;
 		var pass = request.query.password;
