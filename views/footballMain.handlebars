@@ -60,15 +60,6 @@
     <div id="field">
       <div align="center">
         <canvas id="myCanvas" width="440vw" height="800vh" style="border:2px solid black"></canvas>
-        <br /><br />
-        Color : <select id="selColor">
-          <option value="black">black</option>
-          <option value="blue">blue</option>
-          <option value="red">red</option>
-          <option value="green">green</option>
-          <option value="yellow" selected="selected">yellow</option>
-          <option value="gray">gray</option>
-        </select>
       </div>
     </div>
   </div>
@@ -77,20 +68,27 @@
     var lastX, lastY;
     var ctx;
     var user_index = 0;
+    var playbook_index = 0;
     var play_index = 0;
+    var canDraw = false;
 
     function spawnPlayers() {
       $.getJSON('user.json', function (data) {
         $.each(data.users, function (i, user) {
           if (user.logged == "true" && user.preferences[0].check == "checked") {
             user_index = i;
-            $.each(user.plays, function (j, play) {
-              if (play.selected == "true") {
-                play_index = j;
-                $.each(play.positions, function (k, position) {
-                  $("#field").append('<div class="player" id="player' + k + '" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: ' + position.top + '; left: ' + position.left + '"><img src="img/circle.png" style="width:25px; height:25px; background: ' + position.color + '; border-radius:12.5px"></div>');
-                  dragElement(document.getElementById("player" + k));
-                  dragElementTouch(document.getElementById("player" + k));
+            $.each(user.playbooks, function (j, playbook) {
+              if (playbook.selected == "true") {
+                playbook_index = j;
+                $.each(playbook.plays, function (k, play) {
+                  if (play.selected == "true") {
+                    play_index = k;
+                    $.each(play.positions, function (l, position) {
+                      $("#field").append('<div class="player" id="player' + l + '" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: ' + position.top + '; left: ' + position.left + '"><img src="img/circle.png" style="width:25px; height:25px; background: ' + position.color + '; border-radius:12.5px"></div>');
+                      dragElement(document.getElementById("player" + l));
+                      dragElementTouch(document.getElementById("player" + l));
+                    });
+                  }
                 });
               }
             });
@@ -149,13 +147,15 @@
       $('#myCanvas').on('touchend', function (e) {
         //console.log("drawing ended");
         mousePressed = false;
+        cPush();
       });
       $('#myCanvas').on('touchcancel', function (e) {
         mousePressed = false;
+        cPush();
       });
 
       $.getJSON('user.json', function (data) {
-        drawImage(data.users[user_index].plays[play_index].imgsrc);
+        drawImage(data.users[user_index].playbooks[playbook_index].plays[play_index].imgsrc);
       }).error(function () {
         console.log('error');
       });
@@ -171,11 +171,22 @@
       });
     }
 
-    function Draw(x, y, isDown) {
-      if (isDown) {
+    function setCanDraw() {
+      canDraw = !canDraw;
+      if (!canDraw) {
+        document.getElementById("drawButton").setAttribute("style", "opacity: 1");
+      }
+      else {
+        document.getElementById("drawButton").setAttribute("style", "opacity: 0.5");
+      }
+    }
+
+    function Draw(x, y, isDown, e) {
+      if (isDown && canDraw) {
+        e = e || window.event;
+        e.preventDefault();
         ctx.beginPath();
         ctx.strokeStyle = $('#selColor').val();
-        ctx.lineWidth = $('#selWidth').val();
         ctx.lineJoin = "round";
         ctx.moveTo(lastX, lastY);
         ctx.lineTo(x, y);
@@ -248,24 +259,27 @@
       }
 
       function elementDrag(e) {
-        console.log("Dragging mouse")
-        e = e || window.event;
-        e.preventDefault();
-        // calculate the new cursor position:
-        pos1 = pos3 - e.clientX;
-        pos2 = pos4 - e.clientY;
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        // set the element's new position:
-        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        if (!canDraw) {
+          console.log("Dragging mouse")
+          e = e || window.event;
+          e.preventDefault();
+          // calculate the new cursor position:
+          pos1 = pos3 - e.clientX;
+          pos2 = pos4 - e.clientY;
+          pos3 = e.clientX;
+          pos4 = e.clientY;
+          // set the element's new position:
+          elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+          elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        }
       }
 
       function closeDragElement() {
         /* stop moving when mouse button is released:*/
-                console.log("Element let go mouse");
+        console.log("Element let go mouse");
         document.onmouseup = null;
         document.onmousemove = null;
+        document.onmousedown = null;
       }
     }
 
@@ -293,31 +307,25 @@
       }
 
       function elementDragTouch(e) {
-        console.log(elmnt.id + ", new");
-
-        e = e || window.event;
-        e.preventDefault();
-        // calculate the new cursor position:
-        pos1 = pos3 - e.touches[0].clientX;
-        pos2 = pos4 - e.touches[0].clientY;
-        pos3 = e.touches[0].clientX;
-        pos4 = e.touches[0].clientY;
-        // set the element's new position:
-        //elmnt.style.top = (elmnt.offsetTop - pos2 + "px";
-        //elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-        elmnt.style.top = (e.touches[0].clientY-12.5) + "px";
-        elmnt.style.left = (e.touches[0].clientX-12.5) + "px";
-        if (elmnt.style.top > window.innerHeight) {
-          elmnt.style.top = window.innerHeight;
-        }
-        if (elmnt.style.left > window.innerWidth) {
-          elmnt.style.left = window.innerWidth;
-        }
-        if (elmnt.style.top < 0) {
-          elmnt.style.top = 0;
-        }
-        if (elmnt.style.left < 0) {
-          elmnt.style.top = 0;
+        if (!canDraw) {
+          console.log(elmnt.id + ", new");
+          e = e || window.event;
+          e.preventDefault();
+          // set the element's new position:
+          elmnt.style.top = (e.touches[0].pageY - 12.5) + "px";
+          elmnt.style.left = (e.touches[0].pageX - 12.5) + "px";
+          if (elmnt.style.top > e.touches[0].clientY) {
+            elmnt.style.top = e.touches[0].clientY;
+          }
+          if (elmnt.style.left > e.touches[0].clientX) {
+            elmnt.style.left = e.touches[0].clientX;
+          }
+          if (elmnt.style.top < 0) {
+            elmnt.style.top = 0;
+          }
+          if (elmnt.style.left < 0) {
+            elmnt.style.top = 0;
+          }
         }
       }
 
@@ -343,18 +351,17 @@
   <div id="collapsible">
     <a href="javascript:void(0)" class="closebtn" onclick="closeUp()">&times;</a>
     <button id="drawButton" type="button" value="on" onclick="drawWindow()"><img src="img/pencil.jpg" height="25px" width="25px">
+    <button id="drawButton" type="button" onclick="setCanDraw()"><img src="img/pencil.jpg" height="25px"
+        width="25px"></button>
+    <select id="selColor">
+      <option value="black">black</option>
+      <option value="blue">blue</option>
+      <option value="red">red</option>
+      <option value="green">green</option>
+      <option value="yellow" selected="selected">yellow</option>
+      <option value="gray">gray</option>
+    </select>
   </div>
-  <script>
-    function drawOn() {
-      if (document.getElementById("drawButton").value == "on") {
-        document.collapsible.drawButton.value = "off";
-
-      }
-      if (document.getElementById("drawButton").value == "off") {
-        document.collapsible.drawButton.value = "on";
-      }
-    }
-  </script>
 
   <script>
     function saveWindow() {
