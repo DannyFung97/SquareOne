@@ -51,7 +51,7 @@
     </script>
 
 
-    <button id="playButton" type="button"><img src="img/playButton.png" height="25px" width="25px"></button>
+    <button id="playButton" type="button" onclick="playWindow()"><img src="img/playButton.png" height="25px" width="25px"></button>
     <button id="saveButton" type="button" onclick="saveWindow()"><img src="img/saveButton.jpg" height="25px"
         width="25px"></button>
   </div>
@@ -332,7 +332,7 @@
   </script>
 
   <div id="bottomButtons" style="text-align: center">
-    <button id="eraseButton" type="button"><img src="img/eraserButton.png" height="25px" width="25px"></button>
+    <button id="eraseButton" type="button" onclick="eraserWindow()"><img src="img/eraserButton.png" height="25px" width="25px"></button>
     <button id="upButton" type="button" onclick="openUp()"><img src="img/upArrow.png" height="25px"
         width="25px"></button>
     <button id="redoButton" onclick="cRedo()" type="button"><img src="img/redoButton.png" height="25px"
@@ -342,7 +342,7 @@
   </div>
   <div id="collapsible">
     <a href="javascript:void(0)" class="closebtn" onclick="closeUp()">&times;</a>
-    <button id="drawButton" type="button" value="on" onclick=""><img src="img/pencil.jpg" height="25px" width="25px">
+    <button id="drawButton" type="button" value="on" onclick="drawWindow()"><img src="img/pencil.jpg" height="25px" width="25px">
   </div>
   <script>
     function drawOn() {
@@ -359,6 +359,21 @@
   <script>
     function saveWindow() {
       confirm("Do you wish to save?");
+    }
+  </script>
+  <script>
+    function eraserWindow() {
+      confirm("Placeholder for eraser functionality");
+    }
+  </script>
+  <script>
+    function playWindow() {
+      confirm("Placeholder for play button functionality");
+    }
+  </script>
+  <script>
+    function drawWindow() {
+      confirm("Placeholder for draw button use");
     }
   </script>
   <script>
