@@ -263,6 +263,7 @@
 
       function closeDragElement() {
         /* stop moving when mouse button is released:*/
+                console.log("Element let go mouse");
         document.onmouseup = null;
         document.onmousemove = null;
       }
@@ -273,10 +274,10 @@
       var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
       if (document.getElementById(elmnt.id)) {
         /* if present, the header is where you move the DIV from:*/
-        document.getElementById(elmnt.id).ontouchmove = dragMouseDownTouch;
+        document.getElementById(elmnt.id).ontouchstart = dragMouseDownTouch;
       } else {
         /* otherwise, move the DIV from anywhere inside the DIV:*/
-        elmnt.ontouchmove = dragMouseDownTouch;
+        elmnt.ontouchstart = dragMouseDownTouch;
       }
 
       function dragMouseDownTouch(e) {
@@ -286,7 +287,7 @@
         // get the mouse cursor position at startup:
         pos3 = e.touches[0].clientX;
         pos4 = e.touches[0].clientY;
-        document.touchend = closeDragElementTouch;
+        document.ontouchend = closeDragElementTouch;
         // call a function whenever the cursor moves:
         document.ontouchmove = elementDragTouch;
       }
@@ -304,8 +305,8 @@
         // set the element's new position:
         //elmnt.style.top = (elmnt.offsetTop - pos2 + "px";
         //elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-        elmnt.style.top = e.touches[0].clientY + "px";
-        elmnt.style.left = e.touches[0].clientX + "px";
+        elmnt.style.top = (e.touches[0].clientY-12.5) + "px";
+        elmnt.style.left = (e.touches[0].clientX-12.5) + "px";
         if (elmnt.style.top > window.innerHeight) {
           elmnt.style.top = window.innerHeight;
         }
@@ -322,6 +323,7 @@
 
       function closeDragElementTouch() {
         /* stop moving when mouse button is released:*/
+        console.log("Element let go touch");
         document.touchend = null;
         document.ontouchmove = null;
         document.ontouchstart = null;
