@@ -27,10 +27,10 @@
         <option value="" selected disabled hidden>Choose a map</option>
         {{#each users}}
         {{#each preferences}}
-            <option value="/footballMain">{{sport}}</option>
+            <option value="/{{sport}}Main">{{sport}}</option>
         {{/each}}
         {{/each}}
-        <option value="add_map">+ Add Map</option>
+        <option value="/home">+ Add Map</option>
       </select>
     </div>
     
