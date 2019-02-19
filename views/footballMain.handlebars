@@ -11,14 +11,12 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
     integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossOrigin="anonymous" />
   <link href="css/footballMain.css" rel="stylesheet">
-  <script src="js/jquery.mobile.custom.js"></script>
-  <script src="js/jquery.mobile.custom.min.js"></script>
   <script src="http://code.jquery.com/jquery.min.js"></script>
   <script src="http://code.jquery.com/ui/1.8.17/jquery-ui.min.js"></script>
 
   <style type="text/css">
     #myCanvas {
-      background-image: "img/footballField.jpg",
+      background-image: "img/footballField.jpg";
       background-size: 100% 100%;
       background-position: center;
     }
@@ -52,7 +50,8 @@
     </script>
 
 
-    <button id="playButton" type="button" onclick="playWindow()"><img src="img/playButton.png" height="25px" width="25px"></button>
+    <button id="playButton" type="button" onclick="playWindow()"><img src="img/playButton.png" height="25px"
+        width="25px"></button>
     <button id="saveButton" type="button" onclick="saveWindow()"><img src="img/saveButton.jpg" height="25px"
         width="25px"></button>
   </div>
@@ -97,6 +96,45 @@
         });
       }).error(function () {
         console.log('error');
+      });
+    }
+
+    function savePlay(n) {
+      var newPlay = {
+        name: "",
+        selected: "true",
+        imgsrc: "",
+        positions: []
+      }
+
+      var c = document.getElementById('myCanvas');
+      if (c) {
+        var dataURL = c.toDataURL('image/jpg');
+        newPlay.imgsrc = dataURL;
+      }
+
+      newPlay.name = n;
+
+      for (var i = 0; i <= 21; i++) {
+        var pos = $("#player" + i).position();
+        var p = {
+          top: "",
+          left: "",
+          color: ""
+        }
+        p.top = pos.top;
+        p.left = pos.left;
+        if (i > 10) {
+          p.color = "blue";
+        }
+        else {
+          p.color = "red";
+        }
+        newPlay.positions.push(p);
+      }
+      $.getJSON('user.json', function (data) {
+        data.users[user_index].playbooks[playbook_index].plays.push(newPlay);
+        console.log(data);
       });
     }
 
@@ -211,7 +249,7 @@
       cStep++;
       if (cStep < cPushArray.length) { cPushArray.length = cStep; }
       cPushArray.push(document.getElementById('myCanvas').toDataURL());
-      document.title = cStep + ":" + cPushArray.length;
+      //document.title = cStep + ":" + cPushArray.length;
     }
 
     function cUndo() {
@@ -221,7 +259,7 @@
         var canvasPic = new Image();
         canvasPic.src = cPushArray[cStep];
         canvasPic.onload = function () { ctx.drawImage(canvasPic, 0, 0); }
-        document.title = cStep + ":" + cPushArray.length;
+        //document.title = cStep + ":" + cPushArray.length;
       }
     }
 
@@ -232,7 +270,7 @@
         var canvasPic = new Image();
         canvasPic.src = cPushArray[cStep];
         canvasPic.onload = function () { ctx.drawImage(canvasPic, 0, 0); }
-        document.title = cStep + ":" + cPushArray.length;
+        //document.title = cStep + ":" + cPushArray.length;
       }
     }
 
@@ -341,7 +379,8 @@
   </script>
 
   <div id="bottomButtons" style="text-align: center">
-    <button id="eraseButton" type="button" onclick="eraserWindow()"><img src="img/eraserButton.png" height="25px" width="25px"></button>
+    <button id="eraseButton" type="button" onclick="eraserWindow()"><img src="img/eraserButton.png" height="25px"
+        width="25px"></button>
     <button id="upButton" type="button" onclick="openUp()"><img src="img/upArrow.png" height="25px"
         width="25px"></button>
     <button id="redoButton" onclick="cRedo()" type="button"><img src="img/redoButton.png" height="25px"
@@ -365,10 +404,20 @@
 
   <script>
     function saveWindow() {
-      confirm("Do you wish to save?");
+      $.getJSON('user.json', function (data) {
+        var c = confirm("Do you wish to save?");
+        if (c) {
+          var n = prompt("Please enter a name for this play", "Play_" + data.users[user_index].playbooks[playbook_index].plays.length + 1);
+          if (!data.users[user_index].playbooks[playbook_index].plays.includes(n)) {
+            savePlay(n);
+          }
+          else {
+            alert("A play with that name exists already, please try another.");
+          }
+        }
+      });
     }
-  </script>
-  <script>
+
     function eraserWindow() {
       confirm("Placeholder for eraser functionality");
     }
