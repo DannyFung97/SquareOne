@@ -1,8 +1,9 @@
 var user = require("../public/user.json");
 
 exports.update = function(request,response) {
+	console.log("FIRST");
+	console.log(user.users[0].playbooks[0]);
 	if(request.query.username != "" || request.query.password != "" || request.query.football != "" || request.query.basketball != "" || request.query.baseball != "" ){
-		console.log("Im in boyz");
 		var name = request.query.username;
 		var pass = request.query.password;
 		var fball = "unchecked";
@@ -18,12 +19,16 @@ exports.update = function(request,response) {
 			base = "checked";
 		}
 
+		console.log("INSIDE");
 		console.log(user);
-		console.log(pass);
+		console.log(user.users);
+		var playbooks = user.users[0].playbooks[0];
+		console.log(playbooks);
 
 		var newUser = {
 			"username": name,
 			"password": pass,
+			"logged" : true,
 			"preferences": [
             	{
             		"sport": "football",
@@ -37,19 +42,14 @@ exports.update = function(request,response) {
             		"sport": "baseball",
                         "check": base
             	}	
-            ]
+            ],
+            "playbooks": playbooks
 		}
 		
-		console.log(newUser);
-
-		console.log("OLD:");
-		console.log(user);
 		user.users.pop();
 		user.users.push(newUser);
-		console.log("NEW");
-		console.log(user);
 	}
 
-	console.log("HI");
+	console.log("OUTSIDE");
 	response.render('settings', user);
 }
