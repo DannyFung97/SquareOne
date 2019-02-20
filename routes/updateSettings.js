@@ -1,29 +1,32 @@
 var user = require("../public/user.json");
 
 exports.update = function(request,response) {
-	console.log("FIRST");
-	console.log(user.users[0].playbooks[0]);
 	if(request.query.username != "" || request.query.password != "" || request.query.football != "" || request.query.basketball != "" || request.query.baseball != "" ){
 		var name = request.query.username;
 		var pass = request.query.password;
 		var fball = "unchecked";
 		var bBall = "unchecked";
 		var base = "unchecked";
+		var displayfball = "hidden";
+		var displaybBall = "hidden";
+		var displaybase = "hidden";
 		if(request.query.football){
 			fball = "checked";
+			displayfball = "on";
 		}
 		if(request.query.basketball){
 			bBall = "checked";
+			displaybBall = "on";
 		}
 		if(request.query.baseball){
 			base = "checked";
+			displaybase = "on";
 		}
 
-		console.log("INSIDE");
-		console.log(user);
-		console.log(user.users);
-		var playbooks = user.users[0].playbooks[0];
-		console.log(playbooks);
+		console.log("OLD");
+		console.log(user.users[0].preferences);
+
+		var playbooks = user.users[0].playbooks;
 
 		var newUser = {
 			"username": name,
@@ -32,15 +35,18 @@ exports.update = function(request,response) {
 			"preferences": [
             	{
             		"sport": "football",
-                        "check": fball
+                        "check": fball,
+                        "display": displayfball
             	},
             	{
             		"sport": "basketball",
-                        "check": bBall
+                        "check": bBall,
+                        "display": displaybBall
             	},
             	{
             		"sport": "baseball",
-                        "check": base
+                        "check": base,
+                        "display": displaybase
             	}	
             ],
             "playbooks": playbooks
@@ -48,8 +54,10 @@ exports.update = function(request,response) {
 		
 		user.users.pop();
 		user.users.push(newUser);
+
+		console.log("NEW");
+		console.log(user.users[0].preferences);
 	}
 
-	console.log("OUTSIDE");
 	response.render('settings', user);
 }
