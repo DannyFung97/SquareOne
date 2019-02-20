@@ -27,7 +27,7 @@
         <option value="" selected disabled hidden>Choose a map</option>
         {{#each users}}
         {{#each preferences}}
-        <option value="/{{sport}}Main">{{sport}}</option>
+            <option value="/{{sport}}Main" {{display}}>{{sport}}</option>
         {{/each}}
         {{/each}}
         <option value="/home">+ Add Map</option>

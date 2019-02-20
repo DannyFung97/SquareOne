@@ -2,54 +2,62 @@ var user = require("../public/user.json");
 
 exports.update = function(request,response) {
 	if(request.query.username != "" || request.query.password != "" || request.query.football != "" || request.query.basketball != "" || request.query.baseball != "" ){
-		console.log("Im in boyz");
 		var name = request.query.username;
 		var pass = request.query.password;
 		var fball = "unchecked";
 		var bBall = "unchecked";
 		var base = "unchecked";
+		var displayfball = "hidden";
+		var displaybBall = "hidden";
+		var displaybase = "hidden";
 		if(request.query.football){
 			fball = "checked";
+			displayfball = "on";
 		}
 		if(request.query.basketball){
 			bBall = "checked";
+			displaybBall = "on";
 		}
 		if(request.query.baseball){
 			base = "checked";
+			displaybase = "on";
 		}
 
-		console.log(user);
-		console.log(pass);
+		console.log("OLD");
+		console.log(user.users[0].preferences);
+
+		var playbooks = user.users[0].playbooks;
 
 		var newUser = {
 			"username": name,
 			"password": pass,
+			"logged" : true,
 			"preferences": [
             	{
             		"sport": "football",
-                        "check": fball
+                        "check": fball,
+                        "display": displayfball
             	},
             	{
             		"sport": "basketball",
-                        "check": bBall
+                        "check": bBall,
+                        "display": displaybBall
             	},
             	{
             		"sport": "baseball",
-                        "check": base
+                        "check": base,
+                        "display": displaybase
             	}	
-            ]
+            ],
+            "playbooks": playbooks
 		}
 		
-		console.log(newUser);
-
-		console.log("OLD:");
-		console.log(user);
 		user.users.pop();
 		user.users.push(newUser);
+
 		console.log("NEW");
-		console.log(user);
+		console.log(user.users[0].preferences);
 	}
 
-	console.log("HI");
 	response.render('settings', user);
 }
