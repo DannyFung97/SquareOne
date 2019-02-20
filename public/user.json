@@ -7,15 +7,18 @@
 			"preferences": [
 				{
 					"sport": "football",
-					"check": "checked"
+					"check": "checked",
+					"display": "on"
 				},
 				{
 					"sport": "basketball",
-					"check": "checked"
+					"check": "checked",
+					"display": "on"
 				},
 				{
 					"sport": "baseball",
-					"check": "checked"
+					"check": "checked",
+					"display": "on"
 				}
 			],
 			"playbooks": [
