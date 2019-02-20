@@ -33,24 +33,11 @@
 	bottom: 10px;
 }
 
-#eraseButton{
-	padding: 0;
-	border: none;
-	background: none;
-	float:left;
-}
-
-#upButton{
-	padding: 0;
-	border: none;
-	background: none;
-}
-
 #undoButton{
 	padding: 0;
 	border: none;
 	background: none;
-	float:right;
+	float:left;
 }
 
 #redoButton{
@@ -107,13 +94,6 @@
 	bottom: 10px;
 }
 
-#eraseButton{
-	padding: 0;
-	border: none;
-	background: none;
-	float:left;
-}
-
 #upButton{
 	padding: 0;
 	border: none;
@@ -124,7 +104,7 @@
 	padding: 0;
 	border: none;
 	background: none;
-	float:right;
+	float:left;
 }
 
 #redoButton{
@@ -136,39 +116,6 @@
 
 #field{
 	height:200vh;
-}
- 
-#collapsible {
-  display: none;
-  height: 20vh ;
-  width: 30vw;
-  position: fixed;
-  z-index: 1;
-  top: 80%;
-  left: 33.8%;
-  background-color: rgba(177, 192, 205, 1);
-  overflow-x: hidden;
-  padding-top: 60px;
-  align-content: center;
-}
-
-#collapsible .closebtn {
-  position: absolute;
-  top: 0;
-  right: 10px;
-  font-size: 16px;
-}
-
-#collapsible #ptparrow {
-  position: absolute;
-  top: 40%;
-  right: 55%;
-}
-
-#collapsible #freearrow {
-  position: absolute;
-  top: 40%;
-  right: 30%;
 }
 
 #drawButton{
