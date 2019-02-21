@@ -145,7 +145,7 @@
 						},
 						{
 							"name": "Basic Drill",
-							"selected": "true",
+							"selected": "false",
 							"imgsrc": "img/footballField.jpg",
 							"positions": [
 								{

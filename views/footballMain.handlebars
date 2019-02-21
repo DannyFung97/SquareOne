@@ -28,15 +28,15 @@
   <div id="topButtons" style="text-align: center; z-index: 9999">
     <button id="backButton" type="button" onclick="window.location.href='/home'"><img src="img/backButton.png"
         height="25px" width="25px"></button>
-    <select id="playbook" name="playbook" onchange="getPlays()">
+    <select id="playbook" name="playbook" onchange="getPlays()" style="background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
       <option value="" selected disabled hidden>Choose Playbook</option>
-       {{#each users}}
-       {{#each playbooks}}
-       <option value="{{name}}">{{name}}</option>
-       {{/each}}
-       {{/each}}
+      {{#each users}}
+      {{#each playbooks}}
+      <option value="{{name}}">{{name}}</option>
+      {{/each}}
+      {{/each}}
     </select>
-    <select id="play" name="play">
+    <select id="play" name="play" style="background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
       <option value="" selected disabled hidden>Choose Play</option>
     </select>
 
@@ -49,25 +49,25 @@
         $play.html($options.filter('[value="' + this.value + '"]'));
       }).trigger('change');
 
-     
 
-      function getPlays(){
-      $.getJSON('user.json', function (data) {
-        $.each(data.users, function (i, user) {
+
+      function getPlays() {
+        $.getJSON('user.json', function (data) {
+          $.each(data.users, function (i, user) {
             $.each(user.playbooks, function (j, playbook) {
-                $.each(playbook.plays, function (k, play) {
-                  $("#play").append($("<option/>", {
-                    value: playbook.name,
-                    text: play.name
-                  }));  
-                });
-             });   
+              $.each(playbook.plays, function (k, play) {
+                $("#play").append($("<option/>", {
+                  value: playbook.name,
+                  text: play.name
+                }));
+              });
+            });
+          });
+        }).error(function () {
+          console.log('error');
         });
-      }).error(function () {
-        console.log('error');
-      });
-      
-     }           
+
+      }           
     </script>
 
 
@@ -155,9 +155,9 @@
         newPlay.positions.push(p);
       }
 
-    
-      
-      $.getJSON('user.json', function (data) {        
+
+
+      $.getJSON('user.json', function (data) {
         console.log(data.users[user_index].playbooks[playbook_index].plays.length);
         var newArr = data.users[user_index].playbooks[playbook_index].plays;
         newArr.push(newPlay);
@@ -169,7 +169,7 @@
 
     function InitThis() {
       spawnPlayers();
-      
+
       ctx = document.getElementById('myCanvas').getContext("2d");
 
       $('#myCanvas').mousedown(function (e) {
@@ -256,6 +256,7 @@
         e.preventDefault();
         ctx.beginPath();
         ctx.strokeStyle = $('#selColor').val();
+        ctx.lineWidth = $('#selWidth').val();
         ctx.lineJoin = "round";
         ctx.moveTo(lastX, lastY);
         ctx.lineTo(x, y);
@@ -415,13 +416,21 @@
         width="25px"></button>
     <button id="drawButton" type="button" onclick="setCanDraw()"><img src="img/pencil.jpg" height="25px"
         width="25px"></button>
-    <select id="selColor">
+    <select id="selColor" style="background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
       <option value="black">black</option>
       <option value="blue">blue</option>
       <option value="red">red</option>
       <option value="green">green</option>
       <option value="yellow" selected="selected">yellow</option>
       <option value="gray">gray</option>
+    </select>
+    <select id="selWidth" style="background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
+      <option value="1">1</option>
+      <option value="3">3</option>
+      <option value="5">5</option>
+      <option value="7">7</option>
+      <option value="9" selected="selected">9</option>
+      <option value="11">11</option>
     </select>
   </div>
 
