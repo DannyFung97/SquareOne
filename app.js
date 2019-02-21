@@ -15,6 +15,7 @@ var baseballMain = require('./routes/baseballMain');
 var register = require('./routes/register');
 var recovery = require('./routes/recovery');
 var updateSettings = require('./routes/updateSettings');
+var signUp = require('./routes/signUp');
 
 // Example route
 // var user = require('./routes/user');
@@ -52,6 +53,7 @@ app.get('/recovery', recovery.view);
 app.get('/updateSettings', updateSettings.update);
 app.get('/loginUpdate', login.update);
 app.get('/out', index.update);
+app.get('/signUp', signUp.update);
 
 // Example route
 // app.get('/users', user.list);
