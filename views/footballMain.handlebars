@@ -28,7 +28,8 @@
   <div id="topButtons" style="text-align: center; z-index: 9999">
     <button id="backButton" type="button" onclick="window.location.href='/home'"><img src="img/backButton.png"
         height="25px" width="25px"></button>
-    <select id="playbook" name="playbook" onchange="getPlays()" style="background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
+    <select id="playbook" name="playbook" onchange="getPlays()"
+      style="background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
       <option value="" selected disabled hidden>Choose Playbook</option>
       {{#each users}}
       {{#each playbooks}}
@@ -36,7 +37,8 @@
       {{/each}}
       {{/each}}
     </select>
-    <select id="play" name="play" style="background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
+    <select id="play" name="play"
+      style="background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
       <option value="" selected disabled hidden>Choose Play</option>
     </select>
 
@@ -95,6 +97,8 @@
 
     function spawnPlayers() {
       $.getJSON('user.json', function (data) {
+        console.log(data.users[0]);
+        console.log("spawn: " + data.users[0].logged);
         $.each(data.users, function (i, user) {
           if (user.logged == "true" && user.preferences[0].check == "checked") {
             user_index = i;
@@ -224,6 +228,10 @@
       });
 
       $.getJSON('user.json', function (data) {
+        console.log(user_index);
+        console.log(playbook_index);
+        console.log(play_index);
+
         drawImage(data.users[user_index].playbooks[playbook_index].plays[play_index].imgsrc);
       }).error(function () {
         console.log('error');
@@ -416,7 +424,8 @@
         width="25px"></button>
     <button id="drawButton" type="button" onclick="setCanDraw()"><img src="img/pencil.jpg" height="25px"
         width="25px"></button>
-    <select id="selColor" style="background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
+    <select id="selColor"
+      style="background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
       <option value="black">black</option>
       <option value="blue">blue</option>
       <option value="red">red</option>
@@ -424,7 +433,8 @@
       <option value="yellow" selected="selected">yellow</option>
       <option value="gray">gray</option>
     </select>
-    <select id="selWidth" style="background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
+    <select id="selWidth"
+      style="background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
       <option value="1">1</option>
       <option value="3">3</option>
       <option value="5">5</option>

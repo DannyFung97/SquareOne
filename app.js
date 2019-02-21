@@ -50,6 +50,8 @@ app.get('/baseballMain', baseballMain.view);
 app.get('/register', register.view);
 app.get('/recovery', recovery.view);
 app.get('/updateSettings', updateSettings.update);
+app.get('/loginUpdate', login.update);
+app.get('/out', index.update);
 
 // Example route
 // app.get('/users', user.list);

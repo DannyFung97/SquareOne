@@ -31,7 +31,7 @@ exports.update = function(request,response) {
 		var newUser = {
 			"username": name,
 			"password": pass,
-			"logged" : true,
+			"logged" : "true",
 			"preferences": [
             	{
             		"sport": "football",
