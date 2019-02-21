@@ -13,6 +13,7 @@
   <link href="css/register.css" rel="stylesheet">
   <script src="http://code.jquery.com/jquery.min.js"></script>
   <script src="http://code.jquery.com/ui/1.8.17/jquery-ui.min.js"></script>
+
   <title>Sign Up</title>
 </head>
 
@@ -20,191 +21,40 @@
   <div id="root" style="text-align: center">
     <h1 style="margin-bottom: 20vh; margin-top: 10vh; font-family:Arial, Helvetica, sans-serif">Sign Up</h1>
     <div id="form">
-      <form style="font-size: 2em">
+      <div style="font-size: 2em">
         <div style="margin-bottom: 5vh">
+          <form action="./signUp">
+          <div id="username">
           <input style="width: 90vw; max-width: 300px; border-radius: 4px; border: 1px solid black; cursor: pointer;"
-            type="text" id="Username" placeholder="Username"><br>
+            type="text" id="Username" name="username" placeholder="Username"><br>
+          </div>
+
+          <div id="password">
           <input
             style="width: 90vw; max-width: 300px; margin-top: 1px; border-radius: 4px; border: 1px solid black; cursor: pointer;"
-            type="password" id="Password" placeholder="Password"><br>
+            type="password" id="Password" name="password" placeholder="Password"><br>
+          </div>
+          <div id="verifyPassword">
           <input
             style="width: 90vw; max-width: 300px; margin-top: 1px; border-radius: 4px; border: 1px solid black; cursor: pointer;"
-            type="password" id="verify Password" placeholder="Verify Password"><br>
+            type="password" name="verifyPassword" placeholder="Verify Password"><br>
+          </div>
         </div>
-        <button class="button" onclick="register()"
+
+        <div id="submitBtn">
+        <input class="button" type="submit" value="Sign Up" id="signUpBtn" onclick="window.location.href='/home'"
           style="margin-bottom: 4vh; background-color: #ff1e07; color: white; text-decoration: none; border-radius: 4px; border: 1px solid black; cursor: pointer"
-          type="button">Sign Up</button>
-      </form>
+          type="button">
+        </div>
+        </form>
+      </div>
       <button class="button" onclick="window.location.href='/'"
         style="margin-bottom: 2vh; background-color: #ff1e07; color: white; text-decoration: none; border-radius: 4px; border: 1px solid black; cursor: pointer"
         type="button">Already have an account? Log
         in.</button>
     </div>
   </div>
-  <script>
-    function register() {
-      var newUser = {};
-      var uname = document.getElementById("Username").value;
-      var pword = document.getElementById("Password").value;
-      var v_password = document.getElementById("verify Password").value;
-
-      if (v_password === pword) {
-        $.getJSON('user.json', function (data) {
-          newUser = {
-            username: uname,
-            password: pword,
-            logged: "true",
-            preferences: [
-              {
-                sport: "football",
-                check: "checked",
-                display: "on"
-              },
-              {
-                sport: "basketball",
-                check: "checked",
-                display: "on"
-              },
-              {
-                sport: "baseball",
-                check: "checked",
-                display: "on"
-              }
-            ],
-            playbooks: [
-              {
-                name: "default",
-                selected: "true",
-                plays: [
-                  {
-                    name: "default",
-                    selected: "true",
-                    imgsrc: "img/footballField.jpg",
-                    positions: [
-                      {
-                        top: "50%",
-                        left: "28%",
-                        color: "red"
-                      },
-                      {
-                        top: "50%",
-                        left: "40%",
-                        color: "red"
-                      },
-                      {
-                        top: "50%",
-                        left: "45%",
-                        color: "red"
-                      },
-                      {
-                        top: "30%",
-                        left: "40%",
-                        color: "red"
-                      },
-                      {
-                        top: "50%",
-                        left: "55%",
-                        color: "red"
-                      },
-                      {
-                        top: "50%",
-                        left: "60%",
-                        color: "red"
-                      },
-                      {
-                        top: "50%",
-                        left: "67%",
-                        color: "red"
-                      },
-                      {
-                        top: "45%",
-                        left: "65%",
-                        color: "red"
-                      },
-                      {
-                        top: "40%",
-                        left: "55%",
-                        color: "red"
-                      },
-                      {
-                        top: "40%",
-                        left: "45%",
-                        color: "red"
-                      },
-                      {
-                        top: "30%",
-                        left: "60%",
-                        color: "red"
-                      },
-                      {
-                        top: "65%",
-                        left: "50%",
-                        color: "blue"
-                      },
-                      {
-                        top: "60%",
-                        left: "55%",
-                        color: "blue"
-                      },
-                      {
-                        top: "60%",
-                        left: "45%",
-                        color: "blue"
-                      },
-                      {
-                        top: "60%",
-                        left: "60%",
-                        color: "blue"
-                      },
-                      {
-                        top: "60%",
-                        left: "40%",
-                        color: "blue"
-                      },
-                      {
-                        top: "60%",
-                        left: "28%",
-                        color: "blue"
-                      },
-                      {
-                        top: "60%",
-                        left: "67%",
-                        color: "blue"
-                      },
-                      {
-                        top: "65%",
-                        left: "65%",
-                        color: "blue"
-                      },
-                      {
-                        top: "65%",
-                        left: "62%",
-                        color: "blue"
-                      },
-                      {
-                        top: "70%",
-                        left: "50%",
-                        color: "blue"
-                      },
-                      {
-                        top: "60%",
-                        left: "50%",
-                        color: "blue"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-          data.users.unshift(newUser);
-          console.log(data);
-        });
-      } else {
-        alert("Passwords must match.");
-      }
-    }
-  </script>
+  
 </body>
 
 </html>
