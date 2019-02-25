@@ -12,6 +12,18 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
     integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossOrigin="anonymous" />
   <title>Home</title>
+  <script src="js/analytics.js"></script>
+  <script>
+    (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date(); a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-135010880-1', 'auto');
+    ga('send', 'pageview');
+  </script>
 </head>
 
 <body>
@@ -27,7 +39,7 @@
         <option value="" selected disabled hidden>Choose a map</option>
         {{#each users}}
         {{#each preferences}}
-            <option value="/{{sport}}Main" {{display}}>{{sport}}</option>
+        <option value="/{{sport}}Main" {{display}}>{{sport}}</option>
         {{/each}}
         {{/each}}
         <option value="/home">+ Add Map</option>
@@ -35,7 +47,7 @@
     </div>
 
     <div>
-      <button type="button" class="button" 
+      <button type="button" class="button"
         style="height: 3em;width: 6em;margin-bottom: 6vh;margin-bottom: 4vh; background-color: #ff1e07; color: white; text-decoration: none; border-radius: 4px; border: 1px solid black; cursor: pointer;"
         onclick="window.location.href=maps.value">Get Started</button>
     </div>
@@ -48,8 +60,7 @@
       <label style="padding-left: 8vw" />
       <form action="/out">
         <input type="submit" id="logout" value="Logout"
-          style="height: 2em;width: 4em;margin-bottom: 2vh; background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black; cursor: pointer;"
-          >
+          style="height: 2em;width: 4em;margin-bottom: 2vh; background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black; cursor: pointer;">
       </form>
     </div>
   </div>
