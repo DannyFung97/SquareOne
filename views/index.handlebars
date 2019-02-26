@@ -24,15 +24,74 @@
     ga('create', 'UA-135010880-1', 'auto');
     ga('send', 'pageview');
   </script>
+  <style>
+.active, .playbooks:hover {
+  background-color: #555;
+}
+
+.playbooks {
+  background-color: #555;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.content {
+  border-color: black;
+  border-style: hidden solid solid solid ;
+  width: 100%;
+  color: white;
+  font-size: 15px;
+  text-align: left;
+  display: none;
+  overflow: hidden;
+  background-color: #DBD8D8;
+}
+</style>
 </head>
 
 <body>
   <div id="root" class="logo" style="text-align: center;font-size: 2em; font-family:Arial, Helvetica, sans-serif">
     <img src="img/SquareOne_Logo.jpg" width="72vw" height="72vh" style="margin-top: 10vh" />
-    <h1 style="margin-bottom: 15vh">SquareOne</h1>
+    <h1 style="margin-bottom: 5vh">SquareOne</h1>
     <script src=""></script>
 
+    <div class="folder" style="padding-left: 10vw; padding-right: 10vw; padding-bottom: 10vh">
+      <h3 style="text-align: left">Playbooks</h3>
+      {{#each users}}
+      {{#each playbooks}}
+      <button class="playbooks">{{name}}</button>
+      {{#each plays}}
+      <button class="content" onclick=window.location.href="/footballMain">{{name}}</button>
+      {{/each}}
+      {{/each}}
+      {{/each}}
+    </div>
+    <script>
+    var coll = document.getElementsByClassName("playbooks");
+    var i;
 
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        
+        if (content.style.display === "block") {
+          content.style.display = "none";
+        } else {
+          content.style.display = "block";
+        } 
+    
+      });
+    }
+    </script>
+
+    <!--
     <div class="container">
 
       <select id="maps" style="margin-bottom: 20vh;width: 10em;border-radius: 4px; border: 1px solid black;">
@@ -45,11 +104,18 @@
         <option value="/home">+ Add Map</option>
       </select>
     </div>
+    
 
     <div>
       <button type="button" class="button"
         style="height: 3em;width: 6em;margin-bottom: 6vh;margin-bottom: 4vh; background-color: #ff1e07; color: white; text-decoration: none; border-radius: 4px; border: 1px solid black; cursor: pointer;"
         onclick="window.location.href=maps.value">Get Started</button>
+    </div>
+    -->
+    <div>
+      <button type="button" class="button"
+        style="height: 3em;width: 6em;margin-bottom: 6vh;margin-bottom: 4vh; background-color: #ff1e07; color: white; text-decoration: none; border-radius: 4px; border: 1px solid black; cursor: pointer;"
+        onclick="window.location.href='/footballMain'">+ New Play</button>
     </div>
     <div>
       <label>
