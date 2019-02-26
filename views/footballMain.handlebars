@@ -106,7 +106,7 @@
     var play_index = "";
     var canDraw = false;
 
-    function spawnPlayers() {/*
+    function spawnPlayers() {
       $.getJSON('user.json', function (data) {
         console.log(data.users[0]);
         console.log("spawn: " + data.users[0].logged);
@@ -132,7 +132,7 @@
         });
       }).error(function () {
         console.log('error');
-      });*/
+      });
     }
 
     function savePlay(n) {
