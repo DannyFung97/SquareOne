@@ -3,8 +3,6 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut Icon0" href="%PUBLIC_URL%/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="theme-color" content="#000000">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
@@ -14,6 +12,7 @@
   <script src="http://code.jquery.com/jquery.min.js"></script>
   <script src="http://code.jquery.com/ui/1.8.17/jquery-ui.min.js"></script>
   <script src="js/analytics.js"></script>
+  <script src="js/footballFetch.js"></script>
   <style type="text/css">
     #myCanvas {
       background-image: "img/footballField.jpg";
@@ -106,7 +105,9 @@
     var play_index = "";
     var canDraw = false;
 
-    function spawnPlayers() {/*
+    function spawnPlayers() {
+          document.getElementById('field').innerHTML = spawn();
+/*
       $.getJSON('user.json', function (data) {
         console.log(data.users[0]);
         console.log("spawn: " + data.users[0].logged);
@@ -239,9 +240,9 @@
       });
 
       $.getJSON('user.json', function (data) {
-        console.log("user_index: "+user_index);
-        console.log("playbook_index: "+playbook_index);
-        console.log("play_index: "+play_index);
+        console.log("user_index: " + user_index);
+        console.log("playbook_index: " + playbook_index);
+        console.log("play_index: " + play_index);
 
         drawImage(data.users[user_index].playbooks[playbook_index].plays[play_index].imgsrc);
       }).error(function () {
@@ -495,9 +496,7 @@
       document.getElementById("collapsible").style.display = "none";
     }
   </script>
-  <script src="/js/footballFetch.js" type="text/javacript"></script>
   <script>
-    document.getElementById('field').innerHTML = spawn();
   </script>
 </body>
 

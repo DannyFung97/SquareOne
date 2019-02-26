@@ -6,34 +6,6 @@ exports.view = function (req, res) {
   res.render('login', data);
 };
 
-exports.fetch = function (req, res) {
-  fetch.user = data;
-  console.log("hey yall");
-  console.log(fetch.user);
-  res.render('footballMain', data);
-  // for (var i = 0; i < data.users.length; i++) {
-  //   console.log(i);
-  //   if (data.users[i].logged == "true" && data.users[i].preferences[0].check == "checked") {
-  //     user_index = i;
-  //     for (var j = 0; j < data.users[i].playbooks.length; j++) {
-  //       if (data.users[i].playbooks[j].selected == "true") {
-  //         playbook_index = j;
-  //         for (var k = 0; k < data.users[i].playbooks[j].plays.length; k++) {
-  //           if (data.users[i].playbooks[j].plays[k].selected == "true") {
-  //             play_index = k;
-  //             for (var l = 0; l < data.users[i].playbooks[j].plays[k].positions.length; l++) {
-  //               document.getElementById("field").innerHTML += '<div class="player" id="player' + l + '" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: ' + data.users[i].playbooks[j].plays[k].positions[l].top + '; left: ' + data.users[i].playbooks[j].plays[k].positions[l].left + '"><img src="img/circle.png" style="width:25px; height:25px; background: ' + data.users[i].playbooks[j].plays[k].positions[l].color + '; border-radius:12.5px"><div style="color: white; transform: translate(0, -100%)">' + l + '</div></div>';
-  //               document.dragElement(document.getElementById("player" + l));
-  //               document.dragElementTouch(document.getElementById("player" + l));
-  //             }
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
-}
-
 exports.update = function (request, response) {
   console.log("OLD");
   console.log(data);
