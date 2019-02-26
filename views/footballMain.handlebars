@@ -22,6 +22,10 @@
     }
   </style>
   <script>
+    var dataArr = [];
+    var user_index = "";
+    var playbook_index = "";
+    var play_index = "";
     (function (i, s, o, g, r, a, m) {
       i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
         (i[r].q = i[r].q || []).push(arguments)
@@ -39,7 +43,7 @@
   <div id="topButtons" style="text-align: center; z-index: 9999">
     <button id="backButton" type="button" onclick="window.location.href='/home'"><img src="img/backButton.png"
         height="55px" width="55px"></button>
-    <select id="playbook" name="playbook" onchange="getPlays()"
+    <select id="playbook" name="playbook"
       style="background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
       <option value="" selected disabled hidden>Select Playbook</option>
       {{#each users}}
@@ -50,7 +54,7 @@
     </select>
     <select id="play" name="play"
       style="background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
-      <option value="" selected disabled hidden>Select Play</option>
+      <option value="0" selected disabled hidden>Select Play</option>
     </select>
 
     <script type="text/javascript">
@@ -65,7 +69,7 @@
 
 
       function getPlays() {
-        $.getJSON('user.json', function (data) {
+        /*$.getJSON('user.json', function (data) {
           $.each(data.users, function (i, user) {
             $.each(user.playbooks, function (j, playbook) {
               $.each(playbook.plays, function (k, play) {
@@ -78,8 +82,13 @@
           });
         }).error(function () {
           console.log('error');
-        });
-
+        });*/
+        for (var i = 0; i < dataArr.users[user_index].playbooks[playbook_index].plays.length; i++) {
+          $("#play").append($("<option/>", {
+            value: i,
+            text: dataArr.users[user_index].playbooks[playbook_index].plays[i].name
+          }));
+        }
       }           
     </script>
 
@@ -101,13 +110,11 @@
     var mousePressed = false;
     var lastX, lastY;
     var ctx;
-    var user_index = "";
-    var playbook_index = "";
-    var play_index = "";
     var canDraw = false;
 
     function spawnPlayers() {
       $.getJSON('user.json', function (data) {
+        dataArr = data;
         console.log(data.users[0]);
         console.log("spawn: " + data.users[0].logged);
         $.each(data.users, function (i, user) {
@@ -130,16 +137,36 @@
             });
           }
         });
+        getPlays();
+
       }).error(function () {
         console.log('error');
       });
     }
 
+    function spawnDiffPlayers(value) {
+      console.log("value for play_index: "+play_index+" value for spawn: " + value);
+      console.log(dataArr);
+      drawImage(dataArr.users[user_index].playbooks[playbook_index].plays[value].imgsrc);
+      for (var i = 0; i <= 21; i++) {
+        console.log("spawning");
+        document.getElementById('player'+i).num = dataArr.users[user_index].playbooks[playbook_index].plays[value].positions[i].num;
+        document.getElementById('player'+i).style.top = dataArr.users[user_index].playbooks[playbook_index].plays[value].positions[i].top;
+        document.getElementById('player'+i).style.left = dataArr.users[user_index].playbooks[playbook_index].plays[value].positions[i].left;
+        document.getElementById('player'+i).style.color = dataArr.users[user_index].playbooks[playbook_index].plays[value].positions[i].color;
+        console.log("old num"+dataArr.users[user_index].playbooks[playbook_index].plays[play_index].positions[i].num+" new num: " + dataArr.users[user_index].playbooks[playbook_index].plays[value].positions[i].num);
+        console.log("old top"+dataArr.users[user_index].playbooks[playbook_index].plays[play_index].positions[i].top+" new top: " + dataArr.users[user_index].playbooks[playbook_index].plays[value].positions[i].top);
+        console.log("old left"+dataArr.users[user_index].playbooks[playbook_index].plays[play_index].positions[i].left+" new left: " + dataArr.users[user_index].playbooks[playbook_index].plays[value].positions[i].left);
+        console.log("old color"+dataArr.users[user_index].playbooks[playbook_index].plays[play_index].positions[i].color+" new color: " + dataArr.users[user_index].playbooks[playbook_index].plays[value].positions[i].color);
+
+      }
+      play_index = value;
+    }
+
     function savePlay(n) {
-      var newPlay = {};
-      newPlay = {
+      var newPlay = {
         name: "",
-        selected: "true",
+        selected: "false",
         imgsrc: "",
         positions: []
       }
@@ -153,14 +180,17 @@
       newPlay.name = n;
 
       for (var i = 0; i <= 21; i++) {
-        var pos = $("#player" + i).position();
+        var pos = $("#player" + i);
         var p = {
+          num: "",
           top: "",
           left: "",
           color: ""
         }
-        p.top = pos.top;
-        p.left = pos.left;
+        p.num = dataArr.users[user_index].playbooks[playbook_index].plays[play_index].positions[i].num;
+        console.log("num of p: "+p.num);
+        p.top = pos.position().top + "px";
+        p.left = pos.position().left + "px";
         if (i > 10) {
           p.color = "blue";
         }
@@ -169,17 +199,12 @@
         }
         newPlay.positions.push(p);
       }
-
-
-
-      $.getJSON('user.json', function (data) {
-        console.log(data.users[user_index].playbooks[playbook_index].plays.length);
-        var newArr = data.users[user_index].playbooks[playbook_index].plays;
-        newArr.push(newPlay);
-        data.users[user_index].playbooks[playbook_index].plays = newArr;
-        console.log(data.users[user_index].playbooks[playbook_index].plays.length);
-
-      });
+      dataArr.users[user_index].playbooks[playbook_index].plays.push(newPlay);
+      $("#play").append($("<option/>", {
+        value: dataArr.users[user_index].playbooks[playbook_index].plays.length - 1,
+        text: newPlay.name
+      }));
+      console.log(dataArr);
     }
 
     function InitThis() {
@@ -239,11 +264,11 @@
       });
 
       $.getJSON('user.json', function (data) {
-        console.log("user_index: "+user_index);
-        console.log("playbook_index: "+playbook_index);
-        console.log("play_index: "+play_index);
+        console.log("user_index: " + user_index);
+        console.log("playbook_index: " + playbook_index);
+        console.log("play_index: " + play_index);
 
-        drawImage(data.users[user_index].playbooks[playbook_index].plays[play_index].imgsrc);
+        drawImage(dataArr.users[user_index].playbooks[playbook_index].plays[play_index].imgsrc);
       }).error(function () {
         console.log('error');
       });
@@ -251,7 +276,6 @@
 
     function drawImage(imgsrc) {
       var image = new Image();
-      console.log(imgsrc);
       image.src = imgsrc;
       $(image).load(function () {
         ctx.drawImage(image, 0, 0, 450, 800);
@@ -325,7 +349,6 @@
     }
 
     function dragElement(elmnt) {
-      console.log("Able to now drag element " + elmnt.id);
       var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
       if (document.getElementById(elmnt.id)) {
         /* if present, the header is where you move the DIV from:*/
@@ -373,7 +396,6 @@
     }
 
     function dragElementTouch(elmnt) {
-      console.log(elmnt.id + ", touch");
       var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
       if (document.getElementById(elmnt.id)) {
         /* if present, the header is where you move the DIV from:*/
@@ -457,19 +479,24 @@
 
   <script>
     function saveWindow() {
-      $.getJSON('user.json', function (data) {
-        var c = confirm("Do you wish to save?");
-        if (c) {
-          var next = data.users[user_index].playbooks[playbook_index].plays.length + 1;
-          var n = prompt("Please enter a name for this play", "Play_" + next);
-          if (!data.users[user_index].playbooks[playbook_index].plays.includes(n)) {
-            savePlay(n);
-          }
-          else {
-            alert("A play with that name exists already, please try another.");
+      var c = confirm("Do you wish to save?");
+      if (c) {
+        var dupe = false;
+        var next = dataArr.users[user_index].playbooks[playbook_index].plays.length + 1;
+        var n = prompt("Please enter a name for this play", "Play_" + next);
+        for (var i = 0; i < dataArr.users[user_index].playbooks[playbook_index].plays.length; i++) {
+          console.log(n + " compared with " + dataArr.users[user_index].playbooks[playbook_index].plays[i].name);
+          if (dataArr.users[user_index].playbooks[playbook_index].plays[i].name == n) {
+            dupe = true;
           }
         }
-      });
+        if (dupe) {
+          alert("A play with that name exists already, please try another.");
+        }
+        else {
+          savePlay(n);
+        }
+      }
     }
 
     function eraserWindow() {
@@ -478,7 +505,11 @@
   </script>
   <script>
     function playWindow() {
-      confirm("Placeholder for play button functionality");
+      var target = $('#play').val();
+      dataArr.users[user_index].playbooks[playbook_index].plays[play_index].selected = "false";
+      dataArr.users[user_index].playbooks[playbook_index].plays[target].selected = "true";
+      console.log(dataArr);
+      spawnDiffPlayers(target);
     }
   </script>
   <script>
