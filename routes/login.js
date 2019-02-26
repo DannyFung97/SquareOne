@@ -1,4 +1,5 @@
 var data = require('../public/user.json');
+var fetch = require('../public/js/footballFetch');
 
 exports.view = function(req, res){
   console.log(data);
@@ -18,3 +19,4 @@ exports.update = function (request, response) {
   console.log(data);
   response.render('index', data);
 };
+

@@ -5,6 +5,7 @@
 var user = require('../public/user.json');
 
 exports.view = function(req, res){
+  console.log("home info:");
   console.log(user);
   res.render('index', user);
 };

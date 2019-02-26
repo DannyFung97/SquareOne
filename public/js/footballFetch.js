@@ -1,7 +1,4 @@
-var data = require('../public/user.json')
-
-function fetch() {
-    console.log());
+$(document).ready(function () {
     $.getJSON('user.json', function (data) {
         console.log(data.users[0]);
         console.log("spawn: " + data.users[0].logged);
@@ -28,4 +25,4 @@ function fetch() {
     }).error(function () {
         console.log('error');
     });
-}
+});

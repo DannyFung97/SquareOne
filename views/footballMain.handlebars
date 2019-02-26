@@ -23,10 +23,10 @@
   </style>
   <script>
     (function (i, s, o, g, r, a, m) {
-    i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-      (i[r].q = i[r].q || []).push(arguments)
-    }, i[r].l = 1 * new Date(); a = s.createElement(o),
-      m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+      i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
     })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
     ga('create', 'UA-135010880-1', 'auto');
@@ -106,39 +106,33 @@
     var play_index = "";
     var canDraw = false;
 
-    function spawnPlayers() {
+    function spawnPlayers() {/*
       $.getJSON('user.json', function (data) {
         console.log(data.users[0]);
         console.log("spawn: " + data.users[0].logged);
         $.each(data.users, function (i, user) {
-            if (user.logged == "true" && user.preferences[0].check == "checked") {
-                user_index = i;
-                $.each(user.playbooks, function (j, playbook) {
-                    if (playbook.selected == "true") {
-                        playbook_index = j;
-                        $.each(playbook.plays, function (k, play) {
-                            if (play.selected == "true") {
-                                play_index = k;
-                                $.each(play.positions, function (l, position) {
-                                    $("#field").append('<div class="player" id="player' + l + '" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: ' + position.top + '; left: ' + position.left + '"><img src="img/circle.png" style="width:25px; height:25px; background: ' + position.color + '; border-radius:12.5px"><div style="color: white; transform: translate(0, -100%)">'+l+'</div></div>');
-                                    dragElement(document.getElementById("player" + l));
-                                    dragElementTouch(document.getElementById("player" + l));
-                                });
-                            }
-                        });
-                    }
+          if (user.logged == "true" && user.preferences[0].check == "checked") {
+            user_index = i;
+            $.each(user.playbooks, function (j, playbook) {
+              if (playbook.selected == "true") {
+                playbook_index = j;
+                $.each(playbook.plays, function (k, play) {
+                  if (play.selected == "true") {
+                    play_index = k;
+                    $.each(play.positions, function (l, position) {
+                      $("#field").append('<div class="player" id="player' + l + '" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: ' + position.top + '; left: ' + position.left + '"><img src="img/circle.png" style="width:25px; height:25px; background: ' + position.color + '; border-radius:12.5px"><div style="color: white; transform: translate(0, -100%)">' + l + '</div></div>');
+                      dragElement(document.getElementById("player" + l));
+                      dragElementTouch(document.getElementById("player" + l));
+                    });
+                  }
                 });
-            }
+              }
+            });
+          }
         });
-    }).error(function () {
+      }).error(function () {
         console.log('error');
-    });
-      var el = document.getElementById("field");
-      if (el.addEventListener) {
-        el.addEventListener("load", fetch, false);
-      } else {
-        el.attachEvent('load', fetch);
-      }
+      });*/
     }
 
     function savePlay(n) {
@@ -245,9 +239,9 @@
       });
 
       $.getJSON('user.json', function (data) {
-        console.log(user_index);
-        console.log(playbook_index);
-        console.log(play_index);
+        console.log("user_index: "+user_index);
+        console.log("playbook_index: "+playbook_index);
+        console.log("play_index: "+play_index);
 
         drawImage(data.users[user_index].playbooks[playbook_index].plays[play_index].imgsrc);
       }).error(function () {
@@ -501,6 +495,7 @@
       document.getElementById("collapsible").style.display = "none";
     }
   </script>
+  <script src="/js/footballFetch.js"></script>
 </body>
 
 </html>
