@@ -32,6 +32,18 @@
     ga('create', 'UA-135010880-1', 'auto');
     ga('send', 'pageview');
   </script>
+  <script type="text/javascript">
+    function zoomOutMobile() {
+      var viewport = document.querySelector('meta[name="viewport"]');
+
+      if ( viewport ) {
+        viewport.content = "initial-scale=1";
+        viewport.content = "width=device-width";
+      }
+    }
+
+    zoomOutMobile();
+  </script>
 </head>
 
 <body onload="InitThis()">
