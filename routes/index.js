@@ -10,6 +10,12 @@ exports.view = function(req, res){
   res.render('index', user);
 };
 
+exports.viewAlt = function(req, res){
+  console.log("home info:");
+  console.log(user);
+  res.render('indexAlt', user);
+};
+
 exports.update = function (request, response) {
   console.log("OLD");
   console.log(user);

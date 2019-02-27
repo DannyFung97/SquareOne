@@ -43,9 +43,11 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/home', index.view);
+app.get('/homeAlt', index.viewAlt);
 app.get('/settings', settings.view);
 app.get('/', login.view);
 app.get('/footballMain', footballMain.view);
+app.get('/footballMainAlt', footballMain.viewAlt);
 app.get('/basketballMain', basketballMain.view);
 app.get('/baseballMain', baseballMain.view);
 app.get('/register', register.view);
