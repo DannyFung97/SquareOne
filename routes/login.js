@@ -16,6 +16,9 @@ exports.update = function (request, response) {
       break;
   }
 
+  console.log(request.query.username);
+  console.log(request.query.password);
+  if(request.query.username && request.query.password){
   console.log("IM IN LOGIN UPDATE");
       var uname = request.query.username;
       var pword = request.query.password;
@@ -197,5 +200,6 @@ exports.update = function (request, response) {
   console.log("NEW");
   console.log(data);
   response.render('index', data);
+}
 };
 

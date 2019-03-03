@@ -192,9 +192,8 @@ exports.update = function(request,response) {
           user.users.pop();
           user.users.push(newUser);
           console.log(user);
-
+          response.render('index', user);
       } else {
         //alert("Passwords must match.");
       }
-      response.render('index', user);
   }
