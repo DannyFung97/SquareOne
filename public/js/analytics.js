@@ -7,9 +7,15 @@ $(document).ready(function () {
  */
 function initializePage() {
 	$("#redoButton").click(redoClick);
+	$("#undoButton").click(undoClick);
 }
 
 function redoClick(e) {
 	e.preventDefault();
 	ga('send', 'event', 'redo', 'click');
+} 
+
+function undoClick(e) {
+	e.preventDefault();
+	ga('send', 'event', 'undo', 'click');
 }
