@@ -152,46 +152,46 @@
       }
 
       var c = document.getElementById('myCanvas');
-    if (c) {
-      var dataURL = c.toDataURL('image/jpg');
-      newPlay.imgsrc = dataURL;
-    }
+      if (c) {
+        var dataURL = c.toDataURL('image/jpg');
+        newPlay.imgsrc = dataURL;
+      }
 
-    newPlay.name = n;
+      newPlay.name = n;
 
-    for (var i = 0; i <= 21; i++) {
-      var pos = $("#player" + i);
-      var p = {
-        num: "",
-        top: "",
-        left: "",
-        color: ""
+      for (var i = 0; i <= 21; i++) {
+        var pos = $("#player" + i);
+        var p = {
+          num: "",
+          top: "",
+          left: "",
+          color: ""
+        }
+        p.num = dataArr.users[user_index].playbooks[playbook_index].plays[play_index].positions[i].num;
+        console.log("num of p: " + p.num);
+        p.top = pos.position().top + "px";
+        p.left = pos.position().left + "px";
+        if (i > 10) {
+          p.color = "blue";
+        }
+        else {
+          p.color = "red";
+        }
+        newPlay.positions.push(p);
       }
-      p.num = dataArr.users[user_index].playbooks[playbook_index].plays[play_index].positions[i].num;
-      console.log("num of p: " + p.num);
-      p.top = pos.position().top + "px";
-      p.left = pos.position().left + "px";
-      if (i > 10) {
-        p.color = "blue";
+      if (overwrite) {
+        dataArr.users[user_index].playbooks[playbook_index].plays.splice(index, 1);
+        $('.play option').each(function () {
+          $(this).remove();
+        });
+        getPlays(dataArr.users[user_index].playbooks[playbook_index].plays.length);
       }
-      else {
-        p.color = "red";
-      }
-      newPlay.positions.push(p);
-    }
-    if (overwrite) {
-      dataArr.users[user_index].playbooks[playbook_index].plays.splice(index, 1);
-      $('.play option').each(function () {
-        $(this).remove();
-      });
-      getPlays(dataArr.users[user_index].playbooks[playbook_index].plays.length);
-    }
-    dataArr.users[user_index].playbooks[playbook_index].plays.push(newPlay);
-    $("#play").append($("<option/>", {
-      value: dataArr.users[user_index].playbooks[playbook_index].plays.length - 1,
-      text: newPlay.name
-    }));
-    console.log(dataArr);
+      dataArr.users[user_index].playbooks[playbook_index].plays.push(newPlay);
+      $("#play").append($("<option/>", {
+        value: dataArr.users[user_index].playbooks[playbook_index].plays.length - 1,
+        text: newPlay.name
+      }));
+      console.log(dataArr);
     }
 
     function InitThis() {
@@ -243,11 +243,15 @@
       $('#myCanvas').on('touchend', function (e) {
         //console.log("drawing ended");
         mousePressed = false;
-        cPush();
+        if(canDraw){
+          cPush();
+        }
       });
       $('#myCanvas').on('touchcancel', function (e) {
         mousePressed = false;
-        cPush();
+        if(canDraw){
+          cPush();
+        }
       });
 
       $.getJSON('user.json', function (data) {
@@ -317,6 +321,7 @@
     function cPush() {
       //console.log("Pushed");
       cStep++;
+      console.log("c: " + cStep);
       if (cStep < cPushArray.length) { cPushArray.length = cStep; }
       cPushArray.push(document.getElementById('myCanvas').toDataURL());
       //document.title = cStep + ":" + cPushArray.length;
@@ -330,6 +335,7 @@
       //console.log("Undo");
       if (cStep > 0) {
         cStep--;
+        console.log("c: " + cStep);
         var canvasPic = new Image();
         canvasPic.src = cPushArray[cStep];
         canvasPic.onload = function () { ctx.drawImage(canvasPic, 0, 0); }
@@ -347,6 +353,7 @@
       //console.log("redo");
       if (cStep < cPushArray.length - 1) {
         cStep++;
+        console.log("c: " + cStep);
         var canvasPic = new Image();
         canvasPic.src = cPushArray[cStep];
         canvasPic.onload = function () { ctx.drawImage(canvasPic, 0, 0); }
@@ -362,7 +369,6 @@
 
     function dragElement(elmnt) {
       if (!canDraw) {
-        console.log("dragElement");
         var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
         if (document.getElementById(elmnt.id)) {
           /* if present, the header is where you move the DIV from:*/
@@ -375,7 +381,6 @@
 
       function dragMouseDown(e) {
         if (!canDraw) {
-          console.log("Dragging " + elmnt.id);
           e = e || window.event;
           e.preventDefault();
           // get the mouse cursor position at startup:
@@ -389,7 +394,6 @@
 
       function elementDrag(e) {
         if (!canDraw) {
-          console.log("Dragging mouse")
           e = e || window.event;
           e.preventDefault();
           // calculate the new cursor position:
@@ -406,7 +410,6 @@
       function closeDragElement() {
         if (!canDraw) {
           /* stop moving when mouse button is released:*/
-          console.log("Element let go mouse");
           document.onmouseup = null;
           document.onmousemove = null;
           document.onmousedown = null;
@@ -416,7 +419,6 @@
 
     function dragElementTouch(elmnt) {
       if (!canDraw) {
-        console.log("dragElementTouch");
         var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
         if (document.getElementById(elmnt.id)) {
           /* if present, the header is where you move the DIV from:*/
