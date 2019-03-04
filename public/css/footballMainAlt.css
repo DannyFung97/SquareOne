@@ -76,12 +76,12 @@
 	}
 
 	#topButtons2{
-		width: 20%;
+		width: 0%;
 		height: 100%;
 		position: fixed;
 	}
 
-#backButton{
+#backButton2{
 	top:0 ;
 	left: 0;
 	position: fixed;
@@ -91,17 +91,17 @@
 	float: left;
 }
 
-#playbook{
+#playbook2{
 	top: 30%;
 	left: 0;
 	position: fixed;
 }
-#play{
+#play2{
 	top: 40%;
 	left: 0;
 	position: fixed;
 }
-#saveButton{
+#saveButton2{
 	top: 0;
 	right: 0;
 	position: fixed;
@@ -111,7 +111,7 @@
 	float: right;
 }
 
-#playButton{
+#playButton2{
 	top: 50%;
 	left:0;
 	position: fixed;
@@ -133,19 +133,19 @@
 #bottomButtons2{
 	right: 0;
 	top: 0;
-	width: 20%;
+	width: 0%;
 	height: 100%;
 	float: right;
 	position: fixed;
 
 }
-#upButton{
+#upButton2{
 	padding: 0;
 	border: none;
 	background: none;
 }
 
-#undoButton{
+#undoButton2{
 	left: 0;
 	position: fixed;
 	padding: 0;
@@ -156,7 +156,7 @@
 	bottom: 0;
 }
 
-#redoButton{
+#redoButton2{
 	right: 0;
 	/*bottom: 10px;*/
 	padding: 0;
@@ -171,7 +171,7 @@
 	height:100vh;
 }
 
-#drawButton{
+#drawButton2{
 	
 	top: 30%;
 	padding: 0;
@@ -179,17 +179,19 @@
 	background: none;
 	position: fixed;
 	float: right;
+	right: 1%;
 	/*bottom: 50%;
 	left: 50%;*/
 } 
-#selWidth{
+#selWidth2{
 	top: 50%;
 	position: fixed;
 	float: right;
+	right: 1%;
 	
 }
 
-#selColor{
+#selColor2{
 	top: 60%;
 	position: fixed;
 	float:right;
