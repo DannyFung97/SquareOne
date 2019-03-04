@@ -3,19 +3,28 @@
 
 <head>
   <!-- Google Analytics Content Experiment code -->
-<script>function utmx_section(){}function utmx(){}(function(){var
-k='190466101-2',d=document,l=d.location,c=d.cookie;
-if(l.search.indexOf('utm_expid='+k)>0)return;
-function f(n){if(c){var i=c.indexOf(n+'=');if(i>-1){var j=c.
-indexOf(';',i);return escape(c.substring(i+n.length+1,j<0?c.
-length:j))}}}var x=f('__utmx'),xx=f('__utmxx'),h=l.hash;d.write(
-'<sc'+'ript src="'+'http'+(l.protocol=='https:'?'s://ssl':
-'://www')+'.google-analytics.com/ga_exp.js?'+'utmxkey='+k+
-'&utmx='+(x?x:'')+'&utmxx='+(xx?xx:'')+'&utmxtime='+new Date().
-valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
-'" type="text/javascript" charset="utf-8"><\/sc'+'ript>')})();
-</script><script>utmx('url','A/B');</script>
-<!-- End of Google Analytics Content Experiment code -->
+  <script>function utmx_section() { } function utmx() { } (function () {
+      var
+        k = '190466101-2', d = document, l = d.location, c = d.cookie;
+      if (l.search.indexOf('utm_expid=' + k) > 0) return;
+      function f(n) {
+        if (c) {
+          var i = c.indexOf(n + '='); if (i > -1) {
+            var j = c.
+              indexOf(';', i); return escape(c.substring(i + n.length + 1, j < 0 ? c.
+                length : j))
+          }
+        }
+      } var x = f('__utmx'), xx = f('__utmxx'), h = l.hash; d.write(
+        '<sc' + 'ript src="' + 'http' + (l.protocol == 'https:' ? 's://ssl' :
+          '://www') + '.google-analytics.com/ga_exp.js?' + 'utmxkey=' + k +
+        '&utmx=' + (x ? x : '') + '&utmxx=' + (xx ? xx : '') + '&utmxtime=' + new Date().
+          valueOf() + (h ? '&utmxhash=' + escape(h.substr(1)) : '') +
+        '" type="text/javascript" charset="utf-8"><\/sc' + 'ript>')
+    })();
+  </script>
+  <script>utmx('url', 'A/B');</script>
+  <!-- End of Google Analytics Content Experiment code -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut Icon0" href="%PUBLIC_URL%/favicon.ico">
@@ -33,6 +42,38 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
       background-image: "img/footballField.jpg";
       background-size: 100% 100%;
       background-position: center;
+    }
+
+    #undoButton:active {
+      transform: translateY(4px);
+    }
+
+    #redoButton:active {
+      transform: translateY(4px);
+    }
+
+    #saveButton:active {
+      transform: translateY(4px);
+    }
+
+    #playButton:active {
+      transform: translateY(4px);
+    }
+
+    #drawButton:active {
+      transform: translateY(4px);
+    }
+
+    #backButton:active {
+      transform: translateY(4px);
+    }
+
+    .button {
+      position: relative;
+      -webkit-transition-duration: 0.4s;
+      /* Safari */
+      transition-duration: 0.4s;
+      overflow: hidden;
     }
   </style>
   <script>
@@ -55,7 +96,7 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
 <body background="img/backgroundPic.png" style="background-size: cover;" onload="InitThis()">
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
   <div id="topButtons" style="text-align: center; z-index: 9999; height: 0px">
-    <button id="backButton" type="button" onclick="window.location.href='/home'"><img src="img/backButton.png"
+    <button id="backButton" class="button" type="button" onclick="window.location.href='/home'"><img src="img/backButton.png"
         height="55px" width="55px"></button>
     <select id="playbook" name="playbook"
       style="background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
@@ -92,9 +133,9 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
     </script>
 
 
-    <button id="playButton" type="button" onclick="playWindow()"><img src="img/playButton.png" height="55px"
+    <button class="button" id="playButton" type="button" onclick="playWindow()"><img src="img/playButton.png" height="55px"
         width="55px"></button>
-    <button id="saveButton" type="button" onclick="saveWindow()"><img src="img/saveButton.jpg" height="55px"
+    <button class="button" id="saveButton" type="button" onclick="saveWindow()"><img src="img/saveButton.jpg" height="55px"
         width="55px"></button>
   </div>
 
@@ -230,7 +271,7 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
         if (mousePressed) {
           //console.log("mouse drawing ended");
           mousePressed = false;
-          if(canDraw){
+          if (canDraw) {
             cPush();
           }
         }
@@ -239,7 +280,7 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
         if (mousePressed) {
           //console.log("mouse left");
           mousePressed = false;
-          if(canDraw){
+          if (canDraw) {
             cPush();
           }
         }
@@ -261,13 +302,13 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
       $('#myCanvas').on('touchend', function (e) {
         //console.log("drawing ended");
         mousePressed = false;
-        if(canDraw){
+        if (canDraw) {
           cPush();
         }
       });
       $('#myCanvas').on('touchcancel', function (e) {
         mousePressed = false;
-        if(canDraw){
+        if (canDraw) {
           cPush();
         }
       });
@@ -497,9 +538,9 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
   </script>
 
   <div id="bottomButtons" style="text-align: center; z-index: 9999">
-    <button id="redoButton" onclick="cRedo()" type="button"><img src="img/redoButton.png" height="55px"
+    <button class="button" id="redoButton" onclick="cRedo()" type="button"><img src="img/redoButton.png" height="55px"
         width="55px"></button>
-    <button id="undoButton" onclick="cUndo()" type="button"><img src="img/undoButton.png" height="55px"
+    <button class="button" id="undoButton" onclick="cUndo()" type="button"><img src="img/undoButton.png" height="55px"
         width="55px"></button>
     <button id="drawButton" type="button" onclick="setCanDraw()"><img src="img/pencil.jpg" height="55px"
         width="55px"></button>
