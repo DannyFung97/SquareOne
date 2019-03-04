@@ -43,11 +43,9 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/home', index.view);
-app.get('/homeAlt', index.viewAlt);
 app.get('/settings', settings.view);
 app.get('/', login.view);
 app.get('/footballMain', footballMain.view);
-app.get('/footballMainAlt', footballMain.viewAlt);
 app.get('/basketballMain', basketballMain.view);
 app.get('/baseballMain', baseballMain.view);
 app.get('/register', register.view);
@@ -56,6 +54,17 @@ app.get('/updateSettings', updateSettings.update);
 app.get('/loginUpdate', login.update);
 app.get('/out', index.update);
 app.get('/signUp', signUp.update);
+
+app.get('/homeAlt', index.viewAlt);
+app.get('/settingsAlt', settings.viewAlt);
+app.get('/viewAlt', login.viewAlt);
+app.get('/footballMainAlt', footballMain.viewAlt);
+app.get('/registerAlt', register.viewAlt);
+app.get('/recoveryAlt', recovery.viewAlt);
+app.get('/updateSettingsAlt', updateSettings.updateAlt);
+app.get('/loginUpdateAlt', login.updateAlt);
+app.get('/outAlt', index.updateAlt);
+app.get('/signUpAlt', signUp.updateAlt);
 
 // Example route
 // app.get('/users', user.list);

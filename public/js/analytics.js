@@ -6,10 +6,10 @@ $(document).ready(function () {
  * Function that is called when the document is ready.
  */
 function initializePage() {
-	//$(".likeBtn").click(projectClick);
+	$("#redoButton").click(redoClick);
 }
 
-function projectClick(e) {
+function redoClick(e) {
 	e.preventDefault();
-	//ga("send", "event", 'like', 'click');
+	ga('send', 'event', 'redo', 'click');
 }
