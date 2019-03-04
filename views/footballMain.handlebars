@@ -216,14 +216,18 @@
         if (mousePressed) {
           //console.log("mouse drawing ended");
           mousePressed = false;
-          cPush();
+          if(canDraw){
+            cPush();
+          }
         }
       });
       $('#myCanvas').mouseleave(function (e) {
         if (mousePressed) {
           //console.log("mouse left");
           mousePressed = false;
-          cPush();
+          if(canDraw){
+            cPush();
+          }
         }
       });
 
