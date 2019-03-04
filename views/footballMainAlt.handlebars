@@ -45,6 +45,7 @@
       }
     }
     zoomOutMobile();
+    screen.orientation.lock("landscape-primary");
   </script>
 </head>
 
@@ -414,7 +415,9 @@
       }
     }
   </script>
-
+  <div id="overlay">
+    <h3 id="msg">Flip Screen Horizontally</h3>
+  </div>
 
 
   <div id="topButtons" style="text-align: center; z-index: 9999">
