@@ -45,106 +45,13 @@
       }
     }
     zoomOutMobile();
+    screen.orientation.lock("landscape-primary");
   </script>
 </head>
 
 <body background="img/backgroundPic.png" style="background-size: cover;" onload="InitThis()">
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-  <div id="topButtons" style="text-align: center; z-index: 9999">
-    <button id="backButton" type="button" onclick="window.location.href='/home'"><img src="img/backButton.png"
-        height="55px" width="55px"></button>
-    <select id="playbook" name="playbook"
-      style="background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
-      <option value="" selected disabled hidden>Select Playbook</option>
-      {{#each users}}
-      {{#each playbooks}}
-      <option value="{{name}}">{{name}}</option>
-      {{/each}}
-      {{/each}}
-    </select>
-    <select id="play" name="play"
-      style="background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
-      <option value="" selected disabled hidden>Select Play</option>
-    </select>
-
-    <script type="text/javascript">
-      var $playbook = $('#playbook'),
-        $play = $('#play'),
-        $options = $play.find('option');
-
-      $playbook.on('change', function () {
-        $play.html($options.filter('[value="' + this.value + '"]'));
-      }).trigger('change');
-
-
-
-      function getPlays() {
-        /*$.getJSON('user.json', function (data) {
-          $.each(data.users, function (i, user) {
-            $.each(user.playbooks, function (j, playbook) {
-              $.each(playbook.plays, function (k, play) {
-                $("#play").append($("<option/>", {
-                  value: playbook.name,
-                  text: play.name
-                }));
-              });
-            });
-          });
-        }).error(function () {
-          console.log('error');
-        });*/
-        for (var i = 0; i < dataArr.users[user_index].playbooks[playbook_index].plays.length; i++) {
-          $("#play").append($("<option/>", {
-            value: i,
-            text: dataArr.users[user_index].playbooks[playbook_index].plays[i].name
-          }));
-        }
-      }           
-    </script>
-
-
-    <button id="playButton" type="button" onclick="playWindow()"><img src="img/playButton.png" height="55px"
-        width="55px"></button>
-    <button id="saveButton" type="button" onclick="saveWindow()"><img src="img/saveButton.jpg" height="55px"
-        width="55px"></button>
-  </div>
-  
-  <div id="topButtons2" style="text-align: center; z-index: 9999">
-    <button id="backButton" type="button" onclick="window.location.href='/home'"><img src="img/backButton.png"
-        height="55px" width="55px"></button>
-    <select id="playbook" name="playbook" onchange="getPlays()"
-      style="background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
-      <option value="" selected disabled hidden>Select Playbook</option>
-      {{#each users}}
-      {{#each playbooks}}
-      <option value="{{name}}">{{name}}</option>
-      {{/each}}
-      {{/each}}
-    </select>
-    <select id="play" name="play"
-      style="background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
-      <option value="" selected disabled hidden>Select Play</option>
-    </select>
-
-    <button id="playButton" type="button" onclick="playWindow()"><img src="img/playButton.png" height="55px"
-        width="55px"></button>
-
-    <button id="undoButton" onclick="cUndo()" type="button"><img src="img/undoButton.png" height="55px"
-        width="55px"></button>
-  </div>
-
- 
-
-
-
-  <div id="container" style="text-align:center" style="position: relative">
-    <div id="field">
-      <div align="center">
-        <canvas id="myCanvas" width="440vw" height="800vh" style="border:2px solid black"></canvas>
-      </div>
-    </div>
-  </div>
-  <script type="text/javascript">
+   <script type="text/javascript">
     var mousePressed = false;
     var lastX, lastY;
     var ctx;
@@ -242,6 +149,11 @@
         value: dataArr.users[user_index].playbooks[playbook_index].plays.length - 1,
         text: newPlay.name
       }));
+      
+      $("#play2").append($("<option/>", {
+        value: dataArr.users[user_index].playbooks[playbook_index].plays.length - 1,
+        text: newPlay.name
+      }));
       console.log(dataArr);
     }
 
@@ -320,6 +232,10 @@
         cPush();
       });
     }
+    
+
+
+
 
     function setCanDraw() {
       canDraw = !canDraw;
@@ -331,6 +247,16 @@
       }
     }
 
+    function setCanDraw2() {
+      canDraw = !canDraw;
+      if (!canDraw) {
+        document.getElementById("drawButton2").setAttribute("style", "filter: saturate(1);");
+      }
+      else {
+        document.getElementById("drawButton2").setAttribute("style", "filter: saturate(3);");
+      }
+    }
+
     function Draw(x, y, isDown, e) {
       if (isDown && canDraw) {
         e = e || window.event;
@@ -338,6 +264,8 @@
         ctx.beginPath();
         ctx.strokeStyle = $('#selColor').val();
         ctx.lineWidth = $('#selWidth').val();
+        ctx.strokeStyle = $('#selColor2').val();
+        ctx.lineWidth = $('#selWidth2').val();
         ctx.lineJoin = "round";
         ctx.moveTo(lastX, lastY);
         ctx.lineTo(x, y);
@@ -487,6 +415,109 @@
       }
     }
   </script>
+  <div id="overlay">
+    <h3 id="msg">Flip Screen Horizontally</h3>
+  </div>
+
+
+  <div id="topButtons" style="text-align: center; z-index: 9999">
+    <button id="backButton" type="button" onclick="window.location.href='/home'"><img src="img/backButton.png"
+        height="55px" width="55px"></button>
+    <select id="playbook" name="playbook" onchange="getPlays()"
+      style="background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
+      <option value="" selected disabled hidden>Select Playbook</option>
+      {{#each users}}
+      {{#each playbooks}}
+      <option value="{{name}}">{{name}}</option>
+      {{/each}}
+      {{/each}}
+    </select>
+    <select id="play" name="play"
+      style="background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
+      <option value="" selected disabled hidden>Select Play</option>
+    </select>
+
+    <script type="text/javascript">
+      var $playbook = $('#playbook'),
+        $play = $('#play'),
+        $options = $play.find('option');
+
+      $playbook.on('change', function () {
+        $play.html($options.filter('[value="' + this.value + '"]'));
+      }).trigger('change');
+
+      var $playbook2 = $('#playbook2'),
+        $play2 = $('#play2'),
+        $options2 = $play2.find('option');
+
+      $playbook2.on('change', function () {
+        $play2.html($options.filter('[value="' + this.value + '"]'));
+      }).trigger('change');
+
+
+      function getPlays() {
+        for (var i = 0; i < dataArr.users[user_index].playbooks[playbook_index].plays.length; i++) {
+          $("#play").append($("<option/>", {
+            value: i,
+            text: dataArr.users[user_index].playbooks[playbook_index].plays[i].name
+          }));
+        }
+        
+      }
+      function getPlays2() {
+        for (var i = 0; i < dataArr.users[user_index].playbooks[playbook_index].plays.length; i++) {
+          $("#play2").append($("<option/>", {
+            value: i,
+            text: dataArr.users[user_index].playbooks[playbook_index].plays[i].name
+          }));
+        } 
+      }                      
+    </script>
+
+
+    <button id="playButton" type="button" onclick="playWindow()"><img src="img/playButton.png" height="55px"
+        width="55px"></button>
+    <button id="saveButton" type="button" onclick="saveWindow()"><img src="img/saveButton.jpg" height="55px"
+        width="55px"></button>
+  </div>
+  
+  <div id="topButtons2" style="text-align: center; z-index: 9999">
+    <button id="backButton2" type="button" onclick="window.location.href='/homeAlt'"><img src="img/backButton.png"
+        height="55px" width="55px"></button>
+    <select id="playbook2" name="playbook" onchange="getPlays2()"
+      style="background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
+      <option value="" selected disabled hidden>Select Playbook</option>
+      {{#each users}}
+      {{#each playbooks}}
+      <option value="{{name}}">{{name}}</option>
+      {{/each}}
+      {{/each}}
+    </select>
+    <select id="play2" name="play"
+      style="background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
+      <option value="" selected disabled hidden>Select Play</option>
+     
+    </select>
+
+    <button id="playButton2" type="button" onclick="playWindow2()"><img src="img/playButton.png" height="55px"
+        width="55px"></button>
+
+    <button id="undoButton2" onclick="cUndo()" type="button"><img src="img/undoButton.png" height="55px"
+        width="55px"></button>
+  </div>
+
+ 
+
+
+
+  <div id="container" style="text-align:center" style="position: relative">
+    <div id="field">
+      <div align="center">
+        <canvas id="myCanvas" width="440vw" height="800vh" style="border:2px solid black"></canvas>
+      </div>
+    </div>
+  </div>
+  
 
   <div id="bottomButtons" style="text-align: center; z-index: 9999">
     <button id="redoButton" onclick="cRedo()" type="button"><img src="img/redoButton.png" height="55px"
@@ -516,11 +547,11 @@
   </div>
 
    <div id="bottomButtons2" style="text-align: center; z-index: 9999">
-    <button id="saveButton" type="button" onclick="saveWindow()"><img src="img/saveButton.jpg" height="55px"
+    <button id="saveButton2" type="button" onclick="saveWindow()"><img src="img/saveButton.jpg" height="55px"
         width="55px"></button>
-     <button id="drawButton" type="button" onclick="setCanDraw()"><img src="img/pencil.jpg" height="55px"
+     <button id="drawButton2" type="button" onclick="setCanDraw2()"><img src="img/pencil.jpg" height="55px"
         width="55px"></button>
-    <select id="selColor"
+    <select id="selColor2"
       style="background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
       <option value="black">black</option>
       <option value="blue">blue</option>
@@ -529,7 +560,7 @@
       <option value="yellow" selected="selected">yellow</option>
       <option value="gray">gray</option>
     </select>
-    <select id="selWidth"
+    <select id="selWidth2"
       style="background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
       <option value="1">1</option>
       <option value="3">3</option>
@@ -538,13 +569,20 @@
       <option value="9" selected="selected">9</option>
       <option value="11">11</option>
     </select>
-     <button id="redoButton" onclick="cRedo()" type="button"><img src="img/redoButton.png" height="55px"
+     <button id="redoButton2" onclick="cRedo()" type="button"><img src="img/redoButton.png" height="55px"
         width="55px"></button>
   </div>
 
   <script>
     function saveWindow() {
+      var playBookSelected = $('#playbook2').val();
+      console.log(playBookSelected);
+      if(playBookSelected == ""){
+        confirm("Please Select Playbook");
+      }
+      else{
       var c = confirm("Do you wish to save?");
+      
       if (c) {
         var dupe = false;
         var next = dataArr.users[user_index].playbooks[playbook_index].plays.length + 1;
@@ -563,6 +601,7 @@
         }
       }
     }
+    }
 
     function eraserWindow() {
       confirm("Placeholder for eraser functionality");
@@ -571,6 +610,13 @@
   <script>
     function playWindow() {
       var target = $('#play').val();
+      dataArr.users[user_index].playbooks[playbook_index].plays[play_index].selected = "false";
+      dataArr.users[user_index].playbooks[playbook_index].plays[target].selected = "true";
+      console.log(dataArr);
+      spawnDiffPlayers(target);
+    }
+    function playWindow2() {
+      var target = $('#play2').val();
       dataArr.users[user_index].playbooks[playbook_index].plays[play_index].selected = "false";
       dataArr.users[user_index].playbooks[playbook_index].plays[target].selected = "true";
       console.log(dataArr);
