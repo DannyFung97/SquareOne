@@ -2,20 +2,29 @@
 <html lang="en">
 
 <head>
-<!-- Google Analytics Content Experiment code -->
-<script>function utmx_section(){}function utmx(){}(function(){var
-k='190466101-6',d=document,l=d.location,c=d.cookie;
-if(l.search.indexOf('utm_expid='+k)>0)return;
-function f(n){if(c){var i=c.indexOf(n+'=');if(i>-1){var j=c.
-indexOf(';',i);return escape(c.substring(i+n.length+1,j<0?c.
-length:j))}}}var x=f('__utmx'),xx=f('__utmxx'),h=l.hash;d.write(
-'<sc'+'ript src="'+'http'+(l.protocol=='https:'?'s://ssl':
-'://www')+'.google-analytics.com/ga_exp.js?'+'utmxkey='+k+
-'&utmx='+(x?x:'')+'&utmxx='+(xx?xx:'')+'&utmxtime='+new Date().
-valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
-'" type="text/javascript" charset="utf-8"><\/sc'+'ript>')})();
-</script><script>utmx('url','A/B');</script>
-<!-- End of Google Analytics Content Experiment code -->
+  <!-- Google Analytics Content Experiment code -->
+  <script>function utmx_section() { } function utmx() { } (function () {
+      var
+        k = '190466101-6', d = document, l = d.location, c = d.cookie;
+      if (l.search.indexOf('utm_expid=' + k) > 0) return;
+      function f(n) {
+        if (c) {
+          var i = c.indexOf(n + '='); if (i > -1) {
+            var j = c.
+              indexOf(';', i); return escape(c.substring(i + n.length + 1, j < 0 ? c.
+                length : j))
+          }
+        }
+      } var x = f('__utmx'), xx = f('__utmxx'), h = l.hash; d.write(
+        '<sc' + 'ript src="' + 'http' + (l.protocol == 'https:' ? 's://ssl' :
+          '://www') + '.google-analytics.com/ga_exp.js?' + 'utmxkey=' + k +
+        '&utmx=' + (x ? x : '') + '&utmxx=' + (xx ? xx : '') + '&utmxtime=' + new Date().
+          valueOf() + (h ? '&utmxhash=' + escape(h.substr(1)) : '') +
+        '" type="text/javascript" charset="utf-8"><\/sc' + 'ript>')
+    })();
+  </script>
+  <script>utmx('url', 'A/B');</script>
+  <!-- End of Google Analytics Content Experiment code -->
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -152,16 +161,28 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
   <div id="topButtons" style="text-align: center; z-index: 999; height: 0px">
     <button id="backButton" class="button" type="button" onclick="window.location.href='/home'"><img
         src="img/backButton.png" height="55px" width="55px"></button>
-    <select id="playbook" name="playbook" onchange="refreshPlays()"
+    <select id="playbook" name="playbook" class="playbook" onchange="refreshPlays()"
       style="margin-top: 10px; background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
       <option value="" selected disabled hidden>Select Playbook</option>
     </select>
-    <select id="play" name="play" class="play"
+    <select id="play" name="play" class="play" onchange="selectFunc()"
       style="margin-top: 10px; background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
       <option value="" selected disabled hidden>Select Play</option>
     </select>
 
     <script type="text/javascript">
+
+      function selectFunc() {
+        var newPlaybookVal = $('#playbook').val();
+        var emergedPlayVal = $('#play').val();
+        if (playbook_index == newPlaybookVal && emergedPlayVal == play_index) {
+          document.getElementById('playButton').setAttribute("style", "filter: grayscale(100%);");
+        }
+        else {
+          document.getElementById('playButton').setAttribute("style", "filter: grayscale(0%);");
+        }
+      }
+
       function getPlaybooks(playbooks_len) {
         for (var i = 0; i < playbooks_len; i++) {
           $("#playbook").append($("<option/>", {
@@ -176,22 +197,21 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
           $(this).remove();
         });
         var newPlaybookVal = $('#playbook').val();
-        var emergedPlayVal = $('#play').val();
-        for (var i = 0; i < dataArr.users[user_index].playbooks[newPlaybookVal].plays.length; i++) {
-          console.log("working " + i);
-          $("#play").append($("<option/>", {
-            value: i,
-            text: dataArr.users[user_index].playbooks[newPlaybookVal].plays[i].name
-          }));
+        if (newPlaybookVal != "") {
+          for (var i = 0; i < dataArr.users[user_index].playbooks[newPlaybookVal].plays.length; i++) {
+            $("#play").append($("<option/>", {
+              value: i,
+              text: dataArr.users[user_index].playbooks[newPlaybookVal].plays[i].name
+            }));
+          }
+          var emergedPlayVal = $('#play').val();
+          if (playbook_index == newPlaybookVal && emergedPlayVal == play_index) {
+            document.getElementById('playButton').setAttribute("style", "filter: grayscale(100%);");
+          }
+          else {
+            document.getElementById('playButton').setAttribute("style", "filter: grayscale(0%);");
+          }
         }
-        console.log(newPlaybookVal+" "+playbook_index);
-        console.log(emergedPlayVal+" "+play_index);
-        if(playbook_index == newPlaybookVal && emergedPlayVal == play_index){
-          document.getElementById('playButton').setAttribute("style", "filter: grayscale(100%);");
-        }
-        else{
-          document.getElementById('playButton').setAttribute("style", "filter: grayscale(0%);");
-       }
       }
 
       function getPlays(plays_len) {
@@ -239,7 +259,7 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
                   if (play.selected == "true") {
                     play_index = k;
                     $.each(play.positions, function (l, position) {
-                      $("#field").append('<div class="player" id="player' + l + '" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: ' + position.top + '; left: ' + position.left + '"><img src="img/circle.png" style="width:25px; height:25px; background: ' + position.color + '; border-radius:12.5px"><div id="tag" style="color: white; transform: translate(0, -100%)">' + position.num + '</div></div>');
+                      $("#field").append('<div class="player" value="' + position.num + '" id="player' + l + '" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: ' + position.top + '; left: ' + position.left + '"><img src="img/circle.png" style="width:25px; height:25px; background: ' + position.color + '; border-radius:12.5px"><div id="tag" style="color: white; transform: translate(0, -100%)">' + position.num + '</div></div>');
                       dragElement(document.getElementById("player" + l));
                       dragElementTouch(document.getElementById("player" + l));
                     });
@@ -267,58 +287,6 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
       }
       play_index = play;
       playbook_index = playbook;
-    }
-
-    function savePlay(n, overwrite, index, playbook_i) {
-      var newPlay = {
-        name: "",
-        selected: "false",
-        imgsrc: "",
-        positions: []
-      }
-
-      var c = document.getElementById('myCanvas');
-      if (c) {
-        var dataURL = c.toDataURL('image/jpg');
-        newPlay.imgsrc = dataURL;
-      }
-
-      newPlay.name = n;
-
-      for (var i = 0; i <= 21; i++) {
-        var pos = $("#player" + i);
-        var p = {
-          num: "",
-          top: "",
-          left: "",
-          color: ""
-        }
-        p.num = dataArr.users[user_index].playbooks[playbook_index].plays[play_index].positions[i].num;
-        p.top = pos.position().top + "px";
-        p.left = pos.position().left + "px";
-        if (i > 10) {
-          p.color = "blue";
-        }
-        else {
-          p.color = "red";
-        }
-        newPlay.positions.push(p);
-      }
-      if (overwrite) {
-        dataArr.users[user_index].playbooks[playbook_i].plays.splice(index, 1);
-        $('.play option').each(function () {
-          $(this).remove();
-        });
-        getPlays(dataArr.users[user_index].playbooks[playbook_i].plays.length);
-      }
-      dataArr.users[user_index].playbooks[playbook_i].plays.push(newPlay);
-      if (playbook_i == playbook_index) {
-        $("#play").append($("<option/>", {
-          value: dataArr.users[user_index].playbooks[playbook_i].plays.length - 1,
-          text: newPlay.name
-        }));
-      }
-      $('#overlay').fadeOut();
     }
 
     function InitThis() {
@@ -657,10 +625,6 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
         var i = 0;
         var dupe = false;
         var next = dataArr.users[user_index].playbooks.length + 1;
-        $('#save_playbook option').each(function () {
-          $(this).remove();
-        });
-        $('#overlay').fadeOut();
         var n = prompt("Please enter a name for this playbook", "Playbook_" + next);
         if (n == null) {
           return;
@@ -683,6 +647,10 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
             value: dataArr.users[user_index].playbooks.length - 1,
             text: newPlaybook.name
           }));
+          $("#save_playbook").append($("<option/>", {
+            value: dataArr.users[user_index].playbooks.length - 1,
+            text: newPlaybook.name
+          }));
           saveWindowHelper(dataArr.users[user_index].playbooks.length - 1);
         }
         else {
@@ -690,22 +658,18 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
         }
       }
       if (phase == 3) {
-        $('#overlay').fadeOut();
         saveWindowHelper($('#save_playbook').val());
-        $('#save_playbook option').each(function () {
-          $(this).remove();
-        });
       }
       if (phase == 4) {
+        $('#overlay').fadeOut();
         $('#save_playbook option').each(function () {
           $(this).remove();
         });
-        $('#overlay').fadeOut();
       }
     }
 
     function saveWindowHelper(playbook_value) {
-      console.log("playbook_value: " + playbook_value);
+      console.log("saveWindowHelper(): "+playbook_value);
       var i = 0;
       var dupe = false;
       var next = dataArr.users[user_index].playbooks[playbook_value].plays.length + 1;
@@ -726,6 +690,66 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
       else {
         recursiveSave(n, next, i, playbook_value);
       }
+    }
+
+    function savePlay(n, overwrite, index, playbook_i) {
+      console.log("savePlay(): "+playbook_i);
+      var newPlay = {
+        name: "",
+        selected: "false",
+        imgsrc: "",
+        positions: []
+      }
+
+      var c = document.getElementById('myCanvas');
+      if (c) {
+        var dataURL = c.toDataURL('image/jpg');
+        newPlay.imgsrc = dataURL;
+      }
+
+      newPlay.name = n;
+
+      for (var i = 0; i <= 21; i++) {
+        var pos = $("#player" + i);
+        var p = {
+          num: "",
+          top: "",
+          left: "",
+          color: ""
+        }
+        //p.num = dataArr.users[user_index].playbooks[playbook_index].plays[play_index].positions[i].num;
+        p.num = pos.value;
+        p.top = pos.position().top + "px";
+        p.left = pos.position().left + "px";
+        if (i > 10) {
+          p.color = "blue";
+        }
+        else {
+          p.color = "red";
+        }
+        newPlay.positions.push(p);
+      }
+      if (overwrite) {
+        dataArr.users[user_index].playbooks[playbook_i].plays.splice(index, 1);
+        $('.play option').each(function () {
+          $(this).remove();
+        });
+        getPlays(dataArr.users[user_index].playbooks[playbook_i].plays.length);
+      }
+      dataArr.users[user_index].playbooks[playbook_i].plays.push(newPlay);
+      var playbookVal = $("#playbook").val();
+      if (playbook_i == playbook_index && playbookVal != "") {
+        $("#play").append($("<option/>", {
+          value: dataArr.users[user_index].playbooks[playbook_i].plays.length - 1,
+          text: newPlay.name
+        }));
+      }
+      $('#overlay').fadeOut();
+      $('#save_playbook option').each(function () {
+        $(this).remove();
+      });
+      refreshPlays();
+      console.log(dataArr.users[user_index]);
     }
 
     function saveWindow() {
@@ -758,7 +782,25 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
     function recursiveSavePlaybook(n, next, i) {
       var a = confirm("Overwrite playbook?");
       if (a) {
-        savePlaybook(n, true, i);
+        dataArr.users[user_index].playbooks.splice(i, 1);
+        var newPlaybook = {
+          name: n,
+          selected: "false",
+          plays: []
+        }
+        dataArr.users[user_index].playbooks.push(newPlaybook);
+        $('#playbook option').each(function () {
+          $(this).remove();
+        });
+        $('#save_playbook option').each(function () {
+          $(this).remove();
+        });
+        getPlaybooks(dataArr.users[user_index].playbooks.length);
+        $("#save_playbook").append($("<option/>", {
+          value: dataArr.users[user_index].playbooks.length - 1,
+          text: newPlaybook.name
+        }));
+        saveWindowHelper($('#save_playbook').val());
       }
       else {
         var nn = prompt("Please enter a different name for this playbook", "Playbook_" + next);
@@ -775,11 +817,15 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
             plays: []
           }
           dataArr.users[user_index].playbooks.push(newPlaybook);
+          $("#playbook").append($("<option/>", {
+            value: dataArr.users[user_index].playbooks.length - 1,
+            text: newPlaybook.name
+          }));
           $("#save_playbook").append($("<option/>", {
             value: dataArr.users[user_index].playbooks.length - 1,
             text: newPlaybook.name
           }));
-          savePlay(nn, false, null, dataArr.users[user_index].playbooks.length - 1);
+          saveWindowHelper($('#save_playbook').val());
         }
       }
     }
