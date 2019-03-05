@@ -153,6 +153,17 @@
     ga('create', 'UA-135010880-1', 'auto');
     ga('send', 'pageview');
   </script>
+  <script type="text/javascript">
+    function zoomOutMobile() {
+      var viewport = document.querySelector('meta[name="viewport"]');
+      if ( viewport ) {
+        viewport.content = "initial-scale=1";
+        viewport.content = "width=device-width";
+      }
+    }
+    zoomOutMobile();
+    screen.orientation.lock("landscape-primary");
+  </script>
 </head>
 
 <body background="img/backgroundPic.png" style="background-size: cover;" onload="InitThis()">
