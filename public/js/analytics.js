@@ -8,7 +8,7 @@ $(document).ready(function () {
 function initializePage() {
 	//$("#redoButton").click(redoClick);
 	//$("#undoButton").click(undoClick);
-	$("#playButton").click(playClick);
+	$("#saveButton").click(saveClick);
 }
 
 //function redoClick(e) {
@@ -21,8 +21,8 @@ function initializePage() {
 //	ga('send', 'event', 'undo', 'click');
 //}
 
-function playClick(e) {
-	console.log("IN PLAY CLICK");
+function saveClick(e) {
+	console.log("IN SAVE CLICK");
 	e.preventDefault();
-	ga('send', 'event', 'load/show', 'click');
+	ga('send', 'event', 'save', 'click');
 }
