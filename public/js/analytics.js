@@ -8,6 +8,7 @@ $(document).ready(function () {
 function initializePage() {
 	$("#redoButton").click(redoClick);
 	$("#undoButton").click(undoClick);
+	$("#playButton").click(playClick);
 }
 
 function redoClick(e) {
@@ -18,4 +19,9 @@ function redoClick(e) {
 function undoClick(e) {
 	e.preventDefault();
 	ga('send', 'event', 'undo', 'click');
+}
+
+function playClick(e) {
+	e.preventDefault();
+	ga('send', 'event', 'load/show', 'click');
 }
