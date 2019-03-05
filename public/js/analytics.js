@@ -22,6 +22,7 @@ function initializePage() {
 //}
 
 function playClick(e) {
+	console.log("IN PLAY CLICK");
 	e.preventDefault();
 	ga('send', 'event', 'load/show', 'click');
 }
