@@ -44,14 +44,6 @@
       transform: translateY(4px);
     }
 
-    .button {
-      position: relative;
-      -webkit-transition-duration: 0.4s;
-      /* Safari */
-      transition-duration: 0.4s;
-      overflow: hidden;
-    }
-
     #undoButton2:active {
       transform: translateY(4px);
     }
@@ -74,6 +66,74 @@
 
     #backButton2:active {
       transform: translateY(4px);
+    }
+    
+    #continue:active {
+      transform: translateY(7px);
+    }
+
+    #create:active {
+      transform: translateY(7px);
+    }
+
+    #cancel:active {
+      transform: translateY(7px);
+    }
+
+    #saveOverlay {
+      font-family: Arial, Helvetica, sans-serif;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0px;
+      left: 0px;
+      z-index: 1000;
+    }
+
+    .button {
+      -webkit-transition-duration: 0.4s;
+      /* Safari */
+      transition-duration: 0.4s;
+      overflow: hidden;
+    }
+
+    #saveBox {
+      font-size: 1.5em;
+      top: 50%;
+      margin-top: 2em;
+    }
+
+    #save_playbook {
+      width: 10em;
+      border-radius: 4px;
+      border: 1px solid black;
+    }
+
+    #continue {
+      background-color: #ff1e07;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      border: 1px solid black;
+      cursor: pointer;
+    }
+
+    #create {
+      background-color: #ff1e07;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      border: 1px solid black;
+      cursor: pointer;
+    }
+
+    #cancel {
+      margin-bottom: 2vh;
+      background-color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      border: 1px solid black;
+      cursor: pointer;
     }
   </style>
   <script>
@@ -107,10 +167,13 @@
 <body background="img/backgroundPic.png" style="background-size: cover;" onload="InitThis()">
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
    <script type="text/javascript">
+    var cPushArray = new Array();
+    var cStep = -1;
     var mousePressed = false;
     var lastX, lastY;
     var ctx;
     var canDraw = false;
+    var firstSave = true;
 
     function spawnPlayers() {
       $.getJSON('user.json', function (data) {
@@ -137,33 +200,28 @@
             });
           }
         });
-        getPlays();
+        getPlaybooks2(dataArr.users[user_index].playbooks.length);
 
       }).error(function () {
         console.log('error');
       });
     }
 
-    function spawnDiffPlayers(value) {
-      console.log("value for play_index: "+play_index+" value for spawn: " + value);
-      console.log(dataArr);
-      drawImage(dataArr.users[user_index].playbooks[playbook_index].plays[value].imgsrc);
+    function spawnDiffPlayers(playbook, play) {
+      var loc = dataArr.users[user_index].playbooks[playbook].plays[play];
+      drawImage(loc.imgsrc);
       for (var i = 0; i <= 21; i++) {
         console.log("spawning");
-        document.getElementById('player'+i).num = dataArr.users[user_index].playbooks[playbook_index].plays[value].positions[i].num;
-        document.getElementById('player'+i).style.top = dataArr.users[user_index].playbooks[playbook_index].plays[value].positions[i].top;
-        document.getElementById('player'+i).style.left = dataArr.users[user_index].playbooks[playbook_index].plays[value].positions[i].left;
-        document.getElementById('player'+i).style.color = dataArr.users[user_index].playbooks[playbook_index].plays[value].positions[i].color;
-        console.log("old num"+dataArr.users[user_index].playbooks[playbook_index].plays[play_index].positions[i].num+" new num: " + dataArr.users[user_index].playbooks[playbook_index].plays[value].positions[i].num);
-        console.log("old top"+dataArr.users[user_index].playbooks[playbook_index].plays[play_index].positions[i].top+" new top: " + dataArr.users[user_index].playbooks[playbook_index].plays[value].positions[i].top);
-        console.log("old left"+dataArr.users[user_index].playbooks[playbook_index].plays[play_index].positions[i].left+" new left: " + dataArr.users[user_index].playbooks[playbook_index].plays[value].positions[i].left);
-        console.log("old color"+dataArr.users[user_index].playbooks[playbook_index].plays[play_index].positions[i].color+" new color: " + dataArr.users[user_index].playbooks[playbook_index].plays[value].positions[i].color);
-
+        document.getElementById('player' + i).num = loc.positions[i].num;
+        document.getElementById('player' + i).style.top = loc.positions[i].top;
+        document.getElementById('player' + i).style.left = loc.positions[i].left;
+        document.getElementById('player' + i).style.color = loc.positions[i].color;
       }
-      play_index = value;
+      play_index = play;
+      playbook_index = playbook;
     }
 
-    function savePlay(n) {
+    function savePlay(n, overwrite, index, playbook_i) {
       var newPlay = {
         name: "",
         selected: "false",
@@ -188,7 +246,6 @@
           color: ""
         }
         p.num = dataArr.users[user_index].playbooks[playbook_index].plays[play_index].positions[i].num;
-        console.log("num of p: "+p.num);
         p.top = pos.position().top + "px";
         p.left = pos.position().left + "px";
         if (i > 10) {
@@ -199,20 +256,30 @@
         }
         newPlay.positions.push(p);
       }
-      dataArr.users[user_index].playbooks[playbook_index].plays.push(newPlay);
-      $("#play").append($("<option/>", {
-        value: dataArr.users[user_index].playbooks[playbook_index].plays.length - 1,
-        text: newPlay.name
-      }));
-      
-      $("#play2").append($("<option/>", {
-        value: dataArr.users[user_index].playbooks[playbook_index].plays.length - 1,
-        text: newPlay.name
-      }));
-      console.log(dataArr);
+      if (overwrite) {
+        dataArr.users[user_index].playbooks[playbook_i].plays.splice(index, 1);
+        $('.play2 option').each(function () {
+          $(this).remove();
+        });
+        getPlays2(dataArr.users[user_index].playbooks[playbook_i].plays.length);
+      }
+      dataArr.users[user_index].playbooks[playbook_i].plays.push(newPlay);
+      if (playbook_i == playbook_index) {
+        $("#play2").append($("<option/>", {
+          value: dataArr.users[user_index].playbooks[playbook_i].plays.length - 1,
+          text: newPlay.name
+        }));
+      }
+      $('saveOverlay').fadeOut();
     }
 
-    function InitThis() {
+     function InitThis() {
+      var tempPlay = $("#play2").val();
+      var tempPlaybook = $("#playbook2").val();
+      if (tempPlay == "" && tempPlaybook == tempPlay) {
+        document.getElementById('playButton2').setAttribute("style", "filter: grayscale(100%);");
+      }
+      $('#saveOverlay').fadeOut();
       spawnPlayers();
 
       ctx = document.getElementById('myCanvas').getContext("2d");
@@ -266,20 +333,17 @@
         //console.log("drawing ended");
         mousePressed = false;
         if (canDraw) {
-            cPush();
+          cPush();
         }
       });
       $('#myCanvas').on('touchcancel', function (e) {
         mousePressed = false;
         if (canDraw) {
-            cPush();
+          cPush();
         }
       });
 
       $.getJSON('user.json', function (data) {
-        console.log("user_index: " + user_index);
-        console.log("playbook_index: " + playbook_index);
-        console.log("play_index: " + play_index);
 
         drawImage(dataArr.users[user_index].playbooks[playbook_index].plays[play_index].imgsrc);
       }).error(function () {
@@ -300,10 +364,6 @@
       });
     }
     
-
-
-
-
     function setCanDraw() {
       canDraw = !canDraw;
       if (!canDraw) {
@@ -509,12 +569,12 @@
   <div id="overlay">
     <h3 id="msg">Flip Screen Horizontally</h3>
   </div>
+  <div id="saveOverlay" style="background-color: white;"></div>
 
-
-  <div id="topButtons" style="text-align: center; z-index: 9999">
+  <div id="topButtons" style="text-align: center; z-index: 999">
     <button id="backButton" type="button" onclick="window.location.href='/homeAlt'"><img src="img/backButton.png"
         height="55px" width="55px"></button>
-    <select id="playbook" name="playbook" onchange="getPlays()"
+    <select id="playbook" name="playbook" 
       style="margin-top: 10px; background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
       <option value="" selected disabled hidden>Select Playbook</option>
       {{#each users}}
@@ -529,40 +589,46 @@
     </select>
 
     <script type="text/javascript">
-      var $playbook = $('#playbook'),
-        $play = $('#play'),
-        $options = $play.find('option');
-
-      $playbook.on('change', function () {
-        $play.html($options.filter('[value="' + this.value + '"]'));
-      }).trigger('change');
-
-      var $playbook2 = $('#playbook2'),
-        $play2 = $('#play2'),
-        $options2 = $play2.find('option');
-
-      $playbook2.on('change', function () {
-        $play2.html($options.filter('[value="' + this.value + '"]'));
-      }).trigger('change');
-
-
-      function getPlays() {
-        for (var i = 0; i < dataArr.users[user_index].playbooks[playbook_index].plays.length; i++) {
-          $("#play").append($("<option/>", {
+     function getPlaybooks2(playbooks_len) {
+        for (var i = 0; i < playbooks_len; i++) {
+          $("#playbook2").append($("<option/>", {
             value: i,
-            text: dataArr.users[user_index].playbooks[playbook_index].plays[i].name
+            text: dataArr.users[user_index].playbooks[i].name
           }));
         }
-        
       }
-      function getPlays2() {
-        for (var i = 0; i < dataArr.users[user_index].playbooks[playbook_index].plays.length; i++) {
+
+      function refreshPlays2() {
+        $('.play2 option').each(function () {
+          $(this).remove();
+        });
+        var newPlaybookVal = $('#playbook2').val();
+        var emergedPlayVal = $('#play2').val();
+        for (var i = 0; i < dataArr.users[user_index].playbooks[newPlaybookVal].plays.length; i++) {
+          console.log("working " + i);
+          $("#play2").append($("<option/>", {
+            value: i,
+            text: dataArr.users[user_index].playbooks[newPlaybookVal].plays[i].name
+          }));
+        }
+        console.log(newPlaybookVal+" "+playbook_index);
+        console.log(emergedPlayVal+" "+play_index);
+        if(playbook_index == newPlaybookVal && emergedPlayVal == play_index){
+          document.getElementById('playButton2').setAttribute("style", "filter: grayscale(100%);");
+        }
+        else{
+          document.getElementById('playButton2').setAttribute("style", "filter: grayscale(0%);");
+       }
+      }
+
+      function getPlays2(plays_len) {
+        for (var i = 0; i < plays_len; i++) {
           $("#play2").append($("<option/>", {
             value: i,
             text: dataArr.users[user_index].playbooks[playbook_index].plays[i].name
           }));
-        } 
-      }                      
+        }
+      }                     
     </script>
 
 
@@ -572,19 +638,14 @@
         width="55px"></button>
   </div>
   
-  <div id="topButtons2" style="text-align: center; z-index: 9999">
+  <div id="topButtons2" style="text-align: center; z-index: 999">
     <button id="backButton2" type="button" onclick="window.location.href='/homeAlt'"><img src="img/backButton.png"
         height="55px" width="55px"></button>
-    <select id="playbook2" name="playbook" onchange="getPlays2()"
+    <select id="playbook2" name="playbook" onchange="refreshPlays2()"
       style="background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
       <option value="" selected disabled hidden>Select Playbook</option>
-      {{#each users}}
-      {{#each playbooks}}
-      <option value="{{name}}">{{name}}</option>
-      {{/each}}
-      {{/each}}
     </select>
-    <select id="play2" name="play"
+    <select id="play2" name="play" class="play2"
       style="background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
       <option value="" selected disabled hidden>Select Play</option>
      
@@ -597,10 +658,6 @@
         width="55px"></button>
   </div>
 
- 
-
-
-
   <div id="container" style="text-align:center" style="position: relative">
     <div id="field">
       <div align="center">
@@ -609,8 +666,7 @@
     </div>
   </div>
   
-
-  <div id="bottomButtons" style="text-align: center; z-index: 9999">
+  <div id="bottomButtons" style="text-align: center; z-index: 999">
     <button id="redoButton" onclick="cRedo()" type="button"><img src="img/redoButton.png" height="55px"
         width="55px"></button>
     <button id="undoButton" onclick="cUndo()" type="button"><img src="img/undoButton.png" height="55px"
@@ -637,7 +693,7 @@
     </select>
   </div>
 
-   <div id="bottomButtons2" style="text-align: center; z-index: 9999">
+   <div id="bottomButtons2" style="text-align: center; z-index: 999">
     <button id="saveButton2" type="button" onclick="saveWindow()"><img src="img/saveButton.jpg" height="55px"
         width="55px"></button>
      <button id="drawButton2" type="button" onclick="setCanDraw2()"><img src="img/pencil.jpg" height="55px"
@@ -665,33 +721,151 @@
   </div>
 
   <script>
-    function saveWindow() {
-      var playBookSelected = $('#playbook2').val();
-      console.log(playBookSelected);
-      if(playBookSelected == ""){
-        confirm("Please Select Playbook");
-      }
-      else{
-      var c = confirm("Do you wish to save?");
-      
-      if (c) {
-        var dupe = false;
-        var next = dataArr.users[user_index].playbooks[playbook_index].plays.length + 1;
-        var n = prompt("Please enter a name for this play", "Play_" + next);
-        for (var i = 0; i < dataArr.users[user_index].playbooks[playbook_index].plays.length; i++) {
-          console.log(n + " compared with " + dataArr.users[user_index].playbooks[playbook_index].plays[i].name);
-          if (dataArr.users[user_index].playbooks[playbook_index].plays[i].name == n) {
-            dupe = true;
-          }
+    function savePlaybook(phase) {
+      if (phase == 1) {
+        $('#save_playbook option').each(function () {
+          $(this).remove();
+        });
+        for (var i = 0; i < dataArr.users[user_index].playbooks.length; i++) {
+          $('#save_playbook').append($("<option/>", {
+            value: i,
+            text: dataArr.users[user_index].playbooks[i].name
+          }));
         }
-        if (dupe) {
-          alert("A play with that name exists already, please try another.");
+        $('#saveOverlay').fadeIn();
+      }
+      if (phase == 2) {
+        var i = 0;
+        var dupe = false;
+        var next = dataArr.users[user_index].playbooks.length + 1;
+        $('#save_playbook option').each(function () {
+          $(this).remove();
+        });
+        $('#saveOverlay').fadeOut();
+        var n = prompt("Please enter a name for this playbook", "Playbook_" + next);
+        if (n == null) {
+          return;
+        }
+        while (i < dataArr.users[user_index].playbooks.length) {
+          if (dataArr.users[user_index].playbooks[i].name == n) {
+            dupe = true;
+            break;
+          }
+          i++;
+        }
+        if (!dupe) {
+          var newPlaybook = {
+            name: n,
+            selected: "false",
+            plays: []
+          }
+          dataArr.users[user_index].playbooks.push(newPlaybook);
+          
+          
+          
+          $("#playbook2").append($("<option/>", {
+            value: dataArr.users[user_index].playbooks.length - 1,
+            text: newPlaybook.name
+          }));
+          saveWindowHelper(dataArr.users[user_index].playbooks.length - 1);
         }
         else {
-          savePlay(n);
+          recursiveSavePlaybook(n, next, i);
+        }
+      }
+      if (phase == 3) {
+        $('#saveOverlay').fadeOut();
+        saveWindowHelper($('#save_playbook').val());
+        $('#save_playbook option').each(function () {
+          $(this).remove();
+        });
+      }
+      if (phase == 4) {
+        $('#save_playbook option').each(function () {
+          $(this).remove();
+        });
+        $('#saveOverlay').fadeOut();
+      }
+    }
+
+    function saveWindowHelper(playbook_value) {
+      console.log("playbook_value: " + playbook_value);
+      var i = 0;
+      var dupe = false;
+      var next = dataArr.users[user_index].playbooks[playbook_value].plays.length + 1;
+      var n = prompt("Please enter a name for this play", "Play_" + next);
+      if (n == null) {
+        return;
+      }
+      while (i < dataArr.users[user_index].playbooks[playbook_value].plays.length) {
+        if (dataArr.users[user_index].playbooks[playbook_value].plays[i].name == n) {
+          dupe = true;
+          break;
+        }
+        i++;
+      }
+      if (!dupe) {
+        savePlay(n, false, null, playbook_value);
+      }
+      else {
+        recursiveSave(n, next, i, playbook_value);
+      }
+    }
+
+    function saveWindow() {
+      if (firstSave) {
+        $('#saveOverlay').append('<div id="saveBox" style="text-align: center"><h4 style="margin-bottom:2em;">Select a playbook to save into</h4><div style="margin-bottom: 3em;"><select id="save_playbook" style="top: 50%; left: 50%;"></select><label style="padding-left: 3vw"/><button id="continue" class="button" onclick="savePlaybook(3)" style="top: 50%; left: 50%;">Continue</button></div><h4 style="margin-bottom:2em;">Or</h4><button id="cancel" class="button" onclick="savePlaybook(4)" style="top: 50%; left: 50%;">Cancel Save</button><label style="padding-left: 3vw"/><button id="create" class="button" onclick="savePlaybook(2)" style="top: 50%; left: 50%;">Create New Playbook</button></div>');
+        firstSave = false;
+      }
+      savePlaybook(1);
+    }
+
+    function recursiveSave(n, next, i, playbook_value) {
+      var a = confirm("Overwrite play?");
+      if (a) {
+        savePlay(n, true, i, playbook_value);
+      }
+      else {
+        var nn = prompt("Please enter a different name for this play", "Play_" + next);
+        if (nn == null) {
+          return;
+        }
+        if (n == nn) {
+          recursiveSave(nn, next, i, playbook_value);
+        }
+        else {
+          savePlay(nn, false, null, playbook_value);
         }
       }
     }
+
+    function recursiveSavePlaybook(n, next, i) {
+      var a = confirm("Overwrite playbook?");
+      if (a) {
+        savePlaybook(n, true, i);
+      }
+      else {
+        var nn = prompt("Please enter a different name for this playbook", "Playbook_" + next);
+        if (nn == null) {
+          return;
+        }
+        if (n == nn) {
+          recursiveSavePlaybook(nn, next, i);
+        }
+        else {
+          var newPlaybook = {
+            name: nn,
+            selected: "false",
+            plays: []
+          }
+          dataArr.users[user_index].playbooks.push(newPlaybook);
+          $("#save_playbook").append($("<option/>", {
+            value: dataArr.users[user_index].playbooks.length - 1,
+            text: newPlaybook.name
+          }));
+          savePlay(nn, false, null, dataArr.users[user_index].playbooks.length - 1);
+        }
+      }
     }
 
     function eraserWindow() {
@@ -707,11 +881,13 @@
       spawnDiffPlayers(target);
     }
     function playWindow2() {
-      var target = $('#play2').val();
+      var playbook_target = $('#playbook2').val();
+      var play_target = $('#play2').val();
+      dataArr.users[user_index].playbooks[playbook_index].selected = "false";
+      dataArr.users[user_index].playbooks[playbook_target].selected = "true";
       dataArr.users[user_index].playbooks[playbook_index].plays[play_index].selected = "false";
-      dataArr.users[user_index].playbooks[playbook_index].plays[target].selected = "true";
-      console.log(dataArr);
-      spawnDiffPlayers(target);
+      dataArr.users[user_index].playbooks[playbook_index].plays[play_target].selected = "true";
+      spawnDiffPlayers(playbook_target, play_target);
     }
   </script>
   <script>
