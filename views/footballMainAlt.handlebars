@@ -251,9 +251,17 @@
       canDraw = !canDraw;
       if (!canDraw) {
         document.getElementById("drawButton2").setAttribute("style", "filter: saturate(1);");
+        var items = document.getElementsByClassName('player');
+        for (var i = 0; i < items.length; i++) {
+          items[i].style.pointerEvents = 'auto';
+        }
       }
       else {
         document.getElementById("drawButton2").setAttribute("style", "filter: saturate(3);");
+        var items = document.getElementsByClassName('player');
+        for (var i = 0; i < items.length; i++) {
+          items[i].style.pointerEvents = 'none';
+        }
       }
     }
 
