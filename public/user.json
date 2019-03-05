@@ -23,11 +23,11 @@
 			],
 			"playbooks": [
 				{
-					"name": "default",
+					"name": "Default Playbook",
 					"selected": "true",
 					"plays": [
 						{
-							"name": "default",
+							"name": "Default Play",
 							"selected": "true",
 							"imgsrc": "img/footballField.jpg",
 							"positions": [
