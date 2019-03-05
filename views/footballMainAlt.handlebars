@@ -20,6 +20,61 @@
       background-size: 100% 100%;
       background-position: center;
     }
+    #undoButton:active {
+      transform: translateY(4px);
+    }
+
+    #redoButton:active {
+      transform: translateY(4px);
+    }
+
+    #saveButton:active {
+      transform: translateY(4px);
+    }
+
+    #playButton:active {
+      transform: translateY(4px);
+    }
+
+    #drawButton:active {
+      transform: translateY(4px);
+    }
+
+    #backButton:active {
+      transform: translateY(4px);
+    }
+
+    .button {
+      position: relative;
+      -webkit-transition-duration: 0.4s;
+      /* Safari */
+      transition-duration: 0.4s;
+      overflow: hidden;
+    }
+
+    #undoButton2:active {
+      transform: translateY(4px);
+    }
+
+    #redoButton2:active {
+      transform: translateY(4px);
+    }
+
+    #saveButton2:active {
+      transform: translateY(4px);
+    }
+
+    #playButton2:active {
+      transform: translateY(4px);
+    }
+
+    #drawButton2:active {
+      transform: translateY(4px);
+    }
+
+    #backButton2:active {
+      transform: translateY(4px);
+    }
   </style>
   <script>
     var dataArr = [];
@@ -179,14 +234,18 @@
         if (mousePressed) {
           //console.log("mouse drawing ended");
           mousePressed = false;
-          cPush();
+          if (canDraw) {
+            cPush();
+          }
         }
       });
       $('#myCanvas').mouseleave(function (e) {
         if (mousePressed) {
           //console.log("mouse left");
           mousePressed = false;
-          cPush();
+          if (canDraw) {
+            cPush();
+          }
         }
       });
 
@@ -206,11 +265,15 @@
       $('#myCanvas').on('touchend', function (e) {
         //console.log("drawing ended");
         mousePressed = false;
-        cPush();
+        if (canDraw) {
+            cPush();
+        }
       });
       $('#myCanvas').on('touchcancel', function (e) {
         mousePressed = false;
-        cPush();
+        if (canDraw) {
+            cPush();
+        }
       });
 
       $.getJSON('user.json', function (data) {
@@ -225,11 +288,15 @@
     }
 
     function drawImage(imgsrc) {
+      cPushArray = new Array();
+      cStep = -1;
       var image = new Image();
       image.src = imgsrc;
       $(image).load(function () {
         ctx.drawImage(image, 0, 0, 450, 800);
         cPush();
+        document.getElementById('redoButton2').setAttribute("style", "filter: grayscale(100%);");
+        document.getElementById('undoButton2').setAttribute("style", "filter: grayscale(100%);");
       });
     }
     
@@ -251,9 +318,17 @@
       canDraw = !canDraw;
       if (!canDraw) {
         document.getElementById("drawButton2").setAttribute("style", "filter: saturate(1);");
+        var items = document.getElementsByClassName('player');
+        for (var i = 0; i < items.length; i++) {
+          items[i].style.pointerEvents = 'auto';
+        }
       }
       else {
         document.getElementById("drawButton2").setAttribute("style", "filter: saturate(3);");
+        var items = document.getElementsByClassName('player');
+        for (var i = 0; i < items.length; i++) {
+          items[i].style.pointerEvents = 'none';
+        }
       }
     }
 
@@ -290,6 +365,10 @@
       if (cStep < cPushArray.length) { cPushArray.length = cStep; }
       cPushArray.push(document.getElementById('myCanvas').toDataURL());
       //document.title = cStep + ":" + cPushArray.length;
+      document.getElementById('redoButton2').setAttribute("style", "filter: grayscale(100%);");
+      if (cStep >= 0) {
+        document.getElementById('undoButton2').setAttribute("style", "filter: grayscale(0%);");
+      }
     }
 
     function cUndo() {
@@ -300,6 +379,12 @@
         canvasPic.src = cPushArray[cStep];
         canvasPic.onload = function () { ctx.drawImage(canvasPic, 0, 0); }
         //document.title = cStep + ":" + cPushArray.length;
+        if (cStep == 0) {
+          document.getElementById('undoButton2').setAttribute("style", "filter: grayscale(100%);");
+        }
+        if (cStep < cPushArray.length) {
+          document.getElementById('redoButton2').setAttribute("style", "filter: grayscale(0%);");
+        }
       }
     }
 
@@ -311,6 +396,12 @@
         canvasPic.src = cPushArray[cStep];
         canvasPic.onload = function () { ctx.drawImage(canvasPic, 0, 0); }
         //document.title = cStep + ":" + cPushArray.length;
+        if (cStep >= 0) {
+          document.getElementById('undoButton2').setAttribute("style", "filter: grayscale(0%);");
+        }
+        if (cStep == cPushArray.length - 1) {
+          document.getElementById('redoButton2').setAttribute("style", "filter: grayscale(100%);");
+        }
       }
     }
 
