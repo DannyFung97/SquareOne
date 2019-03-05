@@ -9,6 +9,7 @@ function initializePage() {
 	//$("#redoButton").click(redoClick);
 	//$("#undoButton").click(undoClick);
 	$("#saveButton").click(saveClick);
+	$("#saveButton2").click(saveClick);
 }
 
 //function redoClick(e) {
