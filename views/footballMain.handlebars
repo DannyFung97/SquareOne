@@ -37,6 +37,7 @@
   <script src="http://code.jquery.com/jquery.min.js"></script>
   <script src="http://code.jquery.com/ui/1.8.17/jquery-ui.min.js"></script>
   <script src="js/analytics.js"></script>
+  {{!-- <script src="js/footballFetch.js"></script> --}}
   <style type="text/css">
     #myCanvas {
       background-image: "img/footballField.jpg";
@@ -161,9 +162,11 @@
         src="img/backButton.png" height="55px" width="55px"></button>
     <select id="playbook" name="playbook" onchange="refreshPlays()"
       style="margin-top: 10px; background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
+      <option value="" selected disabled hidden>Select Playbook</option>
     </select>
     <select id="play" name="play" class="play"
       style="margin-top: 10px; background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
+      <option value="" selected disabled hidden>Select Play</option>
     </select>
 
     <script type="text/javascript">
@@ -177,14 +180,11 @@
       }
 
       function refreshPlays() {
-        console.log("first calling refreshPlays " + user_index);
         $('.play option').each(function () {
           $(this).remove();
         });
         var newPlaybookVal = $('#playbook').val();
-        playbook_index = newPlaybookVal;
-        console.log(newPlaybookVal);
-        console.log(dataArr);
+        var emergedPlayVal = $('#play').val();
         for (var i = 0; i < dataArr.users[user_index].playbooks[newPlaybookVal].plays.length; i++) {
           console.log("working " + i);
           $("#play").append($("<option/>", {
@@ -192,6 +192,14 @@
             text: dataArr.users[user_index].playbooks[newPlaybookVal].plays[i].name
           }));
         }
+        console.log(newPlaybookVal+" "+playbook_index);
+        console.log(emergedPlayVal+" "+play_index);
+        if(playbook_index == newPlaybookVal && emergedPlayVal == play_index){
+          document.getElementById('playButton').setAttribute("style", "filter: grayscale(100%);");
+        }
+        else{
+          document.getElementById('playButton').setAttribute("style", "filter: grayscale(0%);");
+       }
       }
 
       function getPlays(plays_len) {
@@ -239,7 +247,7 @@
                   if (play.selected == "true") {
                     play_index = k;
                     $.each(play.positions, function (l, position) {
-                      $("#field").append('<div class="player" id="player' + l + '" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: ' + position.top + '; left: ' + position.left + '"><img src="img/circle.png" style="width:25px; height:25px; background: ' + position.color + '; border-radius:12.5px"><div style="color: white; transform: translate(0, -100%)">' + position.num + '</div></div>');
+                      $("#field").append('<div class="player" id="player' + l + '" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: ' + position.top + '; left: ' + position.left + '"><img src="img/circle.png" style="width:25px; height:25px; background: ' + position.color + '; border-radius:12.5px"><div id="tag" style="color: white; transform: translate(0, -100%)">' + position.num + '</div></div>');
                       dragElement(document.getElementById("player" + l));
                       dragElementTouch(document.getElementById("player" + l));
                     });
@@ -250,7 +258,7 @@
           }
         });
         getPlaybooks(dataArr.users[user_index].playbooks.length);
-        getPlays(dataArr.users[user_index].playbooks[playbook_index].plays.length);
+        //getPlays(dataArr.users[user_index].playbooks[playbook_index].plays.length);
       }).error(function () {
         console.log('error');
       });
@@ -322,6 +330,11 @@
     }
 
     function InitThis() {
+      var tempPlay = $("#play").val();
+      var tempPlaybook = $("#playbook").val();
+      if (tempPlay == "" && tempPlaybook == tempPlay) {
+        document.getElementById('playButton').setAttribute("style", "filter: grayscale(100%);");
+      }
       $('#overlay').fadeOut();
       spawnPlayers();
 
@@ -808,7 +821,6 @@
       document.getElementById("collapsible").style.display = "none";
     }
   </script>
-  <script src="/js/footballFetch.js"></script>
 </body>
 
 </html>
