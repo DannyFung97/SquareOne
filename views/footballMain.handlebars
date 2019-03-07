@@ -374,6 +374,8 @@
       image.src = imgsrc;
       $(image).load(function () {
         ctx.drawImage(image, 0, 0, 450, 800);
+        console.log("width: "+ctx.width);
+        console.log("height: "+ctx.height);
         cPush();
         document.getElementById('redoButton').setAttribute("style", "filter: grayscale(100%);");
         document.getElementById('undoButton').setAttribute("style", "filter: grayscale(100%);");
@@ -423,7 +425,6 @@
     function cPush() {
       //console.log("Pushed");
       cStep++;
-      console.log("c: " + cStep);
       if (cStep < cPushArray.length) { cPushArray.length = cStep; }
       cPushArray.push(document.getElementById('myCanvas').toDataURL());
       //document.title = cStep + ":" + cPushArray.length;
@@ -437,7 +438,6 @@
       //console.log("Undo");
       if (cStep > 0) {
         cStep--;
-        console.log("c: " + cStep);
         var canvasPic = new Image();
         canvasPic.src = cPushArray[cStep];
         canvasPic.onload = function () { ctx.drawImage(canvasPic, 0, 0); }
@@ -455,7 +455,6 @@
       //console.log("redo");
       if (cStep < cPushArray.length - 1) {
         cStep++;
-        console.log("c: " + cStep);
         var canvasPic = new Image();
         canvasPic.src = cPushArray[cStep];
         canvasPic.onload = function () { ctx.drawImage(canvasPic, 0, 0); }
