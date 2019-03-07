@@ -156,7 +156,7 @@
   <script type="text/javascript">
     function zoomOutMobile() {
       var viewport = document.querySelector('meta[name="viewport"]');
-      if ( viewport ) {
+      if (viewport) {
         viewport.content = "initial-scale=1";
         viewport.content = "width=device-width";
       }
@@ -273,7 +273,7 @@
                   if (play.selected == "true") {
                     play_index = k;
                     $.each(play.positions, function (l, position) {
-                      $("#field").append('<div class="player" value="' + position.num + '" id="player' + l + '" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: ' + position.top + '; left: ' + position.left + '"><img src="img/circle.png" style="width:25px; height:25px; background: ' + position.color + '; border-radius:12.5px"><div id="tag" style="color: white; transform: translate(0, -100%)">' + position.num + '</div></div>');
+                      $("#field").append('<div class="player" value="' + position.num + '" id="player' + l + '" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9; top: ' + (ctx.canvas.offsetTop + position.top) + '; left: ' + (ctx.canvas.offsetLeft + position.left) + '"><img src="img/circle.png" style="width:25px; height:25px; background: ' + position.color + '; border-radius:12.5px"><div id="tag" style="color: white; transform: translate(0, -100%)">' + position.num + '</div></div>');
                       dragElement(document.getElementById("player" + l));
                       dragElementTouch(document.getElementById("player" + l));
                     });
@@ -388,8 +388,6 @@
       image.src = imgsrc;
       $(image).load(function () {
         ctx.drawImage(image, 0, 0, 450, 800);
-        console.log("width: "+ctx.width);
-        console.log("height: "+ctx.height);
         cPush();
         document.getElementById('redoButton').setAttribute("style", "filter: grayscale(100%);");
         document.getElementById('undoButton').setAttribute("style", "filter: grayscale(100%);");
@@ -682,7 +680,7 @@
     }
 
     function saveWindowHelper(playbook_value) {
-      console.log("saveWindowHelper(): "+playbook_value);
+      console.log("saveWindowHelper(): " + playbook_value);
       var i = 0;
       var dupe = false;
       var next = dataArr.users[user_index].playbooks[playbook_value].plays.length + 1;
@@ -706,7 +704,7 @@
     }
 
     function savePlay(n, overwrite, index, playbook_i) {
-      console.log("savePlay(): "+playbook_i);
+      console.log("savePlay(): " + playbook_i);
       var newPlay = {
         name: "",
         selected: "false",
