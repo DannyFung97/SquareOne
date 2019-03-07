@@ -278,6 +278,7 @@
                       var nl = (parseFloat(position.left) + parseFloat(ctx.canvas.offsetLeft));
                       $("#field").append('<div class="player" value="' + position.num + '" id="player' + l + '" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9;"><img src="img/circle.png" style="width:25px; height:25px; background: ' + position.color + '; border-radius:12.5px"><div id="tag" style="color: white; transform: translate(0, -100%)">' + position.num + '</div></div>');
                       //coordinates are set to nt and nl
+                      document.getElementById("player" + l).value = position.num;
                       document.getElementById("player" + l).style.top = nt + "px";
                       document.getElementById("player" + l).style.left = nl + "px";
                       dragElement(document.getElementById("player" + l));
@@ -297,9 +298,8 @@
     }
     $(window).resize(function () {
       for (var l = 0; l <= 21; l++) {
-        var nt = (document.getElementById("player" + l).style.top + parseFloat(ctx.canvas.offsetTop));
-        var nl = (document.getElementById("player" + l).style.left + parseFloat(ctx.canvas.offsetLeft));
-        console.log(parseFloat(ctx.canvas.offsetLeft)+" "+document.getElementById("player" + l).style.left);
+        var nt = (parseFloat(dataArr.users[user_index].playbooks[playbook_index].plays[play_index].positions[l].top) + parseFloat(ctx.canvas.offsetTop));
+        var nl = (parseFloat(dataArr.users[user_index].playbooks[playbook_index].plays[play_index].positions[l].left) + parseFloat(ctx.canvas.offsetLeft));
         document.getElementById("player" + l).style.top = nt + "px";
         document.getElementById("player" + l).style.left = nl + "px";
       }
@@ -308,16 +308,15 @@
       var loc = dataArr.users[user_index].playbooks[playbook].plays[play];
       drawImage(loc.imgsrc);
       for (var i = 0; i <= 21; i++) {
-        console.log("spawning");
-        document.getElementById('player' + i).num = loc.positions[i].num;
-        document.getElementById('player' + i).style.top = loc.positions[i].top;
-        document.getElementById('player' + i).style.left = loc.positions[i].left;
+        var nt = (parseFloat(loc.positions[i].top) + parseFloat(ctx.canvas.offsetTop));
+        var nl = (parseFloat(loc.positions[i].left) + parseFloat(ctx.canvas.offsetLeft));
+        document.getElementById('player' + i).style.top = nt + "px";
+        document.getElementById('player' + i).style.left = nl + "px";
         document.getElementById('player' + i).style.color = loc.positions[i].color;
       }
       play_index = play;
       playbook_index = playbook;
     }
-
     function InitThis() {
       var tempPlay = $("#play").val();
       var tempPlaybook = $("#playbook").val();
@@ -559,7 +558,6 @@
 
       function dragMouseDownTouch(e) {
         if (!canDraw) {
-          console.log(elmnt.id + ", drag");
           e = e || window.event;
           e.preventDefault();
           // get the mouse cursor position at startup:
@@ -573,7 +571,6 @@
 
       function elementDragTouch(e) {
         if (!canDraw) {
-          console.log(elmnt.id + ", new");
           e = e || window.event;
           e.preventDefault();
           // set the element's new position:
@@ -695,7 +692,6 @@
     }
 
     function saveWindowHelper(playbook_value) {
-      console.log("saveWindowHelper(): " + playbook_value);
       var i = 0;
       var dupe = false;
       var next = dataArr.users[user_index].playbooks[playbook_value].plays.length + 1;
@@ -719,7 +715,6 @@
     }
 
     function savePlay(n, overwrite, index, playbook_i) {
-      console.log("savePlay(): " + playbook_i);
       var newPlay = {
         name: "",
         selected: "false",
@@ -736,7 +731,7 @@
       newPlay.name = n;
 
       for (var i = 0; i <= 21; i++) {
-        var pos = $("#player" + i);
+        var pos = document.getElementById('player' + i);
         var p = {
           num: "",
           top: "",
@@ -745,8 +740,8 @@
         }
         //p.num = dataArr.users[user_index].playbooks[playbook_index].plays[play_index].positions[i].num;
         p.num = pos.value;
-        p.top = pos.position().top + "px";
-        p.left = pos.position().left + "px";
+        p.top = parseFloat(pos.style.top) - parseFloat(ctx.canvas.offsetTop);
+        p.left = parseFloat(pos.style.left) - parseFloat(ctx.canvas.offsetLeft);
         if (i > 10) {
           p.color = "blue";
         }
@@ -775,7 +770,8 @@
         $(this).remove();
       });
       refreshPlays();
-      console.log(dataArr.users[user_index]);
+      console.log(dataArr.users[user_index].playbooks[playbook_index].plays[0].positions);
+      console.log(dataArr.users[user_index].playbooks[playbook_index].plays[1].positions);
     }
 
     function saveWindow() {
