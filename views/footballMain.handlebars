@@ -174,6 +174,15 @@
     <h3 id="msg">Flip Screen Horizontally</h3>
   </div>
   <div id="overlay" style="background-color: white;"></div>
+  <div id="tutorialOverlay" onclick="off()"> 
+    <h2 style="text-align: center; margin-top: 35vh">Tutorial</h2>
+    <h3 style="text-align: center;">Click Anywhere to Skip</h3>
+  </div>
+  <script type="text/javascript">
+    function off(){
+      document.getElementById("tutorialOverlay").style.display = "none";
+    }
+  </script>
   <div id="topButtons" style="text-align: center; z-index: 999; height: 0px">
     <button id="backButton" class="button" type="button" onclick="window.location.href='/home'"><img
         src="img/backButton.png" height="55px" width="55px"></button>

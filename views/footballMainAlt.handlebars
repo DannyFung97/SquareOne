@@ -174,7 +174,7 @@
     var ctx;
     var canDraw = false;
     var firstSave = true;
-
+    /*
     function spawnPlayers() {
       $.getJSON('user.json', function (data) {
         dataArr = data;
@@ -206,7 +206,7 @@
         console.log('error');
       });
     }
-
+    
     function spawnDiffPlayers(playbook, play) {
       var loc = dataArr.users[user_index].playbooks[playbook].plays[play];
       drawImage(loc.imgsrc);
@@ -220,7 +220,69 @@
       play_index = play;
       playbook_index = playbook;
     }
-
+    */
+   function spawnPlayers() {
+      $.getJSON('user.json', function (data) {
+        dataArr = data;
+        $.each(data.users, function (i, user) {
+          if (user.logged == "true" && user.preferences[0].check == "checked") {
+            user_index = i;
+            $.each(user.playbooks, function (j, playbook) {
+              if (playbook.selected == "true") {
+                playbook_index = j;
+                $.each(playbook.plays, function (k, play) {
+                  if (play.selected == "true") {
+                    play_index = k;
+                    $.each(play.positions, function (l, position) {
+                      //nt and nl creates new coordinates
+                      var nt = (parseFloat(position.top) + parseFloat(ctx.canvas.offsetTop));
+                      var nl = (parseFloat(position.left) + parseFloat(ctx.canvas.offsetLeft));
+                      $("#field").append('<div class="player" value="' + position.num + '" id="player' + l + '" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 9;"><img src="img/circle.png" style="width:25px; height:25px; background: ' + position.color + '; border-radius:12.5px"><div id="tag" style="color: white; transform: translate(0, -100%)">' + position.num + '</div></div>');
+                      //coordinates are set to nt and nl
+                      document.getElementById("player" + l).value = position.num;
+                      document.getElementById("player" + l).style.top = nt + "px";
+                      document.getElementById("player" + l).style.left = nl + "px";
+                      dragElement(document.getElementById("player" + l));
+                      dragElementTouch(document.getElementById("player" + l));
+                    });
+                  }
+                });
+              }
+            });
+          }
+        });
+        getPlaybooks2(dataArr.users[user_index].playbooks.length);
+        //getPlays(dataArr.users[user_index].playbooks[playbook_index].plays.length);
+      }).error(function () {
+        console.log('error');
+      });
+    }
+    $(window).resize(function () {
+      for (var l = 0; l <= 21; l++) {
+        var nt = (parseFloat(document.getElementById("player" + l).style.top) - parseFloat(currCanvasTop) + parseFloat(ctx.canvas.offsetTop));
+        var nl = (parseFloat(document.getElementById("player" + l).style.left) - parseFloat(currCanvasLeft) + parseFloat(ctx.canvas.offsetLeft));
+        document.getElementById("player" + l).style.top = nt + "px";
+        document.getElementById("player" + l).style.left = nl + "px";
+      }
+      currCanvasTop = ctx.canvas.offsetTop;
+      currCanvasLeft = ctx.canvas.offsetLeft;
+    });
+    function spawnDiffPlayers(playbook, play) {
+      var loc = dataArr.users[user_index].playbooks[playbook].plays[play];
+      drawImage(loc.imgsrc);
+      for (var i = 0; i <= 21; i++) {
+        var nt = (parseFloat(loc.positions[i].top) + parseFloat(ctx.canvas.offsetTop));
+        var nl = (parseFloat(loc.positions[i].left) + parseFloat(ctx.canvas.offsetLeft));
+        document.getElementById('player' + i).style.top = nt + "px";
+        document.getElementById('player' + i).style.left = nl + "px";
+        document.getElementById('player' + i).style.color = loc.positions[i].color;
+      }
+      play_index = play;
+      playbook_index = playbook;
+      currCanvasTop = ctx.canvas.offsetTop;
+      currCanvasLeft = ctx.canvas.offsetLeft;
+    }
+    
     function savePlay(n, overwrite, index, playbook_i) {
       var newPlay = {
         name: "",
@@ -570,7 +632,15 @@
     <h3 id="msg">Flip Screen Horizontally</h3>
   </div>
   <div id="saveOverlay" style="background-color: white;"></div>
-
+  <div id="tutorialOverlay" onclick="off()"> 
+    <h2 style="text-align: center; margin-top: 35vh">Tutorial</h2>
+    <h3 style="text-align: center;">Click Anywhere to Skip</h3>
+  </div>
+   <script type="text/javascript">
+    function off(){
+      document.getElementById("tutorialOverlay").style.display = "none";
+    }
+  </script>
   <div id="topButtons" style="text-align: center; z-index: 999">
     <button id="backButton" type="button" onclick="window.location.href='/homeAlt'"><img src="img/backButton.png"
         height="55px" width="55px"></button>
