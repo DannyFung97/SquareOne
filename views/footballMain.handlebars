@@ -184,12 +184,13 @@
     <h6 id="nextOverlay1" style="display:none; text-align: center; margin-top: 10vh; margin-right: 45vw; margin-left: 45vw; border: solid;" onclick="begin2()">Next</h6> 
    
     <h3 id="drawing" style="display:none; text-align: center; margin-top: 10vh">Start Drawing</h3>
-    <p id="drawDescription" style="display:none; text-align: center; font-size: 14px; margin-top: 10vh; margin-left: 20vw; margin-right: 20vw;">Once the players are set, use the pen tool to draw the routes you want your players to run. You can change the pen color and pen width to your liking with the drop down menus.</p>
+    <p id="drawDescription" style="display:none; text-align: center; font-size: 14px; margin-top: 10vh; margin-left: 20vw; margin-right: 20vw;">Once the players are set, use the pen tool to draw the routes you want your players to run. You can change the pen color and pen width to your liking with the drop down menus. The button at the bottom left of the screen undos your previous drawing while the buttom at the bottom right of the screen redos your previous drawing.</p>
     <h6 id="nextOverlay2" style="display:none; text-align: center; margin-top: 10vh; margin-right: 45vw; margin-left: 45vw; border: solid;" onclick="begin3()">Next</h6> 
 
      <h3 id="save" style="display:none; text-align: center; margin-top: 10vh">Save Your Play</h3>
      <p id="saveDescription" style="display:none; text-align: center; font-size: 14px; margin-top: 10vh; margin-left: 20vw; margin-right: 20vw;">When you finish creating your play, click on the save button to store it in a playbook.</p>
-    <h6 id="nextOverlay3" style="display:none; text-align: center; margin-top: 10vh; margin-right: 45vw; margin-left: 45vw; border: solid;" onclick="off()">Next</h6> 
+    <p id="note" style="display:none; text-align: center; font-size: 10px; margin-top: 10vh; margin-left: 20vw; margin-right: 20vw;">* If you want to turn off the tutorial go to the settings page and uncheck the tutorial box.</p>
+    <h6 id="nextOverlay3" style="display:none; text-align: center; margin-top: 10vh; margin-right: 45vw; margin-left: 45vw; border: solid;" onclick="off()">Finish</h6> 
   </div>
   <script type="text/javascript">
     function tutorialToggle(){
@@ -199,9 +200,9 @@
          if (user.logged == "true" && user.preferences[0].check == "checked") {
           user_index = i;
          }
-         if (dataArr.users[user_index].tutorial == "checked") {
+         if (dataArr.users[user_index].tutorial == "unchecked") {
           console.log(dataArr.users[user_index].tutorial);
-          //document.getElementById("tutorialOverlay").style.display = "none";
+          document.getElementById("tutorialOverlay").style.display = "none";
          }
         });
       }); 
@@ -238,6 +239,7 @@
       document.getElementById("nextOverlay2").style.display = "none";
       document.getElementById("save").style.display = "block";
       document.getElementById("saveDescription").style.display = "block";
+      document.getElementById("note").style.display = "block";
       document.getElementById("nextOverlay3").style.display = "block";
       document.getElementById("topButtons").style.zIndex = "2000";
     }
