@@ -174,13 +174,45 @@
     <h3 id="msg">Flip Screen Horizontally</h3>
   </div>
   <div id="overlay" style="background-color: white;"></div>
-  <div id="tutorialOverlay" onclick="off()">
-    <h2 style="text-align: center; margin-top: 35vh">Tutorial</h2>
-    <h3 style="text-align: center;">Click Anywhere to Skip</h3>
+  <div id="tutorialOverlay"> 
+    <h2 id="tutorialHeader"style="text-align: center; margin-top: 35vh">Tutorial</h2>
+    <h6 id="tutorialText"style="text-align: center; padding-top: 10vh;" onclick="begin()">Begin</h6>
+    <h6 id="skip" style="text-align: center; padding-top: 10vh; " onclick="off()">Skip</h6>
+    
+    <h3 id="welcome" style="display:none; text-align: center; margin-top: 10vh">Welcome To SquareOne</h3>
+    <p id="playerDescription" style="display: none; text-align: center; font-size: 14px; margin-top: 10vh; margin-left: 20vw; margin-right: 20vw">To get started, move players to your desired postions by dragging the player icons on the field.</p>
+    <h6 id="nextOverlay1" style="display:none; text-align: center; padding-top: 10vh" onclick="begin2()">Next</h6> 
+    
+    <h3 id="saveDescription" style="display:none">save</h3>
+    <h6 id="nextOverlay2" style="display:none" onclick="begin3()">Next</h6> 
+
+    <h3 id="drawDescription" style="display:none">draw</h3>
+    <h6 id="nextOverlay3" style="display:none" onclick="off()">Next</h6> 
   </div>
   <script type="text/javascript">
     function off() {
       document.getElementById("tutorialOverlay").style.display = "none";
+    }
+    function begin(){
+      document.getElementById("tutorialHeader").style.display = "none";
+      document.getElementById("tutorialText").style.display = "none";
+      document.getElementById("skip").style.display = "none";
+      document.getElementById("welcome").style.display = "block";
+      document.getElementById("playerDescription").style.display = "block";
+      document.getElementById("nextOverlay1").style.display = "block";
+    }
+    function begin2(){
+      document.getElementById("welcome").style.display = "none";
+      document.getElementById("playerDescription").style.display = "none";
+      document.getElementById("nextOverlay1").style.display = "none";
+      document.getElementById("saveDescription").style.display = "block";
+      document.getElementById("nextOverlay2").style.display = "block";
+    }
+    function begin3(){
+      document.getElementById("saveDescription").style.display = "none";
+      document.getElementById("nextOverlay2").style.display = "none";
+      document.getElementById("drawDescription").style.display = "block";
+      document.getElementById("nextOverlay3").style.display = "block";
     }
   </script>
   <div id="topButtons" style="text-align: center; z-index: 999; height: 0px">
