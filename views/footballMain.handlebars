@@ -184,11 +184,11 @@
     <h6 id="nextOverlay1" style="display:none; text-align: center; padding-top: 10vh" onclick="begin2()">Next</h6> 
    
     <h3 id="drawing" style="display:none; text-align: center; margin-top: 10vh">Start Drawing</h3>
-    <p id="drawDescription" style="display:none; text-align: center; font-size: 14px: margin-top: 10vh; margin-left: 20vw; margin-right: 20vw;">Once the players are set, use the pen tool to draw the routes you want your players to run. You can change the pen color and pen width to your liking with the drop down menus.</p>
+    <p id="drawDescription" style="display:none; text-align: center; font-size: 14px; margin-top: 10vh; margin-left: 20vw; margin-right: 20vw;">Once the players are set, use the pen tool to draw the routes you want your players to run. You can change the pen color and pen width to your liking with the drop down menus.</p>
     <h6 id="nextOverlay2" style="display:none; text-align: center; padding-top: 10vh" onclick="begin3()">Next</h6> 
 
      <h3 id="save" style="display:none; text-align: center; margin-top: 10vh">Save Your Play</h3>
-     <p id="saveDescription" style="display:none; text-align: center; font-size: 14px: margin-top: 10vh; margin-left: 20vw; margin-right: 20vw;">When you finish creating your play, click on the save button to store it in a playbook.</p>
+     <p id="saveDescription" style="display:none; text-align: center; font-size: 14px; margin-top: 10vh; margin-left: 20vw; margin-right: 20vw;">When you finish creating your play, click on the save button to store it in a playbook.</p>
     <h6 id="nextOverlay3" style="display:none; text-align: center; padding-top: 10vh" onclick="off()">Next</h6> 
   </div>
   <script type="text/javascript">
@@ -210,6 +210,7 @@
       document.getElementById("drawing").style.display = "block";
       document.getElementById("drawDescription").style.display = "block";
       document.getElementById("nextOverlay2").style.display = "block";
+      //document.getElementById("drawButton").style.z-index = 1000;
     }
     function begin3(){
       document.getElementById("drawing").style.display = "none";
@@ -218,6 +219,7 @@
       document.getElementById("save").style.display = "block";
       document.getElementById("saveDescription").style.display = "block";
       document.getElementById("nextOverlay3").style.display = "block";
+      //document.getElementById("saveButton").style.z-index = 1000;
     }
   </script>
   <div id="topButtons" style="text-align: center; z-index: 999; height: 0px">
