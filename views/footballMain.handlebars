@@ -174,49 +174,13 @@
     <h3 id="msg">Flip Screen Horizontally</h3>
   </div>
   <div id="overlay" style="background-color: white;"></div>
-  <div id="tutorialOverlay"> 
-    <h2 id="tutorialHeader"style="text-align: center; margin-top: 35vh">Tutorial</h2>
-    <h6 id="tutorialText"style="text-align: center; padding-top: 10vh;" onclick="begin()">Begin</h6>
-    <h6 id="skip" style="text-align: center; padding-top: 10vh; " onclick="off()">Skip</h6>
-    
-    <h3 id="welcome" style="display:none; text-align: center; margin-top: 10vh">Welcome To SquareOne<h3>
-    <p id="playerDescription" style="display: none; text-align: center; font-size: 14px; margin-top: 10vh; margin-left: 20vw; margin-right: 20vw">To get started, move players to your desired postions by dragging the player icons on the field.</p>
-    <h6 id="nextOverlay1" style="display:none; text-align: center; padding-top: 10vh" onclick="begin2()">Next<h6> 
-    
-    <h3 id="saveDescription" style="display:none">save<h3>
-    <h6 id="nextOverlay2" style="display:none" onclick="begin3()">Next<h6> 
-
-    <h3 id="drawDescription" style="display:none">draw<h3>
-    <h6 id="nextOverlay3" style="display:none" onclick="off()">Next<h6> 
-
+  <div id="tutorialOverlay" onclick="off()">
+    <h2 style="text-align: center; margin-top: 35vh">Tutorial</h2>
+    <h3 style="text-align: center;">Click Anywhere to Skip</h3>
   </div>
   <script type="text/javascript">
-    function off(){
+    function off() {
       document.getElementById("tutorialOverlay").style.display = "none";
-    }
-    function begin(){
-      document.getElementById("tutorialHeader").style.display = "none";
-      document.getElementById("tutorialText").style.display = "none";
-      document.getElementById("skip").style.display = "none";
-      document.getElementById("welcome").style.display = "block";
-      document.getElementById("playerDescription").style.display = "block";
-      document.getElementById("nextOverlay1").style.display = "block";
-      for (var i = 0; i <= 21; i++) {
-        
-      }
-    }
-    function begin2(){
-      document.getElementById("welcome").style.display = "none";
-      document.getElementById("playerDescription").style.display = "none";
-      document.getElementById("nextOverlay1").style.display = "none";
-      document.getElementById("saveDescription").style.display = "block";
-      document.getElementById("nextOverlay2").style.display = "block";
-    }
-    function begin3(){
-      document.getElementById("saveDescription").style.display = "none";
-      document.getElementById("nextOverlay2").style.display = "none";
-      document.getElementById("drawDescription").style.display = "block";
-      document.getElementById("nextOverlay3").style.display = "block";
     }
   </script>
   <div id="topButtons" style="text-align: center; z-index: 999; height: 0px">
@@ -226,23 +190,12 @@
       style="margin-top: 10px; background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
       <option value="" selected disabled hidden>Select Playbook</option>
     </select>
-    <select id="play" name="play" class="play" onchange="selectFunc()"
+    <select id="play" name="play" class="play"
       style="margin-top: 10px; background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
       <option value="" selected disabled hidden>Select Play</option>
     </select>
 
     <script type="text/javascript">
-
-      function selectFunc() {
-        var newPlaybookVal = $('#playbook').val();
-        var emergedPlayVal = $('#play').val();
-        if (playbook_index == newPlaybookVal && emergedPlayVal == play_index) {
-          document.getElementById('playButton').setAttribute("style", "filter: grayscale(100%);");
-        }
-        else {
-          document.getElementById('playButton').setAttribute("style", "filter: grayscale(0%);");
-        }
-      }
 
       function getPlaybooks(playbooks_len) {
         for (var i = 0; i < playbooks_len; i++) {
@@ -254,24 +207,19 @@
       }
 
       function refreshPlays() {
-        $('.play option').each(function () {
-          $(this).remove();
-        });
         var newPlaybookVal = $('#playbook').val();
+        var newPlayVal = $('#play').val();
         if (newPlaybookVal != "") {
+          $('.play option').each(function () {
+            $(this).remove();
+          });
           for (var i = 0; i < dataArr.users[user_index].playbooks[newPlaybookVal].plays.length; i++) {
             $("#play").append($("<option/>", {
               value: i,
               text: dataArr.users[user_index].playbooks[newPlaybookVal].plays[i].name
             }));
           }
-          var emergedPlayVal = $('#play').val();
-          if (playbook_index == newPlaybookVal && emergedPlayVal == play_index) {
-            document.getElementById('playButton').setAttribute("style", "filter: grayscale(100%);");
-          }
-          else {
-            document.getElementById('playButton').setAttribute("style", "filter: grayscale(0%);");
-          }
+          document.getElementById('playButton').setAttribute("style", "filter: grayscale(0%);");
         }
       }
 
@@ -452,7 +400,7 @@
       var image = new Image();
       image.src = imgsrc;
       $(image).load(function () {
-        ctx.drawImage(image, 0, 0, 450, 800);
+        ctx.drawImage(image, 0, 0, 440, 800);
         cPush();
         document.getElementById('redoButton').setAttribute("style", "filter: grayscale(100%);");
         document.getElementById('undoButton').setAttribute("style", "filter: grayscale(100%);");
@@ -463,6 +411,10 @@
 
     function setCanDraw() {
       canDraw = !canDraw;
+      if(document.getElementById("selColor").value == "" && document.getElementById("selWidth").value == ""){
+        document.getElementById("selColor").value = "black";
+        document.getElementById("selWidth").value = "7";
+      }
       if (!canDraw) {
         document.getElementById("drawButton").setAttribute("style", "filter: saturate(1);");
         var items = document.getElementsByClassName('player');
@@ -665,20 +617,22 @@
         width="55px"></button>
     <select id="selColor"
       style="background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
+      <option value="" selected disabled hidden>Pen Color</option>
       <option value="black">Black</option>
       <option value="blue">Blue</option>
       <option value="red">Red</option>
       <option value="green">Green</option>
-      <option value="yellow" selected="selected">Yellow</option>
+      <option value="yellow">Yellow</option>
       <option value="gray">Gray</option>
     </select>
     <select id="selWidth"
       style="background-color: white; text-decoration: none; border-radius: 4px; border: 1px solid black;">
+      <option value="" selected disabled hidden>Pen Width</option>
       <option value="1">1</option>
       <option value="3">3</option>
       <option value="5">5</option>
       <option value="7">7</option>
-      <option value="9" selected="selected">9</option>
+      <option value="9">9</option>
       <option value="11">11</option>
     </select>
   </div>
@@ -823,8 +777,6 @@
         $(this).remove();
       });
       refreshPlays();
-      console.log(dataArr.users[user_index].playbooks[playbook_index].plays[0].positions);
-      console.log(dataArr.users[user_index].playbooks[playbook_index].plays[1].positions);
     }
 
     function saveWindow() {
@@ -913,25 +865,17 @@
     function playWindow() {
       var playbook_target = $('#playbook').val();
       var play_target = $('#play').val();
-      dataArr.users[user_index].playbooks[playbook_index].selected = "false";
-      dataArr.users[user_index].playbooks[playbook_target].selected = "true";
-      dataArr.users[user_index].playbooks[playbook_index].plays[play_index].selected = "false";
-      dataArr.users[user_index].playbooks[playbook_index].plays[play_target].selected = "true";
-      spawnDiffPlayers(playbook_target, play_target);
-    }
-  </script>
-  <script>
-    function drawWindow() {
-      confirm("Placeholder for draw button use");
-    }
-  </script>
-  <script>
-    function openUp() {
-      document.getElementById("collapsible").style.display = "block";
-    }
-
-    function closeUp() {
-      document.getElementById("collapsible").style.display = "none";
+      if (playbook_target != "" && play_target != "") {
+        var loc = dataArr.users[user_index].playbooks;
+        loc[playbook_index].selected = "false";
+        loc[playbook_target].selected = "true";
+        loc[playbook_index].plays[play_index].selected = "false";
+        loc[playbook_target].plays[play_target].selected = "true";
+        spawnDiffPlayers(playbook_target, play_target);
+      }
+      else {
+        alert("Please select a playbook and a play to load.");
+      }
     }
   </script>
 </body>
