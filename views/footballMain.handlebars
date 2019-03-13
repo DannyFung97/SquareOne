@@ -481,6 +481,7 @@
     }
 
     function setCanDraw() {
+      console.log(ctx.canvas.width+" "+ctx.canvas.offsetLeft);
       canDraw = !canDraw;
       if (document.getElementById("selColor").value == "" && document.getElementById("selWidth").value == "") {
         document.getElementById("selColor").value = "black";
@@ -606,7 +607,6 @@
           e = e || window.event;
           e.preventDefault();
           // calculate the new cursor position:
-          console.log(parseFloat(ctx.canvas.height)+" > "+ pos4);
           pos1 = pos3 - Math.min(Math.max(e.clientX, currCanvasLeft), currCanvasLeft + parseFloat(ctx.canvas.width));
           pos2 = pos4 - Math.min(Math.max(e.clientY, currCanvasTop), parseFloat(ctx.canvas.height));
           pos3 = Math.min(Math.max(e.clientX, currCanvasLeft), currCanvasLeft + parseFloat(ctx.canvas.width));
@@ -614,6 +614,9 @@
           // set the element's new position:
           elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
           elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+          if (parseFloat(elmnt.style.top) > (ctx.canvas.offsetTop + ctx.canvas.height)) {
+            elmnt.style.top = (ctx.canvas.offsetTop + ctx.canvas.height) + "px";
+          }
         }
       }
 
@@ -659,17 +662,17 @@
           // set the element's new position:
           elmnt.style.top = (e.touches[0].pageY - 12.5) + "px";
           elmnt.style.left = (e.touches[0].pageX - 12.5) + "px";
-          if (elmnt.style.top > e.touches[0].clientY) {
-            elmnt.style.top = e.touches[0].clientY;
+          if (parseFloat(elmnt.style.top) > (ctx.canvas.offsetTop + ctx.canvas.height)) {
+            elmnt.style.top = (ctx.canvas.offsetTop + ctx.canvas.height) + "px";
           }
-          if (elmnt.style.left > e.touches[0].clientX) {
-            elmnt.style.left = e.touches[0].clientX;
+          if (parseFloat(elmnt.style.left) > (ctx.canvas.offsetLeft + ctx.canvas.width)) {
+            elmnt.style.left = (ctx.canvas.offsetLeft + ctx.canvas.width) + "px";
           }
-          if (elmnt.style.top < 0) {
-            elmnt.style.top = 0;
+          if (parseFloat(elmnt.style.top) < ctx.canvas.offsetTop) {
+            elmnt.style.top = ctx.canvas.offsetTop + "px";
           }
-          if (elmnt.style.left < 0) {
-            elmnt.style.left = 0;
+          if (parseFloat(elmnt.style.left) < ctx.canvas.offsetLeft) {
+            elmnt.style.left = ctx.canvas.offsetLeft + "px";
           }
         }
       }
@@ -677,7 +680,6 @@
       function closeDragElementTouch() {
         if (!canDraw) {
           /* stop moving when mouse button is released:*/
-          console.log("Element let go touch");
           document.touchend = null;
           document.ontouchmove = null;
           document.ontouchstart = null;
