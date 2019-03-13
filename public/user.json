@@ -31,6 +31,12 @@
 							"name": "Default Play",
 							"selected": "true",
 							"imgsrc": "img/footballField.jpg",
+							"football": [
+								{
+									"top": "440",
+									"left": "220"
+								}
+							],
 							"positions": [
 								{
 									"num": "20",
@@ -146,7 +152,7 @@
 									"left": "288.6",
 									"color": "blue"
 								},
-								{	
+								{
 									"num": "85",
 									"top": "522.6",
 									"left": "275.28",
@@ -168,7 +174,6 @@
 						}
 					]
 				}
-
 			]
 		}
 	]

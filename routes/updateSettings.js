@@ -1,12 +1,13 @@
 var user = require("../public/user.json");
 
 exports.update = function(request,response) {
-	if(request.query.username != "" || request.query.password != "" || request.query.football != "" || request.query.basketball != "" || request.query.baseball != "" ){
+	if(request.query.username != "" || request.query.password != "" || request.query.football != "" || request.query.basketball != "" || request.query.baseball != "" || request.query.tutorial != ""){
 		var name = request.query.username;
 		var pass = request.query.password;
 		var fball = "unchecked";
 		var bBall = "unchecked";
 		var base = "unchecked";
+		var tut = "unchecked";
 		var displayfball = "hidden";
 		var displaybBall = "hidden";
 		var displaybase = "hidden";
@@ -22,6 +23,9 @@ exports.update = function(request,response) {
 			base = "checked";
 			displaybase = "on";
 		}
+		if(request.query.tutorial){
+			tut = "checked";
+		}
 
 		console.log("OLD");
 		console.log(user.users[0].preferences);
@@ -32,6 +36,7 @@ exports.update = function(request,response) {
 			"username": name,
 			"password": pass,
 			"logged" : "true",
+			"tutorial": tut,
 			"preferences": [
             	{
             		"sport": "football",

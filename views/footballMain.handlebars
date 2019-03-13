@@ -168,17 +168,20 @@
   </script>
 </head>
 
-<body background="img/backgroundPic.png" style="background-size: cover;" onload="InitThis(); tutorialToggle()">
+<body background="img/backgroundPic.png" style="background-size: cover;" onload="InitThis()">
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
   <div id="overlay2">
     <h3 id="msg">Flip Screen Horizontally</h3>
   </div>
   <div id="overlay" style="background-color: white;"></div>
-  <div id="tutorialOverlay"> 
-    <h2 id="tutorialHeader"style="text-align: center; margin-top: 35vh">Tutorial</h2>
-    <h6 id="tutorialText"style="text-align: center; margin-top: 10vh; margin-right: 45vw; margin-left: 45vw; border: solid" onclick="begin()">Begin</h6>
-    <h6 id="skip" style="text-align: center; margin-top: 10vh; margin-right: 45vw; margin-left: 45vw; border: solid; " onclick="off()">Skip</h6>
-    
+  <div id="tutorialOverlay">
+    <h2 id="tutorialHeader" style="text-align: center; margin-top: 35vh">Tutorial</h2>
+    <h6 id="tutorialText"
+      style="text-align: center; margin-top: 10vh; margin-right: 45vw; margin-left: 45vw; border: solid"
+      onclick="begin()">Begin</h6>
+    <h6 id="skip" style="text-align: center; margin-top: 10vh; margin-right: 45vw; margin-left: 45vw; border: solid; "
+      onclick="off()">Skip</h6>
+
     <h3 id="welcome" style="display:none; text-align: center; margin-top: 10vh">Welcome To SquareOne</h3>
     <p id="playerDescription" style="display: none; text-align: center; font-size: 14px; margin-top: 10vh; margin-left: 20vw; margin-right: 20vw;">To create a play, move players around the field by dragging player icons until they are at the desired locations.</p>
     <h6 id="nextOverlay1" style="display:none; text-align: center; margin-top: 10vh; margin-right: 45vw; margin-left: 45vw; border: solid;" onclick="begin2()">Next</h6> 
@@ -187,33 +190,40 @@
     <p id="drawDescription" style="display:none; text-align: center; font-size: 14px; margin-top: 10vh; margin-left: 20vw; margin-right: 20vw;">Once the players are set, use the pen tool to draw the routes you want your players to run. If you make a mistake, use the undo and redo buttons at the bottom corners of the screen.</p>
     <h6 id="nextOverlay2" style="display:none; text-align: center; margin-top: 10vh; margin-right: 45vw; margin-left: 45vw; border: solid;" onclick="begin3()">Next</h6> 
 
-     <h3 id="save" style="display:none; text-align: center; margin-top: 10vh">Save Your Play</h3>
-     <p id="saveDescription" style="display:none; text-align: center; font-size: 14px; margin-top: 10vh; margin-left: 20vw; margin-right: 20vw;">When you finish creating your play, click on the save button to store it in a playbook.</p>
-    <p id="note" style="display:none; text-align: center; font-size: 10px; margin-top: 10vh; margin-left: 20vw; margin-right: 20vw;">* If you want to turn off the tutorial go to the settings page and uncheck the tutorial box.</p>
-    <h6 id="nextOverlay3" style="display:none; text-align: center; margin-top: 10vh; margin-right: 45vw; margin-left: 45vw; border: solid;" onclick="off()">Finish</h6> 
+    <h3 id="drawing" style="display:none; text-align: center; margin-top: 10vh">Start Drawing</h3>
+    <p id="drawDescription"
+      style="display:none; text-align: center; font-size: 14px; margin-top: 10vh; margin-left: 20vw; margin-right: 20vw;">
+      Once the players are set, use the pen tool to draw the routes you want your players to run. You can change the pen
+      color and pen width to your liking with the drop down menus. The button at the bottom left of the screen undos
+      your previous drawing while the buttom at the bottom right of the screen redos your previous drawing.</p>
+    <h6 id="nextOverlay2"
+      style="display:none; text-align: center; margin-top: 10vh; margin-right: 45vw; margin-left: 45vw; border: solid;"
+      onclick="begin3()">Next</h6>
+
+    <h3 id="save" style="display:none; text-align: center; margin-top: 10vh">Save Your Play</h3>
+    <p id="saveDescription"
+      style="display:none; text-align: center; font-size: 14px; margin-top: 10vh; margin-left: 20vw; margin-right: 20vw;">
+      When you finish creating your play, click on the save button to store it in a playbook.</p>
+    <p id="note"
+      style="display:none; text-align: center; font-size: 10px; margin-top: 10vh; margin-left: 20vw; margin-right: 20vw;">
+      * If you want to turn off the tutorial go to the settings page and uncheck the tutorial box.</p>
+    <h6 id="nextOverlay3"
+      style="display:none; text-align: center; margin-top: 10vh; margin-right: 45vw; margin-left: 45vw; border: solid;"
+      onclick="off()">Finish</h6>
   </div>
   <script type="text/javascript">
-    function tutorialToggle(){
-      $.getJSON('user.json', function (data) {
-       dataArr = data;
-        $.each(data.users, function (i, user) {
-         if (user.logged == "true" && user.preferences[0].check == "checked") {
-          user_index = i;
-         }
-         if (dataArr.users[user_index].tutorial == "unchecked") {
-          console.log(dataArr.users[user_index].tutorial);
-          document.getElementById("tutorialOverlay").style.display = "none";
-         }
-        });
-      }); 
+    function tutorialToggle() {
+      if (dataArr.users[user_index].tutorial != "checked") {
+        console.log(dataArr.users[user_index].tutorial);
+        document.getElementById("tutorialOverlay").style.display = "none";
+      }
     }
 
     function off() {
       document.getElementById("tutorialOverlay").style.display = "none";
       document.getElementById("topButtons").style.zIndex = "999";
     }
-    function begin(){
-      console.log("in begin");
+    function begin() {
       document.getElementById("tutorialHeader").style.display = "none";
       document.getElementById("tutorialText").style.display = "none";
       document.getElementById("skip").style.display = "none";
@@ -221,8 +231,7 @@
       document.getElementById("playerDescription").style.display = "block";
       document.getElementById("nextOverlay1").style.display = "block";
     }
-    function begin2(){
-      console.log("in begin2");
+    function begin2() {
       document.getElementById("welcome").style.display = "none";
       document.getElementById("playerDescription").style.display = "none";
       document.getElementById("nextOverlay1").style.display = "none";
@@ -231,8 +240,7 @@
       document.getElementById("nextOverlay2").style.display = "block";
       document.getElementById("bottomButtons").style.zIndex = "2000";
     }
-    function begin3(){
-      console.log("in begin3");
+    function begin3() {
       document.getElementById("bottomButtons").style.zIndex = "999";
       document.getElementById("drawing").style.display = "none";
       document.getElementById("drawDescription").style.display = "none";
@@ -328,6 +336,11 @@
                 $.each(playbook.plays, function (k, play) {
                   if (play.selected == "true") {
                     play_index = k;
+                    $("#field").append('<div id="ball" onclick="dragElement(this)" ontouchstart="dragElementTouch(this)" style="position: absolute;z-index: 10;"><img src="img/ball.png" style="width:25px; height:25px; border-radius:12.5px"></div>');
+                    document.getElementById("ball").style.top = parseFloat(play.football[0].top) + parseFloat(ctx.canvas.offsetTop) + "px";
+                    document.getElementById("ball").style.left = parseFloat(play.football[0].left) + parseFloat(ctx.canvas.offsetLeft) + "px";
+                    dragElement(document.getElementById("ball"));
+                    dragElementTouch(document.getElementById("ball"));
                     $.each(play.positions, function (l, position) {
                       //nt and nl creates new coordinates
                       var nt = (parseFloat(position.top) + parseFloat(ctx.canvas.offsetTop));
@@ -347,12 +360,15 @@
           }
         });
         getPlaybooks(dataArr.users[user_index].playbooks.length);
-        //getPlays(dataArr.users[user_index].playbooks[playbook_index].plays.length);
+        tutorialToggle();
       }).error(function () {
         console.log('error');
       });
     }
+
     $(window).resize(function () {
+      document.getElementById("ball").style.top = (parseFloat(document.getElementById("ball").style.top) - parseFloat(currCanvasTop) + parseFloat(ctx.canvas.offsetTop)) + "px";
+      document.getElementById("ball").style.left = (parseFloat(document.getElementById("ball").style.left) - parseFloat(currCanvasLeft) + parseFloat(ctx.canvas.offsetLeft)) + "px";
       for (var l = 0; l <= 21; l++) {
         var nt = (parseFloat(document.getElementById("player" + l).style.top) - parseFloat(currCanvasTop) + parseFloat(ctx.canvas.offsetTop));
         var nl = (parseFloat(document.getElementById("player" + l).style.left) - parseFloat(currCanvasLeft) + parseFloat(ctx.canvas.offsetLeft));
@@ -362,9 +378,12 @@
       currCanvasTop = ctx.canvas.offsetTop;
       currCanvasLeft = ctx.canvas.offsetLeft;
     });
+
     function spawnDiffPlayers(playbook, play) {
       var loc = dataArr.users[user_index].playbooks[playbook].plays[play];
       drawImage(loc.imgsrc);
+      document.getElementById('ball').style.top = (parseFloat(loc.football[0].top) + parseFloat(ctx.canvas.offsetTop)) + "px";
+      document.getElementById('ball').style.left = (parseFloat(loc.football[0].left) + parseFloat(ctx.canvas.offsetLeft)) + "px";
       for (var i = 0; i <= 21; i++) {
         var nt = (parseFloat(loc.positions[i].top) + parseFloat(ctx.canvas.offsetTop));
         var nl = (parseFloat(loc.positions[i].left) + parseFloat(ctx.canvas.offsetLeft));
@@ -377,8 +396,8 @@
       currCanvasTop = ctx.canvas.offsetTop;
       currCanvasLeft = ctx.canvas.offsetLeft;
     }
+
     function InitThis() {
-      console.log("initthis");
       var tempPlay = $("#play").val();
       var tempPlaybook = $("#playbook").val();
       if (tempPlay == "" && tempPlaybook == tempPlay) {
@@ -462,7 +481,7 @@
       var image = new Image();
       image.src = imgsrc;
       $(image).load(function () {
-        ctx.drawImage(image, 0, 0, 440, 800);
+        ctx.drawImage(image, 0, 0, ctx.canvas.width, ctx.canvas.height);
         cPush();
         document.getElementById('redoButton').setAttribute("style", "filter: grayscale(100%);");
         document.getElementById('undoButton').setAttribute("style", "filter: grayscale(100%);");
@@ -473,7 +492,7 @@
 
     function setCanDraw() {
       canDraw = !canDraw;
-      if(document.getElementById("selColor").value == "" && document.getElementById("selWidth").value == ""){
+      if (document.getElementById("selColor").value == "" && document.getElementById("selWidth").value == "") {
         document.getElementById("selColor").value = "black";
         document.getElementById("selWidth").value = "7";
       }
@@ -482,14 +501,20 @@
         var items = document.getElementsByClassName('player');
         for (var i = 0; i < items.length; i++) {
           items[i].style.pointerEvents = 'auto';
+          items[i].style.filter = 'grayscale(0%)';
         }
+        document.getElementById('ball').style.pointerEvents = 'auto';
+        document.getElementById('ball').style.filter = 'grayscale(0%)';
       }
       else {
         document.getElementById("drawButton").setAttribute("style", "filter: saturate(3);");
         var items = document.getElementsByClassName('player');
         for (var i = 0; i < items.length; i++) {
           items[i].style.pointerEvents = 'none';
+          items[i].style.filter = 'grayscale(20%)';
         }
+        document.getElementById('ball').style.pointerEvents = 'none';
+        document.getElementById('ball').style.filter = 'grayscale(20%)';
       }
     }
 
@@ -591,10 +616,11 @@
           e = e || window.event;
           e.preventDefault();
           // calculate the new cursor position:
-          pos1 = pos3 - e.clientX;
-          pos2 = pos4 - e.clientY;
-          pos3 = e.clientX;
-          pos4 = e.clientY;
+          console.log(parseFloat(ctx.canvas.height)+" > "+ pos4);
+          pos1 = pos3 - Math.min(Math.max(e.clientX, currCanvasLeft), currCanvasLeft + parseFloat(ctx.canvas.width));
+          pos2 = pos4 - Math.min(Math.max(e.clientY, currCanvasTop), parseFloat(ctx.canvas.height));
+          pos3 = Math.min(Math.max(e.clientX, currCanvasLeft), currCanvasLeft + parseFloat(ctx.canvas.width));
+          pos4 = Math.min(Math.max(e.clientY, currCanvasTop), currCanvasTop + parseFloat(ctx.canvas.height));
           // set the element's new position:
           elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
           elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
@@ -653,7 +679,7 @@
             elmnt.style.top = 0;
           }
           if (elmnt.style.left < 0) {
-            elmnt.style.top = 0;
+            elmnt.style.left = 0;
           }
         }
       }
@@ -788,6 +814,7 @@
         name: "",
         selected: "false",
         imgsrc: "",
+        football: [],
         positions: []
       }
 
@@ -798,7 +825,13 @@
       }
 
       newPlay.name = n;
-
+      var newBall = {
+        top: "",
+        left: ""
+      }
+      newBall.top = parseFloat(document.getElementById('ball').style.top) - parseFloat(ctx.canvas.offsetTop);
+      newBall.left = parseFloat(document.getElementById('ball').style.left) - parseFloat(ctx.canvas.offsetLeft);
+      newPlay.football.push(newBall);
       for (var i = 0; i <= 21; i++) {
         var pos = document.getElementById('player' + i);
         var p = {
@@ -807,7 +840,6 @@
           left: "",
           color: ""
         }
-        //p.num = dataArr.users[user_index].playbooks[playbook_index].plays[play_index].positions[i].num;
         p.num = pos.value;
         p.top = parseFloat(pos.style.top) - parseFloat(ctx.canvas.offsetTop);
         p.left = parseFloat(pos.style.left) - parseFloat(ctx.canvas.offsetLeft);

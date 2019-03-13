@@ -34,7 +34,7 @@
     <div id="form">
       <div style="font-size: 2em">
         <div style="margin-bottom: 5vh">
-          <form action="./signUp">
+          <form name="signup" action="./signUp" onsubmit="return validateForm()">
             <div id="username">
               <input
                 style="width: 90vw; max-width: 300px; border-radius: 4px; border: 1px solid black; cursor: pointer;"
@@ -54,7 +54,7 @@
         </div>
 
         <div id="submitBtn">
-          <input class="button" type="submit" value="Sign Up" id="signUpBtn" onclick="window.location.href='/home'"
+          <input class="button" type="submit" value="Sign Up" id="signUpBtn"
             style="margin-bottom: 4vh; background-color: #ff1e07; color: white; text-decoration: none; border-radius: 4px; border: 1px solid black; cursor: pointer"
             type="button">
         </div>
@@ -66,7 +66,21 @@
         in.</button>
     </div>
   </div>
-
+<script>
+      function validateForm() {
+        var x = document.forms["signup"]["username"].value;
+        var y = document.forms["signup"]["password"].value;
+        var z = document.forms["signup"]["verifyPassword"].value;
+        if (x == "" || y == "" || z == "") {
+          alert("All fields must be filled out.");
+          return false;
+        }
+        if(y != z && y != ""){
+          alert("Password and Verify Password must be the same.");
+          return false;
+        }
+      }
+    </script>
 </body>
 
 </html>
